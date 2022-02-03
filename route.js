@@ -90,7 +90,7 @@ class Route {
 
           let Pulls = JSON.parse(Pull);
 
-          if (State[1] === `pulls`) {
+          if (State[1] === `json`) {
 
             if (State[2] === `gradle`) {
 
@@ -102,6 +102,39 @@ class Route {
 
                 if (Pulls.pull === `app`) {
 
+                  Quo.pull = `app`;
+                }
+
+                else if (Pulls.pull === `pollMug`) {
+
+                  /*let Ppl = {};
+
+                  Data.Ppl[0].forEach(P => {
+
+                    if (P.mail === Pulls.polls[0]) Ppl = P;
+                  });
+
+                  if (Ppl.mail) return;
+
+                  let Stamp = new Date().valueOf();
+          
+            new Sql().to([`u`, {
+              json: JSON.stringify({
+                alt: `${Vals[2]} ${Vals[3]}`,
+                ava: false,
+                full: `${Vals[2]} ${Vals[3]}`,
+                lock: crypto.createHash(`md5`).update(Vals[4], `utf8`).digest(`hex`),
+                log: Stamp,
+                mail: Vals[0],
+                mobile: Vals[1],
+                md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
+                mug: false,
+                pass: crypto.createHash(`md5`).update(Vals[4], `utf8`).digest(`hex`),
+                secs: Stamp,
+                sum: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)})}], (A, B, C) => {
+
+              this.Stack[3].end(JSON.stringify({MD: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)}));
+            });*/
 
                 }
               } 
