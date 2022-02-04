@@ -1,5 +1,7 @@
 `use strict`;
 
+const FileSys = require(`fs`);
+
 const MySql = require(`mysql`);
 
 class Sql {
@@ -7,22 +9,6 @@ class Sql {
   constructor (Arg) {
 
     this.credentials = Arg[0];
-
-    /*this.sql = [
-
-      mysql.createConnection({
-        host: config.sqlPass.h,
-        user: config.sqlPass.u,
-        password: config.sqlPass.p,
-        database: config.sqlPass.d}),
-
-      mysql.createConnection({
-        host: config.sqlPass.h,
-        user: config.sqlPass.u,
-        password: config.sqlPass.p,
-        database: config.sqlPass.d,
-        multipleStatements: true})
-      ]*/
   }
 
   Sql (Arg) {
@@ -30,17 +16,40 @@ class Sql {
     return MySql.createConnection(this.credentials).query(Arg[0], (A, B, C) => Arg[1]([A, B, C]));
   }
 
-  pulls () {
+  pulls (Arg) {
 
-    //this.credentials.
+    this.credentials.database = `wallet`;
+
+    this.Sql([FileSys.readFileSync(`constants/tables.sql`, {encoding: `utf8`}), (Raw) => {
+
+      let Puts = {};
+
+      Raw[1].forEach((Put, put) => {
+
+        if (put === 0) {
+
+          Put.forEach(Mug => {
+
+            (!Puts.mugs)? Puts.mugs = [[], {}]: Puts.mugs;
+
+            Puts.mugs[0].push(JSON.parse(Mug.json));
+
+            Puts.mugs[1][JSON.parse(Mug.json).secs] = JSON.parse(Mug.json);
+          });
+        }
+      });
+
+      Arg(Puts);
+
+    }]);
   }
 }
 
 module.exports = {
 
-  Sql: (Arg) => new Sql([{
+  Sql: new Sql([{
         host: `localhost`,
         user: `root`,
         password: `Mann2asugo`,
-        multipleStatements: true}]).Sql(Arg)
+        multipleStatements: true}])
 }
