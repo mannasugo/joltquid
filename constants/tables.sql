@@ -1,3 +1,3 @@
 select * from `mugs`;
 
----select * from `payrequest`
+select * from `vault`;

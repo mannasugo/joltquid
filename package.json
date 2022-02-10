@@ -1,7 +1,7 @@
 {
-  "name": "@jolthq/joltquid",
+  "name": "@juggerjolt/joltquid",
   "version": "0.0.0",
-  "description": "Decentralised fiat currency wallet with collateral escrowed as bitcoin on deposit",
+  "description": "Decentralised fiat currency digital wallet with collateral escrowed as bitcoin on deposit",
   "main": "app.js",
   "engines": {
     "node": ">=12.x",
@@ -12,11 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jolthq/joltquid.git"
+    "url": "git+https://github.com/juggerjolt/joltquid.git"
   },
   "keywords": [
     "bitcoin",
     "blockchain",
+    "lightning network",
     "mysql",
     "nginx",
     "nodejs"
@@ -26,7 +27,7 @@
   ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/jolthq/joltquid/issues"
+    "url": "https://github.com/juggerjolt/joltquid/issues"
   },
   "homepage": "https://joltquid.com/",
   "dependencies": {

@@ -1,6 +1,8 @@
 const FileSys = require(`fs`);
 
-//const Tools = require(`./tools`);
+const Vault = require(`crypto`);
+
+const Tools = require(`./tools`);
 
 //const Constants = require(`./constants`);
 
@@ -66,7 +68,7 @@ class Route {
       }
     }
 
-    else if (Arg[0].method === `POST`) {
+    else if (Arg[0].method !== `GET`) {
 
       let blob = new Buffer.alloc(+Arg[0].headers[`content-length`]);
 
@@ -88,7 +90,12 @@ class Route {
 
           Arg[1].setHeader(`Content-Type`, `application/json`);
 
-          let Pulls = JSON.parse(Pull);
+          let Pulls = /*{
+            build: "202201271639",
+            md: "3af85bc54c4fb16ceb788c0d0eb29147", 
+            pull: `pullMug`, 
+            polls: [`mannasugo@gmail.com`, `254704174162`, `mannasugo`, `mann`, `asugo`, `Mann2asugo`],
+            pulls: [`mannasugo`, `Mann2asugo`]};*/ JSON.parse(Pull);
 
           if (State[1] === `json`) {
 
@@ -96,51 +103,102 @@ class Route {
 
               const VER = "202201271639";
 
-              let Quo = {build: VER};
+              Tools.Sql.pulls(Raw => {
 
-              if (Pulls.build && Pulls.build === VER)  {
+                let Quo = {build: VER};
 
-                if (Pulls.pull === `app`) {
+                if (Pulls.build && Pulls.build === VER)  {
 
-                  Quo.pull = `app`;
+                  if (Pulls.pull === `app`) {
+
+                    Quo.pull = `app`;
+                  }
+
+                  else if (Pulls.pull === `fileState`) {
+
+                    if (Raw.mugs[1][Pulls.md]) {
+
+                      Quo.secs = new Date().valueOf();
+
+                      Arg[1].end(JSON.stringify(Quo));
+                    }
+                  }
+
+                  else if (Pulls.pull === `pollMug`) {
+
+                    let Poll = Pulls.polls;
+
+                    let Mugs = {};
+
+                    Raw.mugs[0].forEach(Mug => {
+
+                      if (Mug.mail === Poll[0] || Mug.mug === Poll[2]) Mugs = Mug;
+                    });
+
+                    if (Mugs.secs) return;
+
+                    let secs = new Date().valueOf();
+
+                    let Mug = {
+                      family: Tools.Tools.safe(Poll[4]),
+                      file: [],
+                      lock: Vault.createHash(`md5`).update(Poll[5], `utf8`).digest(`hex`),
+                      mail: Tools.Tools.safe(Poll[0]),
+                      md: Vault.createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+                      middle: Tools.Tools.safe(Poll[3]),
+                      mobile: Tools.Tools.safe(Poll[1]),
+                      mug: Tools.Tools.safe(Poll[2]),
+                      secs: secs};
+
+                    Tools.Sql.puts([`mugs`, Mug, (Raw) => {Arg[1].end(JSON.stringify(Mug));}]);
+                  }
+
+                  else if (Pulls.pull === `pullMug`) {
+
+                    let Mug = Pulls.pulls;
+
+                    let Message = Vault.createHash(`md5`).update(Mug[1], `utf8`);
+
+                    let Mugs = {};
+
+                    Raw.mugs[0].forEach(P => {
+
+                      if (P.mug === Mug[0] && P.lock === Message.digest(`hex`)) Mugs = P;
+                    });
+
+                    if (!Mugs.secs) return;
+
+                    Quo.md = Mugs.md;
+
+                    Quo.secs = new Date().valueOf();
+
+                    Arg[1].end(JSON.stringify(Quo));
+                  }
                 }
 
-                else if (Pulls.pull === `pollMug`) {
-
-                  /*let Ppl = {};
-
-                  Data.Ppl[0].forEach(P => {
-
-                    if (P.mail === Pulls.polls[0]) Ppl = P;
-                  });
-
-                  if (Ppl.mail) return;
-
-                  let Stamp = new Date().valueOf();
+                else if (Pulls.build && Pulls.build !== VER) Arg[1].end(JSON.stringify(Quo));
+              });
           
-            new Sql().to([`u`, {
-              json: JSON.stringify({
-                alt: `${Vals[2]} ${Vals[3]}`,
-                ava: false,
-                full: `${Vals[2]} ${Vals[3]}`,
-                lock: crypto.createHash(`md5`).update(Vals[4], `utf8`).digest(`hex`),
-                log: Stamp,
-                mail: Vals[0],
-                mobile: Vals[1],
-                md: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`),
-                mug: false,
-                pass: crypto.createHash(`md5`).update(Vals[4], `utf8`).digest(`hex`),
-                secs: Stamp,
-                sum: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)})}], (A, B, C) => {
+            }
 
-              this.Stack[3].end(JSON.stringify({MD: crypto.createHash(`md5`).update(`${Stamp}`, `utf8`).digest(`hex`)}));
-            });*/
+            else if (State[2] === `web`) {
 
+              Tools.Sql.pulls(Raw => {
+
+                let Quo = {};
+
+                if (Pulls.pull === `fileState`) {
+
+                  if (Raw.mugs[1][Pulls.md] && (new Date().valueOf() - Pulls.secs) <= 60000*86400) { //1644502190238
+
+                    Quo.fileState = true;
+
+                    Quo.secs = new Date().valueOf();
+
+                    Arg[1].end(JSON.stringify(Quo));
+                  }
                 }
-              } 
-
-              Arg[1].end(JSON.stringify(Quo));
-          
+              });
             }
           }
         }
