@@ -47,6 +47,7 @@ a, a:visited {
 body, button, input, textarea {
   font-family: litera;
   font-size: 14px;
+  letter-spacing: .7px;
   line-height: 18px;
 }
 
@@ -67,6 +68,34 @@ body {
   -webkit-order: 4;
   -ms-flex-order: 4;
   order: 4;
+}
+
+._gxM, ._gcQ {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+._eYG {
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  margin-left: 12px;
+  overflow: hidden;
 }
 
 ._geQ {
@@ -100,10 +129,33 @@ body {
   height: 55px;
 }
 
-.v202201180941 {
+.v202201180941, .v202202122052 {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
 }
 
 .v202201180941 {background-image: url(/res/svg/202201262123.svg);}
+
+.v202202122052 {background-image: url(/res/svg/202202122052.svg);}
+
+._aA2, ._aA2:visited {color: #000;}
+
+._gZ + ._gZ {border-top: 1px solid #f4f4f4}
+
+._aXZ {width: 100%;}
+
+._-Zz {display: none}
+
+._sZ2 {margin-bottom: 24px;}
+
+#file {display: none !important;}
+
+._tXx {font-weight: 600;}
+
+@media (min-width: 600px) {
+
+  #mugs {justify-content: center;}
+
+  #mugs > ._aXZ {border: 1px solid #f4f4f4;border-radius: 4px;margin: 55px 0}
+}

@@ -41,7 +41,7 @@ class Route {
 
     	      document.title = `joltQUID | profiles`;
 
-				    View.DOM([`main`, [Models.ModelOpenings()]]);
+				    View.DOM([`div`, [Models.ModelMugs()]]);
 				  }
 				}
     	}
