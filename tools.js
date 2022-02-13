@@ -5,83 +5,92 @@ const FileSys = require(`fs`);
 const MySql = require(`mysql`);
 
 class Sql {
-  
-  constructor (Arg) {
+	
+	constructor (Arg) {
 
-    this.credentials = Arg[0];
-  }
+		this.credentials = Arg[0];
+	}
 
-  Sql (Arg) {
+	Sql (Arg) {
 
-    return MySql.createConnection(this.credentials).query(Arg[0], (A, B, C) => Arg[1]([A, B, C]));
-  }
+		return MySql.createConnection(this.credentials).query(Arg[0], (A, B, C) => Arg[1]([A, B, C]));
+	}
 
-  pulls (Arg) {
+	pulls (Arg) {
 
-    this.credentials.database = `wallet`;
+		this.credentials.database = `wallet`;
 
-    this.Sql([FileSys.readFileSync(`constants/tables.sql`, {encoding: `utf8`}), (Raw) => {
+		this.Sql([FileSys.readFileSync(`constants/tables.sql`, {encoding: `utf8`}), (Raw) => {
 
-      let Put = [`mugs`];
+			let Put = [`mugs`];
 
-      let Puts = {};
+			let Puts = {};
 
-      Put.forEach(put => Puts[put] = [[], {}]);
+			Put.forEach(put => Puts[put] = [[], {}]);
 
-      Raw[1].forEach((Put, put) => {
+			Raw[1].forEach((Put, put) => {
 
-        if (put === 0) {
+				if (put === 0) {
 
-          Put.forEach(Mug => {
+					Put.forEach(Mug => {
 
-            Puts.mugs[0].push(JSON.parse(Mug.json));
+						Puts.mugs[0].push(JSON.parse(Mug.json));
 
-            Puts.mugs[1][JSON.parse(Mug.json).md] = JSON.parse(Mug.json);
-          });
-        }
-      });
+						Puts.mugs[1][JSON.parse(Mug.json).md] = JSON.parse(Mug.json);
+					});
+				}
+			});
 
-      Arg(Puts);
+			Arg(Puts);
 
-    }]);
-  }
+		}]);
+	}
 
-  puts (Arg) {
+	puts (Arg) {
 
-    this.credentials.database = `wallet`;
+		this.credentials.database = `wallet`;
 
-    this.Sql([{
-      sql: `insert into ?? set ?`,
-      values: [Arg[0], {json: JSON.stringify(Arg[1])}]}, (Raw) => Arg[2](Raw)]);
-      
-  }
+		this.Sql([{
+			sql: `insert into ?? set ?`,
+			values: [Arg[0], {json: JSON.stringify(Arg[1])}]}, (Raw) => Arg[2](Raw)]);
+			
+	}
+
+    places (Arg) {
+
+        this.credentials.database = `wallet`;
+
+        this.Sql([{
+            sql: `update ${Arg[0]} set json = ? where json = ?`,
+            values: [JSON.stringify(Arg[1]), JSON.stringify(Arg[2])]}, (Raw) => Arg[3](Raw)]);
+    }
 }
 
 class Tools {
 
-  constructor () {}
+	constructor () {}
 
-  safe (String) {
+	safe (String) {
 
-    String = String.replace(new RegExp(`&`, `g`), `u0026`);
+		String = String.replace(new RegExp(`&`, `g`), `u0026`);
 
-    String = String.replace(new RegExp(`'`, `g`), `u0027`);
+		String = String.replace(new RegExp(`'`, `g`), `u0027`);
 
-    String = String.replace(new RegExp(`"`, `g`), `u0022`);
+		String = String.replace(new RegExp(`"`, `g`), `u0022`);
 
-    String = String.replace(new RegExp(`/`, `g`), `u002F`);
+		String = String.replace(new RegExp(`/`, `g`), `u002F`);
 
-    return String;
-  }
+		return String;
+	}
 }
 
 module.exports = {
 
-  Sql: new Sql([{
-        host: `localhost`,
-        user: `root`,
-        password: `Mann2asugo`,
-        multipleStatements: true}]),
+	Sql: new Sql([{
+				host: `localhost`,
+				user: `root`,
+				password: `Mann2asugo`,
+				multipleStatements: true}]),
 
-  Tools: new Tools()
+	Tools: new Tools()
 }

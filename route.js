@@ -7,207 +7,247 @@ const Tools = require(`./tools`);
 //const Constants = require(`./constants`);
 
 class Route {
-  
-  Call (Arg) {
-    
-    let url = (`./${Arg[0].url}`).replace(`//`, `/`).replace(/%(..)/g, function (match, hex) {
+	
+	Call (Arg) {
+		
+			let url = (`./${Arg[0].url}`).replace(`//`, `/`).replace(/%(..)/g, function (match, hex) {
 
-      return String.fromCharCode(parseInt(hex, 16))
-    });
+					return String.fromCharCode(parseInt(hex, 16))
+			});
 
-    let PullContent = File => {
+			let PullContent = File => {
 
-      FileSys.readFile(File[0], {encoding: `utf8`}, (A, B) => {
-      
-        return File[1](B);
-      });
-    }
+					FileSys.readFile(File[0], {encoding: `utf8`}, (A, B) => {
+			
+						return File[1](B);
+					});
+			}
 
-    let PullFile = File => {
+			let PullFile = File => {
 
-      let Pull = FileSys.createReadStream(File[0]);
+					let Pull = FileSys.createReadStream(File[0]);
 
-      Arg[1].writeHead(200, File[1]);
+					Arg[1].writeHead(200, File[1]);
 
-      Pull.on(`data`, Arg[1].write.bind(Arg[1]));
+					Pull.on(`data`, Arg[1].write.bind(Arg[1]));
 
-      Pull.on(`close`, () => Arg[1].end())
-    }
+					Pull.on(`close`, () => Arg[1].end())
+			}
 
-    let State = url.split(`/`);
+			let State = url.split(`/`);
 
-    if (Arg[0].method === `GET`)  {
+		if (Arg[0].method === `GET`)  {
 
-      if (State[1] === `favicon.ico`) {
+					if (State[1] === `favicon.ico`) {
 
-        let File = FileSys.createReadStream(`res/svg/202201262123.svg`);
+						let File = FileSys.createReadStream(`ssl/puts/svg/202201262123.svg`);
 
-        Arg[1].writeHead(200, {[`Content-Type`]: `image/svg+xml`});
+						Arg[1].writeHead(200, {[`Content-Type`]: `image/svg+xml`});
 
-        File.on(`data`, Arg[1].write.bind(Arg[1]));
+						File.on(`data`, Arg[1].write.bind(Arg[1]));
 
-        File.on(`close`, () => Arg[1].end());
-      }
+						File.on(`close`, () => Arg[1].end());
+					}
 
-      else {
+		 		else {
 
-        PullContent([`constants/app.html`, (Raw) => {
+						PullContent([`constants/app.html`, (Raw) => {
 
-          let Text = Raw;
+								let Text = Raw;
 
-          PullContent([`constants/app.css`, (Raw) => {
+								PullContent([`constants/app.css`, (Raw) => {
 
-            Text = Text.replace(/`css`/, Raw);
+									Text = Text.replace(/`css`/, Raw);
 
-            Arg[1].writeHead(200, {[`Content-Type`]: `text/html`});
+									Arg[1].writeHead(200, {[`Content-Type`]: `text/html`});
 
-            Arg[1].end(Text);
+									Arg[1].end(Text);
 
-          }]);
-        }]);
-      }
-    }
+								}]);
+						}]);
+					}
+			}
 
-    else if (Arg[0].method !== `GET`) {
+		else if (Arg[0].method !== `GET`) {
 
-      let blob = new Buffer.alloc(+Arg[0].headers[`content-length`]);
+			let blob = new Buffer.alloc(+Arg[0].headers[`content-length`]);
 
-      let Pull = ``;
+			let Pull = ``;
 
-      let allocate = 0;
+			let allocate = 0;
 
-      Arg[0].on(`data`, (Data) => {
+			Arg[0].on(`data`, (Data) => {
 
-        Data.copy(blob, allocate);
+				Data.copy(blob, allocate);
 
-        allocate += Data.length;
+			 	allocate += Data.length;
 
-        Pull += Data;
+				Pull += Data;
 
-      }).on(`end`, () => {
+			}).on(`end`, () => {
 
-        if (Pull[0] === `{`) {
+				let Pulls;
 
-          Arg[1].setHeader(`Content-Type`, `application/json`);
+				if (Arg[0].headers[`content-type`] === `image/jpeg`) {
 
-          let Pulls = /*{
-            build: "202201271639",
-            md: "3af85bc54c4fb16ceb788c0d0eb29147", 
-            pull: `pullMug`, 
-            polls: [`mannasugo@gmail.com`, `254704174162`, `mannasugo`, `mann`, `asugo`, `Mann2asugo`],
-            pulls: [`mannasugo`, `Mann2asugo`]};*/ JSON.parse(Pull);
+					Pulls = {
+						md: Arg[0].headers[`md`],
+						pull: `fileMug`
+					};
+				}
 
-          if (State[1] === `json`) {
+				else if (Pull[0] === `{`) {
 
-            if (State[2] === `gradle`) {
+								Pulls = /*{
+												build: "202201271639",
+												md: "3af85bc54c4fb16ceb788c0d0eb29147", 
+												pull: `pullMug`, 
+												polls: [`mannasugo@gmail.com`, `254704174162`, `mannasugo`, `mann`, `asugo`, `Mann2asugo`],
+												pulls: [`mannasugo`, `Mann2asugo`]};*/ JSON.parse(Pull);
+				}
 
-              const VER = "202201271639";
+				if (State[1] === `json`) {
 
-              Tools.Sql.pulls(Raw => {
+					Arg[1].setHeader(`Content-Type`, `application/json`);
 
-                let Quo = {build: VER};
+					if (State[2] === `gradle`) {
 
-                if (Pulls.build && Pulls.build === VER)  {
+										const VER = "202201271639";
 
-                  if (Pulls.pull === `app`) {
+										Tools.Sql.pulls(Raw => {
 
-                    Quo.pull = `app`;
-                  }
+											let Quo = {build: VER};
 
-                  else if (Pulls.pull === `fileState`) {
+											if (Pulls.build && Pulls.build === VER)  {
 
-                    if (Raw.mugs[1][Pulls.md]) {
+													if (Pulls.pull === `app`) {
 
-                      Quo.secs = new Date().valueOf();
+														Quo.pull = `app`;
+													}
 
-                      Arg[1].end(JSON.stringify(Quo));
-                    }
-                  }
+									else if (Pulls.pull === `fileState`) {
 
-                  else if (Pulls.pull === `pollMug`) {
+										if (Raw.mugs[1][Pulls.md]) {
 
-                    let Poll = Pulls.polls;
+											Quo.secs = new Date().valueOf();
 
-                    let Mugs = {};
+											Arg[1].end(JSON.stringify(Quo));
+										}
+									}
 
-                    Raw.mugs[0].forEach(Mug => {
+																else if (Pulls.pull === `pollMug`) {
 
-                      if (Mug.mail === Poll[0] || Mug.mug === Poll[2]) Mugs = Mug;
-                    });
+																		let Poll = Pulls.polls;
 
-                    if (Mugs.secs) return;
+																		let Mugs = {};
 
-                    let secs = new Date().valueOf();
+																		Raw.mugs[0].forEach(Mug => {
 
-                    let Mug = {
-                      family: Tools.Tools.safe(Poll[4]),
-                      file: [],
-                      lock: Vault.createHash(`md5`).update(Poll[5], `utf8`).digest(`hex`),
-                      mail: Tools.Tools.safe(Poll[0]),
-                      md: Vault.createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
-                      middle: Tools.Tools.safe(Poll[3]),
-                      mobile: Tools.Tools.safe(Poll[1]),
-                      mug: Tools.Tools.safe(Poll[2]),
-                      secs: secs};
+																				if (Mug.mail === Poll[0] || Mug.mug === Poll[2]) Mugs = Mug;
+																		});
 
-                    Tools.Sql.puts([`mugs`, Mug, (Raw) => {Arg[1].end(JSON.stringify(Mug));}]);
-                  }
+																		if (Mugs.secs) return;
 
-                  else if (Pulls.pull === `pullMug`) {
+																		let secs = new Date().valueOf();
 
-                    let Mug = Pulls.pulls;
+																		let Mug = {
+																				family: Tools.Tools.safe(Poll[4]),
+																				file: [],
+																				lock: Vault.createHash(`md5`).update(Poll[5], `utf8`).digest(`hex`),
+																				mail: Tools.Tools.safe(Poll[0]),
+																				md: Vault.createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+																				middle: Tools.Tools.safe(Poll[3]),
+																				mobile: Tools.Tools.safe(Poll[1]),
+																				mug: Tools.Tools.safe(Poll[2]),
+																				secs: secs};
 
-                    let Message = Vault.createHash(`md5`).update(Mug[1], `utf8`);
+																		Tools.Sql.puts([`mugs`, Mug, (Raw) => {Arg[1].end(JSON.stringify(Mug));}]);
+																}
 
-                    let Mugs = {};
+									else if (Pulls.pull === `pullMug`) {
 
-                    Raw.mugs[0].forEach(P => {
+										let Mug = Pulls.pulls;
 
-                      if (P.mug === Mug[0] && P.lock === Message.digest(`hex`)) Mugs = P;
-                    });
+										let Message = Vault.createHash(`md5`).update(Mug[1], `utf8`);
 
-                    if (!Mugs.secs) return;
+										let Mugs = {};
 
-                    Quo.md = Mugs.md;
+										Raw.mugs[0].forEach(P => {
 
-                    Quo.secs = new Date().valueOf();
+											if (P.mug === Mug[0] && P.lock === Message.digest(`hex`)) Mugs = P;
+										});
 
-                    Arg[1].end(JSON.stringify(Quo));
-                  }
-                }
+										if (!Mugs.secs) return;
 
-                else if (Pulls.build && Pulls.build !== VER) Arg[1].end(JSON.stringify(Quo));
-              });
-          
-            }
+										Quo.md = Mugs.md;
 
-            else if (State[2] === `web`) {
+										Quo.secs = new Date().valueOf();
 
-              Tools.Sql.pulls(Raw => {
+										Arg[1].end(JSON.stringify(Quo));
+									}
+								}
 
-                let Quo = {};
+								else if (Pulls.build && Pulls.build !== VER) Arg[1].end(JSON.stringify(Quo));
+							});
+					
+					}
 
-                if (Pulls.pull === `fileState`) {
+					else if (State[2] === `web`) {
 
-                  if (Raw.mugs[1][Pulls.md] && (new Date().valueOf() - Pulls.secs) <= 60000*86400) { //1644502190238
+						Tools.Sql.pulls(Raw => {
 
-                    Quo.fileState = true;
+							let Quo = {};
 
-                    Quo.secs = new Date().valueOf();
+							if (Pulls.pull === `fileMug`) {
 
-                    Arg[1].end(JSON.stringify(Quo));
-                  }
-                }
-              });
-            }
-          }
-        }
-      });
-    }
-  }
+								if (Raw.mugs[1][Pulls.md]) {
+
+									let secs = new Date().valueOf();
+							
+									const hold = `ssl/gets/img/mugs/`;
+							
+									FileSys.mkdir(hold, {recursive: true}, (err) => {
+							
+										FileSys.writeFile(hold + secs + `.jpg`, blob, err => {
+
+											let Mug = JSON.parse(JSON.stringify(Raw.mugs[1][Pulls.md]));
+
+											Mug.file = [hold + secs + `.jpg`];
+
+											Mug.secs = secs;
+
+											Quo.fileMug = true;
+
+											Quo.secs = secs;
+
+											Tools.Sql.places([`mugs`, Mug, Raw.mugs[1][Pulls.md], (Raw) => Arg[1].end(JSON.stringify(Quo))]);
+							
+										});
+									});
+								}
+							}
+
+							else if (Pulls.pull === `fileState`) {
+
+								if (Raw.mugs[1][Pulls.md] && (new Date().valueOf() - Pulls.secs) <= 60000*86400) { //1644502190238
+
+									Quo.fileState = true;
+
+									Quo.secs = new Date().valueOf();
+
+									Arg[1].end(JSON.stringify(Quo));
+								}
+							}
+						});
+					}
+				}
+			});
+		}
+	}
+
 }
 
 module.exports = {
-
-  Call: (Arg) => new Route().Call(Arg)
+	
+	Call: (Arg) => new Route().Call(Arg)
 }  

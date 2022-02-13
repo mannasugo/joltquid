@@ -95,7 +95,7 @@ let Models = {
 					  `div`, [[
 						`div`, `.@sZ2`, [[
 						  `div`, `.@_sZ2`, `&@style>align-items:center;justify-content:center; height:200px`, [[
-							`img`, `#@file-plane`, `&@style>height:72px;width:72px`, `&@src>/res/svg/mug2.svg`]]], [
+							`img`, `#@file-plane`, `&@style>height:72px;width:72px`, `&@src>/ssl/puts/svg/mug2.svg`]]], [
 						  `div`, `.@_gxM _geQ`, `&@style>margin:0 20px 8px;line-height:1.414;`, [[
 							`label`, `.@v202202122052 image`, `&@for>file`], [
 							`form`, `&@enctype>multipart/form-data`, [[

@@ -49,15 +49,20 @@ class Route {
 				
 								S.stopImmediatePropagation();
 
-								let File = Tools.jpeg([`/json/web/jpeg/`, State[4].split(`-`)[0], Tools.allocateMug(S.target.files)]);
-						/*
-								File.onload = () => {
+								Tools.allocateMug(S.target.files, (Raw) => {
+
+									let File = Tools.jpeg([`/json/web/`, State[4].split(`-`)[0], Raw]);
 						
-									let Pulls = JSON.parse(Pull.response);
-						
-								  	if (!Pulls.log) return;
-								}
-						*/		
+									File.onload = () => {
+							
+										let Pulls = JSON.parse(Pull.response);
+							
+											if (!Pulls.secs) return;
+									}
+
+
+								});
+								
 							}])
 
 						}
