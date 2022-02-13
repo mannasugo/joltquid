@@ -29,7 +29,7 @@ class Route {
     	if (State[4] && (!State[5] && !View.slim(State[5]))) {
 
 			  let Pull = Tools.pull([`/json/web/`, {
-			  	md: State[4].split(`-`)[0],
+				  md: State[4].split(`-`)[0],
 				  pull: `fileState`,
 				  secs: State[4].split(`-`)[1]}]);
 
@@ -39,9 +39,28 @@ class Route {
 
 				  if (Pulls.fileState) {
 
-    	      document.title = `joltQUID | profiles`;
+    	      		document.title = `joltQUID | profiles`;
 
 				    View.DOM([`div`, [Models.ModelMugs()]]);
+
+						if (document.querySelector(`#file`)) {
+
+							Events.listen([document.querySelector(`#file`), `change`, S => {
+				
+								S.stopImmediatePropagation();
+
+								let File = Tools.jpeg([`/json/web/jpeg/`, State[4].split(`-`)[0], Tools.allocateMug(S.target.files)]);
+						/*
+								File.onload = () => {
+						
+									let Pulls = JSON.parse(Pull.response);
+						
+								  	if (!Pulls.log) return;
+								}
+						*/		
+							}])
+
+						}
 				  }
 				}
     	}

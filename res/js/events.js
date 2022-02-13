@@ -13,4 +13,4 @@ class Events {
 	}
 }
 
-//let Events = new Events();
+Events = new Events();
