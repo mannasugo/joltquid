@@ -2,5 +2,5 @@
 
 (function () {
 
-  new Route().Call();
+  Route.Call();
 })();

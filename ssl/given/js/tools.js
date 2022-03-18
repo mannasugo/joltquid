@@ -4,8 +4,10 @@ class Tools {
 
 	constructor () {
 
-			this.call = new XMLHttpRequest;
-		}
+		this.call = new XMLHttpRequest;
+
+		this.synonyms = [[`\f`, ``], [`\n`, ``], [`\t`, ``], [`\r`, ``], [`'`, `u0027`], [`"`, `u0022`], [`/`, `u002f`], [`&`, `u0026`]];
+	}
 
 	pull (Arg) {
 
@@ -101,6 +103,39 @@ class Tools {
 		}
 	}
 
+  	slim (String) {
+
+		if (!String || String.length < 1 || String.match(/^(\s+)$/)) return;
+
+		return String;
+  	}
+
+	pans (Raw)  {
+
+		this.synonyms.forEach(Regex => {
+
+			Raw = Raw.replace(new RegExp(Regex[0], `g`), Regex[1]);
+		});
+
+		return Raw;
+	}
+
+	plains (Raw)  {
+
+		this.synonyms.slice(4).forEach(Regex => {
+
+			Raw = Raw.replace(new RegExp(Regex[1], `g`), Regex[0]);
+		});
+
+		return Raw;
+	}
+
+	coats (types) { return JSON.stringify(types); }
+
+	typen (coat) { return JSON.parse(coat); }
+
 }
 
 Tools = new Tools();
+
+let Clients = sessionStorage;

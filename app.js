@@ -1,16 +1,18 @@
-const {createSecureServer} = require(`http2`);
+`use strict`;
 
-const FileSys = require(`fs`);
+const { createSecureServer } = require(`http2`);
 
-const Tools = require(`./tools`);
+const { readFileSync } = require(`fs`);
 
-const {Call, Puts} = require(`./route`);
+const { Sql } = require(`./tools`);
 
-Tools.Sql.Sql([FileSys.readFileSync(`constants/sql.sql`, {encoding: `utf8`}), (Raw) => {}]);
+const { Call } = require(`./route`);
+
+Sql.Sql([readFileSync(`constants/sql.sql`, {encoding: `utf8`}), () => {}]);
 
 let App = createSecureServer({
-  key: FileSys.readFileSync(`http2/ssl/privkey.pem`),
-  cert: FileSys.readFileSync(`http2/ssl/fullchain.pem`),
+  key: readFileSync(`http2/ssl/privkey.pem`),
+  cert: readFileSync(`http2/ssl/fullchain.pem`),
   allowHTTP1: true
 }, (call, put) => {
 
@@ -19,4 +21,5 @@ let App = createSecureServer({
 });
 
 App.on(`error`, (err) => console.error(err));
+
 App.listen(8124);

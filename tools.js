@@ -1,8 +1,8 @@
 `use strict`;
 
-const FileSys = require(`fs`);
+const {createConnection} = require(`mysql`);
 
-const MySql = require(`mysql`);
+const { readFileSync } = require(`fs`);
 
 class Sql {
 	
@@ -13,16 +13,16 @@ class Sql {
 
 	Sql (Arg) {
 
-		return MySql.createConnection(this.credentials).query(Arg[0], (A, B, C) => Arg[1]([A, B, C]));
+		return createConnection(this.credentials).query(Arg[0], (A, B, C) => Arg[1]([A, B, C]));
 	}
 
 	pulls (Arg) {
 
 		this.credentials.database = `wallet`;
 
-		this.Sql([FileSys.readFileSync(`constants/tables.sql`, {encoding: `utf8`}), (Raw) => {
+		this.Sql([readFileSync(`constants/tables.sql`, {encoding: `utf8`}), (Raw) => {
 
-			let Put = [`mugs`];
+			let Put = [`mugs`, `vault`];
 
 			let Puts = {};
 
@@ -39,6 +39,17 @@ class Sql {
 						Puts.mugs[1][JSON.parse(Mug.json).md] = JSON.parse(Mug.json);
 					});
 				}
+
+				if (put === 1) {
+
+					Put.forEach(Vault => {
+
+						Puts.vault[0].push(JSON.parse(Vault.json));
+
+						Puts.vault[1][JSON.parse(Vault.json).md] = JSON.parse(Vault.json);
+					});
+				}
+
 			});
 
 			Arg(Puts);
@@ -82,15 +93,58 @@ class Tools {
 
 		return String;
 	}
+
+	vaults (Arg) {
+
+		let vault = [0, 0, 0, 0];
+
+		let vaults = [[], [], [], []];
+
+		Arg[1].forEach(Raw => {
+
+			let sum = parseFloat(Raw.dollars);
+
+			if (Raw.mug === Arg[0] && Raw.sort[0] === `palRemit`) {
+				
+				vault[2] += sum;
+
+				vaults[2].push(Raw);
+			}
+
+			else if ((Raw.pal && Raw.pal === Arg[0]) && Raw.sort[0] === `palRemit`) {
+				
+				vault[1] += sum;
+
+				vaults[1].push(Raw);
+			}
+
+			else if (Raw.mug === Arg[0] && Raw.sort[0] === `pays`) {
+				
+				vault[3] += sum;
+
+				vaults[3].push(Raw);
+			}
+
+			else if (Raw.mug === Arg[0] && Raw.sort[0] === `pollVault`)  {
+				
+				vault[0] += sum;
+
+				vaults[0].push(Raw);
+			}
+		});
+
+		return [vaults, (vault[0] + vault[1]).toFixed(2), (vault[2] + vault[3]).toFixed(2), ((vault[0] + vault[1]) - (vault[2] + vault[3])).toFixed(2)];
+	}
 }
 
 module.exports = {
-
-	Sql: new Sql([{
-				host: `localhost`,
-				user: `root`,
-				password: `Mann2asugo`,
-				multipleStatements: true}]),
-
-	Tools: new Tools()
+	
+	Sql : new Sql([{
+		host: `localhost`,
+		user: `root`,
+		password: `Mann2asugo`,
+		multipleStatements: true
+	}]), 
+	
+	Tools : new Tools()
 }
