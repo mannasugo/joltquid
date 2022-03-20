@@ -37,9 +37,36 @@ class Route {
 
 				Clients.instance = Tools.coats([`app`, new Date().valueOf()]);
 
-				View.DOM([`main`, [Models.main()]]);
+				let secs = new Date().valueOf();
 
-				Events.app();
+				io().emit(`app`, [secs]);
+
+				io().on(`app`, App => {
+
+					if (App.secs !== secs) return;
+
+					if (Clients.mug) {
+
+						io().emit(`wallet`, [Tools.typen(Clients.mug)[0], new Date().valueOf()]);
+
+						io().on(`wallet`, Wallet => {
+
+							if (Wallet.mug === Tools.typen(Clients.mug)[0]) {
+
+								Wallet.wallet[2] = [Wallet.wallet[0][0] - Wallet.wallet[0][1], Wallet.wallet[1][0] - Wallet.wallet[1][1]]
+
+								Clients.wallet = Tools.coats(Wallet.wallet);
+
+								View.DOM([`main`, [Models.main()]]);
+							}
+
+						});
+					}
+
+					else View.DOM([`main`, [Models.main()]]);
+				});
+
+				//Events.app();
 			}
 		}
 

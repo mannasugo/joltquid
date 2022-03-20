@@ -9,6 +9,13 @@
   font-style: normal;
 }
 
+@font-face {
+	font-family: arcane;
+	src: url(/ssl/given/glyphs/v202112201738___gotham___round.otf) format('opentype');
+	font-style: normal;
+	font-weight: 100;
+}
+
 a, article, body, div, footer, form, h1, h2, h3, h4, header, html, img, label, li, nav, p, section, span, time, ul {
   margin: 0;
   padding: 0;
@@ -189,7 +196,7 @@ body {
   min-width: 40px;
 }
 
-.v202201180941, .v202202122052, .v202203171249 {
+.v202201180941, .v202202122052, .v202203171249, .v202203191304 {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
@@ -200,6 +207,8 @@ body {
 .v202202122052 {background-image: url(/ssl/given/svg/202202122052.svg);}
 
 .v202203171249 {background-image: url(/ssl/given/svg/mug___202203171249.svg);}
+
+.v202203191304 {background-image: url(/ssl/given/svg/append___202203191304.svg);}
 
 ._aA2, ._aA2:visited {color: #000;}
 
@@ -270,6 +279,8 @@ body {
 ._TX_a:active { background: rgba(17,133,254,.1); }
 
 ._atX, ._atX:visited { color: #fff; }
+
+._glyph_202203191319 { font-family: arcane;letter-spacing: normal; }
 
 @media (min-width: 600px) {
 

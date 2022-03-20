@@ -174,10 +174,16 @@ let Models = {
   											[`font-size`]: `${14}px`,
   											color: `#47008c`,
   											overflow: `hidden`,
-  											[`text-overflow`]: `ellipsis`,
-  											[`white-space`]: `nowrap`}}, `joltquid`]]],
+  											[`font-family`]: (Clients.wallet)? `arcane`: `inherit`,
+  											//[`text-overflow`]: `ellipsis`,
+  											[`white-space`]: `nowrap`}}, (Clients.wallet)? `${Tools.typen(Clients.wallet)[2][0]} USD`: `joltquid`], 
+  										[`span`, {class: `_tXx`, style: {
+  											color: `#feef11`, 
+  											margin: `${1.5}px ${0} ${0} ${-14}px`, 
+  											[`font-size`]: `${12}px`}}, (Clients.wallet && Tools.typen(Clients.wallet)[2][1] > 0)? `+BTC`: ``]]],
   								[`div`, {class: `_gZz`}, 
   									[
+  										(Clients.mug)? this.wallets: [`div`, {}],
   										this.mug[(Clients.mug) ? 1: 0]]]]]]]]];
 
   		return Main[0];
@@ -193,13 +199,17 @@ let Models = {
     						[`text`, {x: 12, y: 16, [`text-anchor`]: `middle`, fill: `#fff`, style: {
     							[`text-transform`]: `uppercase`, 
     							[`letter-spacing`]: `normal`,
-    							[`font-size`]: `${12}px`}}, (Clients.mug)? Clients.mug[2][0]: ``]]], 
+    							[`font-size`]: `${12}px`}}, (Clients.mug)? Tools.typen(Clients.mug)[1][0]: ``]]], 
     				[`a`, {id: `mug`, class: `_aWz mug`, style: {position: `absolute`, left: 0, href:`javascript:;`}}]]]],
 
    	splash: [
    		`main`, {class: `_xC2 _aA2`, style: {height: `${100}%`}}, 
    			[[`div`, {class: `_geQ`, style: {[`justify-content`]: `center`}}, 
-   				[[`span`, {class: `v202201180941`, style: {width:`${56}px`, height: `${56}px`}}]]]]]
+   				[[`span`, {class: `v202201180941`, style: {width:`${56}px`, height: `${56}px`}}]]]]],
+
+   	wallets: [
+   		`div`, {}, 
+   			[[`a`, {class: `v202203191304`, style: {margin: `${0} ${10}px`}, href: `javascript:;`}]]]
 }
 
 View = new View;

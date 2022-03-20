@@ -394,15 +394,96 @@ class Route {
 
 								if (!Mugs.secs) return;
 
-								Quo.mug = [Mugs.md, new Date().valueOf()];
+								Quo.mug = [Mugs.md, Mugs.middle, new Date().valueOf()];
 
 								Arg[1].end(JSON.stringify(Quo));
+							}
+
+							else if (Pulls.pull === `mugup`) {
+
+								let Poll = Pulls.puts;
+
+								let Mugs = {};
+
+								Raw.mugs[0].forEach(Mug => {
+
+									if (Mug.mail === Poll[0]/* || Mug.mug === Poll[2]*/) Mugs = Mug;
+								});
+
+								if (Mugs.secs) return;
+
+								let secs = new Date().valueOf();
+
+								let Mug = {
+									family: Tools.safe(Poll[1]),
+									file: [],
+									lock: createHash(`md5`).update(Poll[2], `utf8`).digest(`hex`),
+									mail: Tools.safe(Poll[0]),
+									md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+									middle: Tools.safe(Poll[3]),
+									mobile: false,
+									mug: false,
+									secs: secs};
+
+								Quo.mug = [Mug.md, Mug.middle, new Date().valueOf()];
+
+								Sql.puts([`mugs`, Mug, (Raw) => {Arg[1].end(JSON.stringify(Quo));}]);
 							}
 						});
 					}
 				}
 			});
 		}
+	}
+
+	polling (App) {
+
+		App.on(`connection`, Polling => {
+
+			Polling.on(`app`, Raw => {
+
+				App.emit(`app`, {secs: Raw[0]});
+			});
+
+			Polling.on(`wallet`, Raw => {
+
+				Sql.pulls(Wallet => {
+
+					let Balance = {};
+
+					Wallet.mugs[0].forEach(Mug => {
+
+						Balance[Mug.md] = {};
+
+						Balance[Mug.md][`wallet`] = [[0, 0], [0, 0]]
+					});
+
+					for (let mug in Wallet.pays[1]) {
+
+						Wallet.pays[1][mug].forEach(Pay => {
+
+							if (Pay.sort[1] === `legacy`) Balance[mug][`wallet`][0][1] += Pay.dollars;
+
+							else if (Pay.sort[1] === `vault`) Balance[mug][`wallet`][1][1] += Pay.coin;
+
+						});
+					}
+
+					for (let mug in Wallet.vault[1]) {
+
+						Wallet.vault[1][mug].forEach(Vault => {
+
+							if (Vault.sort[1] === `legacy`) Balance[mug][`wallet`][0][0] += Vault.dollars;
+
+							else if (Vault.sort[1] === `vault`) Balance[mug][`wallet`][1][0] += Vault.coin;
+
+						});
+					}
+
+					App.emit(`wallet`, {wallet: Balance[Raw[0]].wallet, mug: Raw[0]});
+				});
+			});
+		});
 	}
 
 }

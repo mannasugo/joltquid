@@ -56,7 +56,7 @@ class Events {
 
 					if (Pull && Pull.mug) {
 
-						Clients.mug = Tools.coats(Puts.mug);
+						Clients.mug = Tools.coats(Pull.mug);
 
 						history.pushState(``, ``, `/`);
 
@@ -77,6 +77,42 @@ class Events {
 					View.DOM([`span`, [Models.mugslot()]]);
 
 					if (document.querySelector(`#mugin`)) {
+
+						this.listen([document.querySelector(`#signup`), `click`, S => {
+
+							let Values = [
+								(!Tools.slim(document.querySelector(`#email`).value))? false: Tools.slim(document.querySelector(`#email`).value),
+								(!Tools.slim(document.querySelector(`#family`).value))? false: Tools.slim(document.querySelector(`#family`).value),
+								(!Tools.slim(document.querySelector(`#lock`).value))? false: Tools.slim(document.querySelector(`#lock`).value),
+								(!Tools.slim(document.querySelector(`#middle`).value))? false: Tools.slim(document.querySelector(`#middle`).value)];
+
+							if (Values[0] === false || Values[1] === false || Values[2] === false || Values[3] === false) return;
+
+							let Puts = Tools.pull([`/json/web/`, {pull: `mugup`, puts : Values}]);
+
+							Values = [];
+
+							View.pop();
+
+							View.DOM([`span`, [Models.splash]]);
+
+							Puts.onload = () => {
+
+								let Pull = JSON.parse(Puts.response);
+
+								if (Pull && Pull.mug) {
+
+									Clients.mug = Tools.coats(Pull.mug);
+
+									history.pushState(``, ``, `/`);
+
+									Route.Call();
+								}
+
+								else this.mugify();
+							}
+
+						}]);
 
 						this.listen([document.querySelector(`#mugin`), `click`, Plot => {
 
