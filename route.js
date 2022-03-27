@@ -1,4 +1,4 @@
-const { readFile, createReadStream, mkdir, writeFile } = require(`fs`);
+const { readdir, readFile, readFileSync, createReadStream, mkdir, stat, writeFile, writeFileSync } = require(`fs`);
 
 const { createHash } = require(`crypto`);
 
@@ -429,6 +429,52 @@ class Route {
 
 								Sql.puts([`mugs`, Mug, (Raw) => {Arg[1].end(JSON.stringify(Quo));}]);
 							}
+
+							else if (Pulls.pull === `vault`) {
+
+								if (Raw.mugs[1][Pulls.mug]) {
+
+									let Mug = Raw.mugs[1][Pulls.mug];
+
+									let secs = new Date().valueOf();
+
+									get({
+										method: `POST`, 
+										uri: `https://payment.intasend.com/api/v1/payment/collection/`, 
+										json: { 
+											public_key: `ISPubKey_live_be13c375-b61d-4995-8c50-4268c604c335`,
+											currency: `KES`,
+											method: `M-PESA`,
+											amount: (parseFloat(Pulls.puts[0])*115).toFixed(2),
+											api_ref: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+											name: Mug.family + " " + Mug.middle,
+											phone_number: (Pulls.puts[1].length === 12)? Pulls.puts[1].slice(3, 9): `254${Pulls.puts[1].toString().substr(1)}`,
+											email: Mug.mail}}, (flaw, State, coat) => {
+
+												if (!flaw && State.statusCode === 200) {
+
+													let Pay = coat;
+
+													let Puts = {
+														call: (Pulls.puts[1].length === 12)? Pulls.puts[1].slice(3, 9): `254${Pulls.puts[1].toString().substr(1)}`,
+														complete: false,
+														dollars: (parseFloat(Pulls.puts[0])).toFixed(2),
+														md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+														mug: Mug.md,
+														secs: secs,
+														sort: [`vault`, `legacy`],
+														trace: (Pay.invoice)? Pay.invoice.id: null
+													}
+
+													Quo.md = Puts.md;
+											
+													Quo.mug = Puts.mug;
+
+													Sql.puts([`vault`, Puts, (Raw) => {Arg[1].end(JSON.stringify(Quo));}]);
+												}
+									});
+								}
+							}
 						});
 					}
 				}
@@ -442,14 +488,140 @@ class Route {
 
 			Polling.on(`app`, Raw => {
 
-				App.emit(`app`, {secs: Raw[0]});
+				Sql.pulls(Wallet => {
+
+					let secs = new Date().valueOf(),
+
+					State = {
+						btc: [0, [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]],
+						volume: [0, [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]]},
+
+					Spans = [[], [], [], [], [], []];
+
+					let Times = [secs - 86400000*3540, secs - 86400000*354, secs - 86400000*31, secs - 86400000*7, secs - 86400000, secs - 3600000];
+
+					readFile(`json/volume.json`, {encoding: `utf8`}, (flaw, Volume) => {
+
+						Volume = Tools.typen(Volume).volume;
+
+						Volume.sort((A, B) => {return A[0] - B[0]});
+
+						Times[0] = secs - Volume[0][0];
+
+						Times.forEach((i, a) => {
+
+							Volume.forEach((Span) => {
+
+								Span[1] = parseFloat(Span[1]).toFixed(5);
+
+								if (Span[0] >= i && Span[0] <= secs) Spans[a].push(Span);
+							});
+
+							if (Spans[a].length === 0) {
+
+								if (Volume.length > 0) Spans[a] = [[i, Volume[Volume.length - 1][1]], [secs, Volume[Volume.length - 1][1]]];
+
+								else Spans[a] = [[i, 0], [secs, 0]];
+							}
+
+							else if (Spans[a].length > 0) {
+
+								if (Volume.indexOf(Spans[a][0]) > 0) Spans[a].push([i, Volume[Volume.indexOf(Spans[a][0]) - 1][1]]);
+
+								Spans[a] = Spans[a].sort((A, B) => {return B[0] - A[0]});
+
+								Spans[a].push([secs, Spans[a][0][1]]);
+							}
+
+							Spans[a] = Spans[a].sort((A, B) => {return B[0] - A[0]});
+						});
+
+						State.volume[0] = Volume[Volume.length - 1][1];
+
+						Spans.forEach((Span, a) => {
+
+							Span = Span.sort((A, B) => {return B[0] - A[0]});
+
+							State.volume[1][a][0] = Span[Span.length - 1][1]; //start
+
+							State.volume[1][a][1] = Span[0][1]; //end
+
+							let Volume = Span.sort((A, B) => {return B[1] - A[1]});
+
+							State.volume[1][a][2] = Span[Span.length - 1][1]; //low
+
+							State.volume[1][a][3] = Span[0][1]; //up
+						});
+
+						readFile(`json/bitcoin.json`, {encoding: `utf8`}, (flaw, btc) => {
+
+							let Value = Tools.typen(btc).last;
+
+							Value.sort((A, B) => {return A[0] - B[0]});
+
+							Times[0] = secs - Value[0][0];
+
+							let Values = [[], [], [], [], [], []];
+
+							Times.forEach((i, a) => {
+
+								Value.forEach((Span) => {
+
+									if (Span[0] >= i && Span[0] <= secs) Values[a].push(Span);
+								});
+
+								if (Values[a].length === 0) {
+
+									if (Value.length > 0) Values[a] = [[i, Value[Value.length - 1][1]], [secs, Value[Value.length - 1][1]]];
+
+									else Values[a] = [[i, 0], [secs, 0]];
+								}
+
+								else if (Values[a].length > 0) {
+
+									if (Value.indexOf(Values[a][0]) > 0) Values[a].push([i, Value[Value.indexOf(Values[a][0]) - 1][1]]);
+
+									Values[a] = Values[a].sort((A, B) => {return B[0] - A[0]});
+
+									Values[a].push([secs, Values[a][0][1]]);
+								}
+
+								Values[a] = Values[a].sort((A, B) => {return B[0] - A[0]});
+							});
+
+							State.btc[0] = Value[Value.length - 1][1];
+
+							Values.forEach((Span, a) => {
+
+								Span = Span.sort((A, B) => {return B[0] - A[0]});
+
+								State.btc[1][a][0] = Span[Span.length - 1][1]; //start
+
+								State.btc[1][a][1] = Span[0][1]; //end
+
+								let Value = Span.sort((A, B) => {return B[1] - A[1]});
+
+								State.btc[1][a][2] = Span[Span.length - 1][1]; //low
+
+								State.btc[1][a][3] = Span[0][1]; //up
+							});
+
+							App.emit(`app`, {axis: Values[5], secs: Raw[0], quo: State});
+
+						});
+					});
+				});
 			});
 
 			Polling.on(`wallet`, Raw => {
 
 				Sql.pulls(Wallet => {
 
-					let Balance = {};
+					let Balance = {},
+
+					Trail = [],
+
+					Vaults = {coin: [], plain: []};
 
 					Wallet.mugs[0].forEach(Mug => {
 
@@ -460,30 +632,116 @@ class Route {
 
 					for (let mug in Wallet.pays[1]) {
 
-						Wallet.pays[1][mug].forEach(Pay => {
+						let Pay = Wallet.pays[1][mug];
 
-							if (Pay.sort[1] === `legacy`) Balance[mug][`wallet`][0][1] += Pay.dollars;
+						if (Pay.mug === Raw[0]) {
 
-							else if (Pay.sort[1] === `vault`) Balance[mug][`wallet`][1][1] += Pay.coin;
+							if (Pay.sort[1] === `legacy`) Balance[Raw[0]][`wallet`][0][1] += Pay.dollars;
 
-						});
+							else if (Pay.sort[1] === `vault`) Balance[Raw[0]][`wallet`][1][1] += Pay.coin[0];
+
+						}
 					}
 
 					for (let mug in Wallet.vault[1]) {
 
-						Wallet.vault[1][mug].forEach(Vault => {
+						let Vault = Wallet.vault[1][mug];
 
-							if (Vault.sort[1] === `legacy`) Balance[mug][`wallet`][0][0] += Vault.dollars;
+						if (Vault.mug === Raw[0] && Vault.complete === true) {
 
-							else if (Vault.sort[1] === `vault`) Balance[mug][`wallet`][1][0] += Vault.coin;
+							if (Vault.sort[1] === `legacy`) {
 
-						});
+								Balance[Raw[0]][`wallet`][0][0] += Vault.dollars;
+
+								Vaults.plain.push(Vault);
+							}
+
+							else if (Vault.sort[1] === `vault`) Balance[Raw[0]][`wallet`][1][0] += Vault.coin[0];
+
+						}
 					}
 
-					App.emit(`wallet`, {wallet: Balance[Raw[0]].wallet, mug: Raw[0]});
+					App.emit(`wallet`, {mug: Raw[0], vaults: Vaults, wallet: Balance[Raw[0]].wallet});
 				});
 			});
 		});
+	}
+
+	reals () {
+
+		let Real = [`bitcoin`, `volume`];
+
+		Real.forEach((File, file) => {
+
+			stat(`json/${Real[file]}.json`, (err, Stat) => {
+
+				let real = ``;
+
+				if (err) { 
+
+					if (Real[file] === `bitcoin`) real = Tools.coats({last: []});
+
+					else if (Real[file] === `volume`) real = Tools.coats({volume: [[new Date().valueOf(), 0.00304999754]]});
+
+					writeFileSync(`json/${Real[file]}.json`, real);
+				}
+			});
+		});
+
+		setInterval(() => {
+
+			get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin`, (flaw, State, coat) => {
+
+				if (!flaw && State.statusCode === 200) {
+
+					readFile(`json/bitcoin.json`, {encoding: `utf8`}, (flaw, Coat) => {
+
+						Coat = Tools.typen(Coat);
+
+						console.log(Tools.typen(coat)[0].current_price)
+
+						Coat.last.push([new Date().valueOf(), Tools.typen(coat)[0].current_price]);
+
+						writeFile(`json/bitcoin.json`, Tools.coats(Coat), flaw => {});
+					});
+				}
+			});
+
+		}, 5000);
+
+		/**
+		setInterval(() => {
+
+			Sql.pulls(Wallet => {
+
+				Wallet.vault[0].forEach(Vault => {
+
+					if (Vault.complete !== true) {
+
+              			get({method: `POST`, uri: `https://payment.intasend.com/api/v1/payment/status/`, json: { 
+              				public_key: `ISPubKey_live_be13c375-b61d-4995-8c50-4268c604c335`,
+                  			invoice_id: Vault.trace}}, (flaw, State, coat) => {
+
+								if (!flaw && State.statusCode === 200) {
+
+                  					let Pay = coat;
+
+                					if (Pay.invoice && Pay.invoice.state === `COMPLETE`) {
+
+                						let pay = Tools.typen(Tools.coats(Wallet.vault[1][Vault.md]));
+
+                  						Vault.complete = true; 
+
+										Sql.places([`vault`, Vault, pay, (Raw) => {}]);
+                  					}
+                  				}
+                  		});
+                	} 
+				});
+			});
+
+		}, 10000);
+		**/
 	}
 
 }

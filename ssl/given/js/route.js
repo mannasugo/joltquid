@@ -45,6 +45,10 @@ class Route {
 
 					if (App.secs !== secs) return;
 
+					Clients.quo = Tools.coats(App.quo);
+
+					Clients.axis = Tools.coats(App.axis.sort((A, B) => {return A[0] - B[0]}));
+
 					if (Clients.mug) {
 
 						io().emit(`wallet`, [Tools.typen(Clients.mug)[0], new Date().valueOf()]);
@@ -53,20 +57,37 @@ class Route {
 
 							if (Wallet.mug === Tools.typen(Clients.mug)[0]) {
 
-								Wallet.wallet[2] = [Wallet.wallet[0][0] - Wallet.wallet[0][1], Wallet.wallet[1][0] - Wallet.wallet[1][1]]
+								Wallet.wallet[2] = [Wallet.wallet[0][0] - Wallet.wallet[0][1], Wallet.wallet[1][0] - Wallet.wallet[1][1]];
 
 								Clients.wallet = Tools.coats(Wallet.wallet);
 
 								View.DOM([`main`, [Models.main()]]);
+
+								if (document.querySelector(`#coin`)) {
+
+									View.pop();
+
+									View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][5], document.querySelector(`#coin`).clientWidth - 36])]])
+								}
 							}
 
 						});
 					}
 
-					else View.DOM([`main`, [Models.main()]]);
-				});
+					else {
 
-				//Events.app();
+						View.DOM([`main`, [Models.main()]]);
+
+						Events.slotin();
+
+						if (document.querySelector(`#coin`)) {
+
+							View.pop();
+
+							View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][5], document.querySelector(`#coin`).clientWidth - 36])]])
+						}
+					}
+				});
 			}
 		}
 
@@ -113,6 +134,33 @@ class Route {
 						}
 				  	}
 				}
+    		}
+    	}
+
+    	else if (this.State[3] === `wallet`) {
+
+    		if (!Clients.mug) {
+
+    			history.pushState(``, ``, `/`);
+
+    			Route.Call();
+    		}
+
+    		else if (!State[4] && !Tools.slim[State[4]] && Clients.mug) {
+
+				io().emit(`wallet`, [Tools.typen(Clients.mug)[0], new Date().valueOf()]);
+
+				io().on(`wallet`, Wallet => {
+
+					if (Wallet.mug === Tools.typen(Clients.mug)[0]) {
+
+						Clients.vaults = Tools.coats(Wallet.vaults);
+
+    					View.DOM([`main`, [Models.wallet()]]);
+
+    					Events.wallet();
+    				}
+    			});
     		}
     	}
   	}

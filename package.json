@@ -1,5 +1,5 @@
 {
-  "name": "@greenejolt/joltquid",
+  "name": "@greenjolte/joltquid",
   "version": "0.0.0",
   "description": "Decentralised fiat currency digital wallet with collateral escrowed as bitcoin on deposit",
   "main": "app.js",
@@ -31,7 +31,13 @@
   },
   "homepage": "https://joltquid.com/",
   "dependencies": {
+    "coingecko-api": "^1.0.10",
+    "dotenv": "^16.0.0",
     "mysql": "^2.16.0",
-    "request": "^2.88.2", "socket.io": "^2.2.0"
+    "node-bitstamp": "^3.1.0",
+    "request": "^2.88.2",
+    "socket.io": "^2.4.1",
+    "ws": "^8.5.0",
+    "yahoo-finance-ticker": "^1.0.3"
   }
 }

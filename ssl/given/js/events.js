@@ -12,120 +12,151 @@ class Events {
 		if (Arg.target) return Arg.target;
 	}
 
-	app () {
+	mugin () {
 
-		if (!document.querySelector(`#mug`)) return;
+		this.listen([document.querySelector(`#signin`), `click`, S => {
 
-		this.listen([document.querySelector(`#mug`), `click`, Plot => {
+			let Values = [
+				(!Tools.slim(document.querySelector(`#email`).value))? false: Tools.slim(document.querySelector(`#email`).value),
+				(!Tools.slim(document.querySelector(`#lock`).value))? false: Tools.slim(document.querySelector(`#lock`).value)];
 
-			if (Clients.mug) {
+			if (Values[0] === false || Values[1] === false) return;
 
-				//history.pushState(``, ``, `/`); Route.Call();
+			let Puts = Tools.pull([`/json/web/`, {pull: `mugin`, puts : Values}]);
+
+			Values = [];
+
+			View.pop();
+
+			View.DOM([`span`, [Models.splash]]);
+
+			Puts.onload = () => {
+
+				let Pull = JSON.parse(Puts.response);
+
+				if (Pull && Pull.mug) {
+
+					Clients.mug = Tools.coats(Pull.mug);
+
+					history.pushState(``, ``, `/`);
+
+					Route.Call();
+				}
 			}
 
-			else this.mugify();
+		}]);
+
+	}
+
+	mugup () {
+
+		this.listen([document.querySelector(`#signup`), `click`, S => {
+
+			let Values = [
+				(!Tools.slim(document.querySelector(`#email`).value))? false: Tools.slim(document.querySelector(`#email`).value),
+				(!Tools.slim(document.querySelector(`#family`).value))? false: Tools.slim(document.querySelector(`#family`).value),
+				(!Tools.slim(document.querySelector(`#lock`).value))? false: Tools.slim(document.querySelector(`#lock`).value),
+				(!Tools.slim(document.querySelector(`#middle`).value))? false: Tools.slim(document.querySelector(`#middle`).value)];
+
+			if (Values[0] === false || Values[1] === false || Values[2] === false || Values[3] === false) return;
+
+			let Puts = Tools.pull([`/json/web/`, {pull: `mugup`, puts : Values}]);
+
+			Values = [];
+
+			View.pop();
+
+			View.DOM([`span`, [Models.splash]]);
+
+			Puts.onload = () => {
+
+				let Pull = JSON.parse(Puts.response);
+
+				if (Pull && Pull.mug) {
+
+					Clients.mug = Tools.coats(Pull.mug);
+
+					history.pushState(``, ``, `/`);
+
+					Route.Call();
+				}
+			}
+
+		}]);
+
+	}
+
+	slotin () {
+
+		this.listen([document.querySelector(`#mugin`), `click`, Plot => {
+
+			View.pop();
+
+			Clients.instance = Tools.coats([`mugin`, new Date().valueOf()]);
+
+			View.DOM([`span`, [Models.mugslot()]]);
+
+			this.slotup();
+
+			this.mugin();
 		}]);
 	}
 
-	mugify () {
+	slotup () {
 
-		Clients.instance = Tools.coats([`mugin`, new Date().valueOf()]);
+		this.listen([document.querySelector(`#mugup`), `click`, Plot => {
 
-		View.DOM([`span`, [Models.mugslot()]]);
+			View.pop();
 
-		if (document.querySelector(`#mugup`)) {
+			Clients.instance = Tools.coats([`mugup`, new Date().valueOf()]);
 
-			this.listen([document.querySelector(`#signin`), `click`, S => {
+			View.DOM([`span`, [Models.mugslot()]]);
 
-				let Values = [
-					(!Tools.slim(document.querySelector(`#email`).value))? false: Tools.slim(document.querySelector(`#email`).value),
-					(!Tools.slim(document.querySelector(`#lock`).value))? false: Tools.slim(document.querySelector(`#lock`).value)
-				];
+			this.slotin();
 
-				if (Values[0] === false || Values[1] === false) return;
+			this.mugup();
+		}]);
 
-				let Puts = Tools.pull([`/json/web/`, {pull: `mugin`, puts : Values}]);
+	}
 
-				View.pop();
+	wallet () {
 
-				View.DOM([`span`, [Models.splash]]);
+		this.listen([document.querySelector(`#vault`), `click`, S => {
 
-				Puts.onload = () => {
+			let Values = [
+				(!Tools.slim(document.querySelector(`#dollars`).value))? false: Tools.slim(document.querySelector(`#dollars`).value),
+				(!Tools.slim(document.querySelector(`#mobile`).value))? false: Tools.slim(document.querySelector(`#mobile`).value)
+			];
+
+			if (typeof parseFloat(Values[0]) !== `number` || typeof parseInt(Values[1]) !== `number` || parseFloat(Values[0]) < 3 || Values[0] === false || Values[1] === false) return;
+
+			let Puts = Tools.pull([
+					`/json/web/`, {
+						mug: Tools.typen(Clients.mug)[0],
+						pull: `vault`, 
+						puts : Values}]);
+
+			View.pop();
+
+			View.DOM([`span`, [Models.splash]]);
+
+			Puts.onload = () => {
 
 					let Pull = JSON.parse(Puts.response);
 
 					if (Pull && Pull.mug) {
 
-						Clients.mug = Tools.coats(Pull.mug);
-
-						history.pushState(``, ``, `/`);
+						history.pushState(``, ``, `/u`);
 
 						Route.Call();
 					}
 
 					else this.mugify();
-				}
-
-			}]);
-
-				this.listen([document.querySelector(`#mugup`), `click`, Plot => {
-
-					View.pop();
-
-					Clients.instance = Tools.coats([`mugup`, new Date().valueOf()]);
-
-					View.DOM([`span`, [Models.mugslot()]]);
-
-					if (document.querySelector(`#mugin`)) {
-
-						this.listen([document.querySelector(`#signup`), `click`, S => {
-
-							let Values = [
-								(!Tools.slim(document.querySelector(`#email`).value))? false: Tools.slim(document.querySelector(`#email`).value),
-								(!Tools.slim(document.querySelector(`#family`).value))? false: Tools.slim(document.querySelector(`#family`).value),
-								(!Tools.slim(document.querySelector(`#lock`).value))? false: Tools.slim(document.querySelector(`#lock`).value),
-								(!Tools.slim(document.querySelector(`#middle`).value))? false: Tools.slim(document.querySelector(`#middle`).value)];
-
-							if (Values[0] === false || Values[1] === false || Values[2] === false || Values[3] === false) return;
-
-							let Puts = Tools.pull([`/json/web/`, {pull: `mugup`, puts : Values}]);
-
-							Values = [];
-
-							View.pop();
-
-							View.DOM([`span`, [Models.splash]]);
-
-							Puts.onload = () => {
-
-								let Pull = JSON.parse(Puts.response);
-
-								if (Pull && Pull.mug) {
-
-									Clients.mug = Tools.coats(Pull.mug);
-
-									history.pushState(``, ``, `/`);
-
-									Route.Call();
-								}
-
-								else this.mugify();
-							}
-
-						}]);
-
-						this.listen([document.querySelector(`#mugin`), `click`, Plot => {
-
-							View.pop();
-
-							this.mugify();
-
-						}]);
-					}
-
-				}]);
 			}
-		}
+
+		}]);
+
+	}
 }
 
 Events = new Events();

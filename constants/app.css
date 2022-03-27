@@ -16,6 +16,13 @@
 	font-weight: 100;
 }
 
+@font-face {
+	font-family: geometria;
+	src: url(/ssl/given/glyphs/v202203251236.geometria.ttf) format('truetype');
+	font-style: normal;
+	font-weight: 100;
+}
+
 a, article, body, div, footer, form, h1, h2, h3, h4, header, html, img, label, li, nav, p, section, span, time, ul {
   margin: 0;
   padding: 0;
@@ -196,7 +203,7 @@ body {
   min-width: 40px;
 }
 
-.v202201180941, .v202202122052, .v202203171249, .v202203191304 {
+.v202201180941, .v202202122052, .v202203171249, .v202203191304, .v202203261943, .v202203262148 {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
@@ -209,6 +216,10 @@ body {
 .v202203171249 {background-image: url(/ssl/given/svg/mug___202203171249.svg);}
 
 .v202203191304 {background-image: url(/ssl/given/svg/append___202203191304.svg);}
+
+.v202203261943 {background-image: url(/ssl/given/svg/put_202203261943.svg);}
+
+.v202203262148 {background-image: url(/ssl/given/svg/take_202203262148.svg);}
 
 ._aA2, ._aA2:visited {color: #000;}
 
@@ -226,7 +237,7 @@ body {
 
 #mugin h2 {padding: 32px 0 8px;width: 100%;margin: 0;text-transform: capitalize;font-weight: normal;}
 
-#mugin input, textarea {
+#mugin input, #wallet input, textarea {
   block-size: 40px;
   background-color:#f4f4f4;
   color:#171a20;
@@ -282,6 +293,32 @@ body {
 
 ._glyph_202203191319 { font-family: arcane;letter-spacing: normal; }
 
+._limit_202203261823 + ._limit_202203261823 {border-top: 1px solid #f4f4f4}
+
+._wrap_202203262208 {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 24px 0;
+  overflow: hidden;
+}
+
+._wrap_202203262208 #coin { width: 60% }
+
+._wrap_202203262208 #coin-meta { width: 40% }
+
+._wrap_202203262208 #put, ._wrap_202203262208 #take { width: 50%; }
+
+._wrap_202203262208 #coin, ._wrap_202203262208 #put { padding-right: 15px }
+
+._wrap_202203262208 #coin-meta, ._wrap_202203262208 #take { padding-left: 15px; }
+
 @media (min-width: 600px) {
 
   #mugs {justify-content: center;}
@@ -289,6 +326,13 @@ body {
   #mugs > ._aXZ {border: 1px solid #f4f4f4;border-radius: 4px;margin: 55px 0}
 
   #mugin h2 {letter-spacing: -.5px;font-size: 28px;font-weight:normal;line-height: 36px;color:#000;}
+}
+
+@media (max-width: 920px) {
+
+	._wrap_202203262208 #coin, ._wrap_202203262208 #coin-meta, ._wrap_202203262208 #put, ._wrap_202203262208 #take { width: 100%; padding: 0 }
+
+	._wrap_202203262208 #coin-meta, ._wrap_202203262208 #take { margin-top: 45px }
 }
 
 @media (max-width: 599px) {

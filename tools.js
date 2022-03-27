@@ -4,6 +4,8 @@ const {createConnection} = require(`mysql`);
 
 const { readFileSync } = require(`fs`);
 
+const get = require(`request`);
+
 class Sql {
 	
 	constructor (Arg) {
@@ -91,6 +93,8 @@ class Tools {
 
 	constructor () {}
 
+	coats (types) { return JSON.stringify(types); }
+
 	safe (String) {
 
 		String = String.replace(new RegExp(`&`, `g`), `u0026`);
@@ -103,6 +107,8 @@ class Tools {
 
 		return String;
 	}
+
+	typen (coat) { return JSON.parse(coat); }
 
 	vaults (Arg) {
 
