@@ -91,23 +91,44 @@ let Models = {
 			else if (x <= 3600000*24) AXIS[4] = `${(Day.getHours() > 9)? Day.getHours(): `0` + Day.getHours()}:${(Day.getMinutes() > 9)? Day.getMinutes(): `0` + Day.getMinutes()}`
 
 			AXIS[2].push([`text`, {x: (((Span - AXIS[0][0][0])/x)*(Axis[1] - 12.25)), y: 200, fill: `#a6a6a6`, style: {
-				color: `#a6a6a6`,
+				//[`font-family`]: `geometria`,
 				[`font-size`]: `${10}px`}}, AXIS[4]]);
 		});
 
 		Y.forEach(Span => {
 
 			AXIS[3].push([`text`, {x: 0, y: (y === 0) ? 55 : ((Span - Y[1])/y)*(-175) + 7.5, fill: `#a6a6a6`, style: {
-				color: `#a6a6a6`,
+				//[`font-family`]: `geometria`,
 				[`font-size`]: `${10}px`}}, `${Span}`]);
 		});
 
+    	let Span = [[], [`1H`, `1D`, `1W`, `All`]];
+
+    	Span[1].forEach((a) => {
+
+    		Span[0].push([`span`, {id: `span`, style: {opacity: (a === Axis[2])? 1: .3, padding: `${0} ${7.5}px`}}, a]);
+    	});
+
 		return [
-			`svg`, {height: `${200}px`, style: {[`margin-top`]: `${60}px`}}, 
+			`div`, {}, 
 				[
-					[`g`, {}, AXIS[2]],
-					[`g`, {}, AXIS[3]],
-					[`path`, {stroke: `#5841d8`, [`stroke-width`]: 1, fill: `none`, d: `M${AXIS[1]}`}]]];
+  					[`div`, {class: `_gxM`}, 
+  						[
+  							[`span`, {class: `_tXx`, style: {
+  								[`font-family`]: `geometria`,
+  								[`font-size`]: `${12}px`}}, `${(Axis[0][1]).toFixed(2)} USD`], 
+  							[`div`, {class: `_eYG`}, 
+  								[[`span`, {class: `tXx`, style: {
+  									color: (((Y[1] - Y[0])/Y[1])*100 >= 0) ? `#1bd401`: `#d40101`,
+  									[`font-family`]: `geometria`,
+  									[`font-size`]: `${10}px`}}, `${(((Axis[0][1] - Axis[0][0])/Axis[0][1])*100 >= 0) ? `+`: `-`}${(((Axis[0][1] - Axis[0][0])/Axis[0][1])*100).toFixed(2)}%`]]], 
+  							[`div`, {id: `reals`, class: `_gZz`, role: `daily-btc`, style: {[`font-size`]: `${10}px`}}, 
+  								Span[0]]]],
+					[`svg`, {height: `${200}px`, style: {[`margin-top`]: `${30}px`}}, 
+						[
+							[`g`, {}, AXIS[2]],
+							[`g`, {}, AXIS[3]],
+							[`path`, {stroke: `#5841d8`, [`stroke-width`]: 1, fill: `none`, d: `M${AXIS[1]}`}]]]]];
 	},
 
   	holdMug: [
@@ -244,13 +265,14 @@ let Models = {
   													[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `LAST PRICE`], 
   													[`div`, {class: `_gZz _glyph_202203191319`}, 
   														[[`span`, {class: `_tXx`}, `${Tools.typen(Clients.quo).btc[0]} USD`]]]]],
-  											this.real([Tools.typen(Clients.quo).btc[1][0], `USD`]), 
+  											[`div`, {id: `last-btc`}, 
+  												[this.real([Tools.typen(Clients.quo).btc[1][5], `USD`, `last-btc`, `1H`])]], 
   											[`div`, {class: `_gxM`, style: {padding: `${12}px ${0}`}}, 
   												[
   													[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `INDEX VOLUME`], 
   													[`div`, {class: `_gZz _glyph_202203191319`}, 
-  														[[`span`, {class: `_tXx`}, `${Tools.typen(Clients.quo).volume[0]} BTC`]]]]],
-  											this.real([Tools.typen(Clients.quo).volume[1][5], `BTC`])/*, 
+  														[[`span`, {class: `_tXx`}, `${Tools.typen(Clients.quo).volume[0]} BTC`]]]]]/*,
+  											this.real([Tools.typen(Clients.quo).volume[1][5], `BTC`]), 
   							[`div`, {class: `_gxM`, style: {padding: `${12}px ${0}`}}, 
   								[
   									[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `WEIGHTED AVG.`], 
@@ -276,21 +298,24 @@ let Models = {
 
     real: function (Real) {
 
+    	let Span = [[], [`1H`, `1D`, `1W`, `All`]];
+
+    	Span[1].forEach((a) => {
+
+    		Span[0].push([`span`, {id: `span`, style: {opacity: (a === Real[3])? 1: .3, padding: `${0} ${10}px`}}, a]);
+    	});
+
     	return [
     		`div`, {style: {padding: `${12}px 0`}}, 
   				[
   					[`div`, {class: `_gxM`}, 
   						[
-  							[`span`, {class: `_tXx`, style: {
+  							[`span`, {class: `tXx`, style: {
+  								color: (((Real[0][1] - Real[0][0])/Real[0][1])*100 >= 0) ? `#1bd401`: `#d40101`,
   								[`font-family`]: `geometria`,
-  								[`font-size`]: `${11}px`}}, `${(((Real[0][1] - Real[0][0])/Real[0][1])*100).toFixed(2)}%`], 
-  							[`div`, {class: `_gZz`, style: {color: `#48007c`, [`font-size`]: `${10}px`}}, [
-  								[`a`, {class: `_tXx`, style: {padding: `${0} ${10}px`}, href: `javascript:;`}, `1H`],
-  								[`a`, {style: {padding: `${0} ${10}px`}, href: `javascript:;`}, `1D`],
-  								[`a`, {style: {padding: `${0} ${10}px`}, href: `javascript:;`}, `1W`],
-  								[`a`, {style: {padding: `${0} ${10}px`}, href: `javascript:;`}, `1M`],
-  								[`a`, {style: {padding: `${0} ${10}px`}, href: `javascript:;`}, `1Y`],
-  								[`a`, {style: {padding: `${0} ${10}px`}, href: `javascript:;`}, `All`]]]]], 
+  								[`font-size`]: `${11}px`}}, `${(((Real[0][1] - Real[0][0])/Real[0][1])*100 >= 0) ? `+`: `-`}${(((Real[0][1] - Real[0][0])/Real[0][1])*100).toFixed(2)}%`], 
+  							[`div`, {id: `reals`, class: `_gZz`, role: Real[2], style: {[`font-size`]: `${10}px`}}, 
+  								Span[0]]]], 
   					[`svg`, {style: {margin: `${6}px ${0}`, width: `${100}%`, [`max-height`]: `${10}px`}}, 
   						[
   							[`rect`, {

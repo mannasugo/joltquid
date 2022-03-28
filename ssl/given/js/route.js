@@ -67,8 +67,10 @@ class Route {
 
 									View.pop();
 
-									View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][5], document.querySelector(`#coin`).clientWidth - 36])]])
+									View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][4], document.querySelector(`#coin`).clientWidth - 36, `1D`])]])
 								}
+
+								Events.details();
 							}
 
 						});
@@ -84,7 +86,7 @@ class Route {
 
 							View.pop();
 
-							View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][5], document.querySelector(`#coin`).clientWidth - 36])]])
+							View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][4], document.querySelector(`#coin`).clientWidth - 36, `1D`])]])
 						}
 					}
 				});

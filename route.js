@@ -338,6 +338,17 @@ class Route {
 								Arg[1].end(JSON.stringify(Quo));
 							}
 
+							else if (Pulls.pull === `btc`) {
+
+								readFile(`json/last_btc.json`, {encoding: `utf8`}, (flaw, Coat) => {
+
+									Coat = Tools.typen(Coat);
+
+									Arg[1].end(Tools.coats({axis: Coat[Pulls.puts]}));
+								});
+								
+							}
+
 							else if (Pulls.pull === `fileMug`) {
 
 								if (Raw.mugs[1][Pulls.md]) {
@@ -606,7 +617,7 @@ class Route {
 								State.btc[1][a][3] = Span[0][1]; //up
 							});
 
-							App.emit(`app`, {axis: Values[5], secs: Raw[0], quo: State});
+							App.emit(`app`, {axis: Values[4], secs: Raw[0], quo: State});
 
 						});
 					});
@@ -706,6 +717,54 @@ class Route {
 					});
 				}
 			});
+
+			readFile(`json/bitcoin.json`, {encoding: `utf8`}, (flaw, Coat) => {
+
+				Coat = Tools.typen(Coat);
+
+				writeFile(`json/bitcoin.json`, Tools.coats(Coat), flaw => {
+
+							let secs = new Date().valueOf();
+
+							let Value = Coat.last;
+
+							Value.sort((A, B) => {return A[0] - B[0]});
+
+							let Times = [secs - 86400000*3540, secs - 86400000*354, secs - 86400000*31, secs - 86400000*7, secs - 86400000, secs - 3600000];
+
+							Times[0] = secs - Value[0][0];
+
+							let Values = [[], [], [], [], [], []];
+
+							Times.forEach((i, a) => {
+
+								Value.forEach((Span) => {
+
+									if (Span[0] >= i && Span[0] <= secs) Values[a].push(Span);
+								});
+
+								if (Values[a].length === 0) {
+
+									if (Value.length > 0) Values[a] = [[i, Value[Value.length - 1][1]], [secs, Value[Value.length - 1][1]]];
+
+									else Values[a] = [[i, 0], [secs, 0]];
+								}
+
+								else if (Values[a].length > 0) {
+
+									if (Value.indexOf(Values[a][0]) > 0) Values[a].push([i, Value[Value.indexOf(Values[a][0]) - 1][1]]);
+
+									Values[a] = Values[a].sort((A, B) => {return B[0] - A[0]});
+
+									Values[a].push([secs, Values[a][0][1]]);
+								}
+
+								Values[a] = Values[a].sort((A, B) => {return B[0] - A[0]});
+							});
+
+							writeFile(`json/last_btc.json`, Tools.coats(Values), flaw => {});
+						});
+					});
 
 		}, 5000);
 

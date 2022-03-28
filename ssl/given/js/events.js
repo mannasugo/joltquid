@@ -119,6 +119,52 @@ class Events {
 
 	}
 
+	details () {
+
+		document.querySelectorAll(`#reals > span`).forEach(Real => {
+
+			this.listen([Real, `click`, Plot => {
+
+				Plot = this.getSource(Plot);
+
+				let role = Plot.parentNode.getAttribute(`role`);
+
+					let Span = [`All`, `1Y`, `1M`, `1W`, `1D`, `1H`];
+
+					View.pop();
+
+				if (role === `last-btc`) {
+
+					View.DOM([`#last-btc`, [Models.real([Tools.typen(Clients.quo).btc[1][Span.indexOf(Plot.innerHTML)], `USD`, `last-btc`, Plot.innerHTML])]]);
+					
+					this.details();
+				}
+
+				if (role === `daily-btc`) {
+
+					let Puts = Tools.pull([
+						`/json/web/`, {
+							pull: `btc`, 
+							puts : Span.indexOf(Plot.innerHTML)}]);
+
+					Puts.onload = () => {
+
+						let Web = JSON.parse(Puts.response);
+
+						if (Web && Web.axis) {
+
+							Clients.axis = Tools.coats(Web.axis.sort((A, B) => {return A[0] - B[0]}));
+
+							View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][Span.indexOf(Plot.innerHTML)], document.querySelector(`#coin`).clientWidth - 36, Plot.innerHTML])]])
+
+							this.details();
+						}
+					}
+				}
+			}]);
+		});
+	}
+
 	wallet () {
 
 		this.listen([document.querySelector(`#vault`), `click`, S => {
@@ -142,20 +188,16 @@ class Events {
 
 			Puts.onload = () => {
 
-					let Pull = JSON.parse(Puts.response);
+				let Pull = JSON.parse(Puts.response);
 
-					if (Pull && Pull.mug) {
+				if (Pull && Pull.mug) {
 
-						history.pushState(``, ``, `/u`);
+					history.pushState(``, ``, `/u`);
 
-						Route.Call();
-					}
-
-					else this.mugify();
+					Route.Call();
+				}
 			}
-
 		}]);
-
 	}
 }
 

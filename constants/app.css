@@ -319,6 +319,8 @@ body {
 
 ._wrap_202203262208 #coin-meta, ._wrap_202203262208 #take { padding-left: 15px; }
 
+#reals a, #reals a:visited, #reals span { color: #5841d8; /*opacity: .3;*/ font-weight: 600; cursor: pointer; }
+
 @media (min-width: 600px) {
 
   #mugs {justify-content: center;}
