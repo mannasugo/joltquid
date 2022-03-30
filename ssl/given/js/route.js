@@ -67,7 +67,7 @@ class Route {
 
 									View.pop();
 
-									View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][4], document.querySelector(`#coin`).clientWidth - 36, `1D`])]])
+									View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][5], document.querySelector(`#coin`).clientWidth - 36, `1H`])]])
 								}
 
 								Events.details();
@@ -86,7 +86,9 @@ class Route {
 
 							View.pop();
 
-							View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][4], document.querySelector(`#coin`).clientWidth - 36, `1D`])]])
+							View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][5], document.querySelector(`#coin`).clientWidth - 36, `1H`])]]);
+
+							Events.details()
 						}
 					}
 				});
@@ -136,6 +138,21 @@ class Route {
 						}
 				  	}
 				}
+    		}
+    	}
+
+    	else if (this.State[3] === `u`) {
+
+    		if (!Clients.mug) {
+
+    			history.pushState(``, ``, `/`);
+
+    			Route.Call();
+    		}
+
+    		else if (!State[4] && !Tools.slim[State[4]] && Clients.mug) {
+
+    			
     		}
     	}
 

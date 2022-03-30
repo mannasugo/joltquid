@@ -119,9 +119,9 @@ let Models = {
   								[`font-size`]: `${12}px`}}, `${(Axis[0][1]).toFixed(2)} USD`], 
   							[`div`, {class: `_eYG`}, 
   								[[`span`, {class: `tXx`, style: {
-  									color: (((Y[1] - Y[0])/Y[1])*100 >= 0) ? `#1bd401`: `#d40101`,
+  									color: (((Axis[0][1] - Axis[0][0])/Axis[0][1])*100 >= 0) ? `#1bd401`: `#d40101`,
   									[`font-family`]: `geometria`,
-  									[`font-size`]: `${10}px`}}, `${(((Axis[0][1] - Axis[0][0])/Axis[0][1])*100 >= 0) ? `+`: `-`}${(((Axis[0][1] - Axis[0][0])/Axis[0][1])*100).toFixed(2)}%`]]], 
+  									[`font-size`]: `${10}px`}}, `${(((Axis[0][1] - Axis[0][0])/Axis[0][1])*100 >= 0) ? `+`: ``}${(((Axis[0][1] - Axis[0][0])/Axis[0][1])*100).toFixed(2)}%`]]], 
   							[`div`, {id: `reals`, class: `_gZz`, role: `daily-btc`, style: {[`font-size`]: `${10}px`}}, 
   								Span[0]]]],
 					[`svg`, {height: `${200}px`, style: {[`margin-top`]: `${30}px`}}, 
@@ -222,7 +222,9 @@ let Models = {
 
   	main: function () { 
 
-  		let Main = [];
+  		let Main = [],
+
+  		Axis = Tools.typen(Clients.quo).btc[1][5];
 
   		Main[0] = 
   			[`main`, {class: `_tY0`, style: {height: `${100}px`}}, 
@@ -262,9 +264,10 @@ let Models = {
   										[
   											[`div`, {class: `_gxM`, style: {padding: `${12}px ${0}`}}, 
   												[
-  													[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `LAST PRICE`], 
+  													[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `INDEX PRICE`], 
   													[`div`, {class: `_gZz _glyph_202203191319`}, 
-  														[[`span`, {class: `_tXx`}, `${Tools.typen(Clients.quo).btc[0]} USD`]]]]],
+  														[[`span`, {class: `_tXx`, style: {
+  															color: (((Axis[1] - Axis[0])/Axis[1])*100 >= 0) ? `#1bd401`: `#d40101`}}, `${Tools.typen(Clients.quo).btc[0]} USD`]]]]],
   											[`div`, {id: `last-btc`}, 
   												[this.real([Tools.typen(Clients.quo).btc[1][5], `USD`, `last-btc`, `1H`])]], 
   											[`div`, {class: `_gxM`, style: {padding: `${12}px ${0}`}}, 
@@ -294,7 +297,7 @@ let Models = {
     							[`text-transform`]: `uppercase`, 
     							[`letter-spacing`]: `normal`,
     							[`font-size`]: `${12}px`}}, (Clients.mug)? Tools.typen(Clients.mug)[1][0]: ``]]], 
-    				[`a`, {id: `mug`, class: `_aWz mug`, style: {position: `absolute`, left: 0}, href:`javascript:;`}]]]],
+    				[`a`, {id: `mug`, class: `_aWz mug`, style: {position: `absolute`, left: 0}, href:(Clients.mug)? `/u`:`javascript:;`}]]]],
 
     real: function (Real) {
 
@@ -313,7 +316,7 @@ let Models = {
   							[`span`, {class: `tXx`, style: {
   								color: (((Real[0][1] - Real[0][0])/Real[0][1])*100 >= 0) ? `#1bd401`: `#d40101`,
   								[`font-family`]: `geometria`,
-  								[`font-size`]: `${11}px`}}, `${(((Real[0][1] - Real[0][0])/Real[0][1])*100 >= 0) ? `+`: `-`}${(((Real[0][1] - Real[0][0])/Real[0][1])*100).toFixed(2)}%`], 
+  								[`font-size`]: `${11}px`}}, `${(((Real[0][1] - Real[0][0])/Real[0][1])*100 >= 0) ? `+`: ``}${(((Real[0][1] - Real[0][0])/Real[0][1])*100).toFixed(2)}%`], 
   							[`div`, {id: `reals`, class: `_gZz`, role: Real[2], style: {[`font-size`]: `${10}px`}}, 
   								Span[0]]]], 
   					[`svg`, {style: {margin: `${6}px ${0}`, width: `${100}%`, [`max-height`]: `${10}px`}}, 

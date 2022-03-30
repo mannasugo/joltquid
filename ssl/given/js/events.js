@@ -38,9 +38,13 @@ class Events {
 
 					Clients.mug = Tools.coats(Pull.mug);
 
+					window.location = ``;
+
+					/**
 					history.pushState(``, ``, `/`);
 
 					Route.Call();
+					**/
 				}
 			}
 
@@ -76,9 +80,13 @@ class Events {
 
 					Clients.mug = Tools.coats(Pull.mug);
 
+					window.location = ``;
+
+					/**
 					history.pushState(``, ``, `/`);
 
 					Route.Call();
+					**/
 				}
 			}
 

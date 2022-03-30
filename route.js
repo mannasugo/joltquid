@@ -564,7 +564,8 @@ class Route {
 							State.volume[1][a][3] = Span[0][1]; //up
 						});
 
-						readFile(`json/bitcoin.json`, {encoding: `utf8`}, (flaw, btc) => {
+						readFile(`json/last_btc.json`, {encoding: `utf8`}, (flaw, btc) => {
+							/**
 
 							let Value = Tools.typen(btc).last;
 
@@ -600,7 +601,13 @@ class Route {
 								Values[a] = Values[a].sort((A, B) => {return B[0] - A[0]});
 							});
 
-							State.btc[0] = Value[Value.length - 1][1];
+							**/
+
+							let Values = Tools.typen(btc);
+
+							//State.btc[0] = Value[Value.length - 1][1];
+
+							State.btc[0] = Values[0][0][1];
 
 							Values.forEach((Span, a) => {
 
@@ -617,7 +624,7 @@ class Route {
 								State.btc[1][a][3] = Span[0][1]; //up
 							});
 
-							App.emit(`app`, {axis: Values[4], secs: Raw[0], quo: State});
+							App.emit(`app`, {axis: Values[5], secs: Raw[0], quo: State});
 
 						});
 					});
@@ -709,20 +716,13 @@ class Route {
 
 						Coat = Tools.typen(Coat);
 
-						console.log(Tools.typen(coat)[0].current_price)
+						if (Coat.last[Coat.last.length - 1][1] !== Tools.typen(coat)[0].current_price) {
 
-						Coat.last.push([new Date().valueOf(), Tools.typen(coat)[0].current_price]);
+							console.log(Tools.typen(coat)[0].current_price)
 
-						writeFile(`json/bitcoin.json`, Tools.coats(Coat), flaw => {});
-					});
-				}
-			});
+							Coat.last.push([new Date().valueOf(), Tools.typen(coat)[0].current_price]);
 
-			readFile(`json/bitcoin.json`, {encoding: `utf8`}, (flaw, Coat) => {
-
-				Coat = Tools.typen(Coat);
-
-				writeFile(`json/bitcoin.json`, Tools.coats(Coat), flaw => {
+							writeFileSync(`json/bitcoin.json`, Tools.coats(Coat))//, flaw => {
 
 							let secs = new Date().valueOf();
 
@@ -762,15 +762,18 @@ class Route {
 								Values[a] = Values[a].sort((A, B) => {return B[0] - A[0]});
 							});
 
-							writeFile(`json/last_btc.json`, Tools.coats(Values), flaw => {});
-						});
+							writeFileSync(`json/last_btc.json`, Tools.coats(Values), flaw => {});
+						//});
+						}
 					});
+				}
+			});
 
 		}, 5000);
 
-		/**
-		setInterval(() => {
-
+		
+		//setInterval(() => {
+			/**
 			Sql.pulls(Wallet => {
 
 				Wallet.vault[0].forEach(Vault => {
@@ -798,9 +801,8 @@ class Route {
                 	} 
 				});
 			});
-
-		}, 10000);
-		**/
+			**/
+		//}, 7500);
 	}
 
 }
