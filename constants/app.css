@@ -313,13 +313,25 @@ body {
 
 ._wrap_202203262208 #coin-meta { width: 40% }
 
+._wrap_202203262208 #pitaxis { width: 65% }
+
+._wrap_202203262208 #pittools { width: 35% }
+
 ._wrap_202203262208 #put, ._wrap_202203262208 #take { width: 50%; }
 
-._wrap_202203262208 #coin, ._wrap_202203262208 #put { padding-right: 15px }
+._wrap_202203262208 #coin, ._wrap_202203262208 #pitaxis, ._wrap_202203262208 #put { padding-right: 15px }
 
-._wrap_202203262208 #coin-meta, ._wrap_202203262208 #take { padding-left: 15px; }
+._wrap_202203262208 #coin-meta, ._wrap_202203262208 #pittools, ._wrap_202203262208 #take { padding-left: 15px; }
 
-#reals a, #reals a:visited, #reals span { color: #5841d8; /*opacity: .3;*/ font-weight: 600; cursor: pointer; }
+#reals a, #reals a:visited, #reals span { color: #5841d8; font-weight: 600; cursor: pointer; }
+
+#pitmove span { width: 100%; padding: 12px 0; color: #1bd401; font-size: 13px; font-weight: 600; opacity: .3; cursor: pointer; text-align: center; }
+
+#pittype span {padding: 1px 8px; line-height: 13px; color: #1bd401; font-size: 12px; font-weight: 300; opacity: .3; cursor: pointer; }
+
+.pittype + .pittype { border-left: 1px solid #a6a6a6 }
+
+#pitamount input { width: 65%; font-family: geometria; font-size: 12px; text-align: right;}
 
 @media (min-width: 600px) {
 
@@ -332,9 +344,11 @@ body {
 
 @media (max-width: 920px) {
 
-	._wrap_202203262208 #coin, ._wrap_202203262208 #coin-meta, ._wrap_202203262208 #put, ._wrap_202203262208 #take { width: 100%; padding: 0 }
+	._wrap_202203262208 #coin, ._wrap_202203262208 #coin-meta, ._wrap_202203262208 #pitaxis, ._wrap_202203262208 #pittools, 
+	._wrap_202203262208 #put, ._wrap_202203262208 #take {
+		width: 100%; padding: 0 }
 
-	._wrap_202203262208 #coin-meta, ._wrap_202203262208 #take { margin-top: 45px }
+	._wrap_202203262208 #coin-meta, ._wrap_202203262208 #pittools, ._wrap_202203262208 #take { margin-top: 45px }
 }
 
 @media (max-width: 599px) {

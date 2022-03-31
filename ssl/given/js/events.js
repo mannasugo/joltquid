@@ -94,6 +94,25 @@ class Events {
 
 	}
 
+	pitalias () {
+
+		this.listen([document.querySelector(`#amount`), `keyup`, S => {
+
+			let Via = this.getSource(S);
+
+			let omega = Via.value[Via.value.length - 1];
+
+			if (omega === `.` && Via.value.indexOf(`.`) !== Via.value.length - 1) Via.value = Via.value.substr(0, Via.value.length - 1);
+
+			else if (!parseInt(omega) && parseInt(omega) !== 0 && omega !== `.`) Via.value = Via.value.substr(0, Via.value.length - 1);
+
+			if (!parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] > 0) document.querySelector(`#pitalias`).innerHTML = `0.00 USD`
+
+			else document.querySelector(`#pitalias`).innerHTML = `${(parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0]).toFixed(2)} USD`;
+
+		}]);
+	}
+
 	slotin () {
 
 		this.listen([document.querySelector(`#mugin`), `click`, Plot => {
@@ -198,12 +217,7 @@ class Events {
 
 				let Pull = JSON.parse(Puts.response);
 
-				if (Pull && Pull.mug) {
-
-					history.pushState(``, ``, `/u`);
-
-					Route.Call();
-				}
+				if (Pull && Pull.mug) window.location = `/pit`;
 			}
 		}]);
 	}

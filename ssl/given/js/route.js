@@ -141,7 +141,7 @@ class Route {
     		}
     	}
 
-    	else if (this.State[3] === `u`) {
+    	else if (this.State[3] === `pit`) {
 
     		if (!Clients.mug) {
 
@@ -152,7 +152,9 @@ class Route {
 
     		else if (!State[4] && !Tools.slim[State[4]] && Clients.mug) {
 
-    			
+    			View.DOM([`main`, [Models.pit()]]);
+
+    			Events.pitalias();
     		}
     	}
 

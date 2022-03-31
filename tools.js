@@ -24,7 +24,7 @@ class Sql {
 
 		this.Sql([readFileSync(`constants/tables.sql`, {encoding: `utf8`}), (Raw) => {
 
-			let Put = [`mugs`, `pays`, `vault`];
+			let Put = [`asks`, `bids`, `mugs`, `pays`, `vault`];
 
 			let Puts = {};
 
@@ -34,6 +34,26 @@ class Sql {
 
 				if (put === 0) {
 
+					Put.forEach(Ask => {
+
+						Puts.asks[0].push(JSON.parse(Ask.json));
+
+						Puts.asks[1][JSON.parse(Ask.json).md] = JSON.parse(Ask.json);
+					});
+				}
+
+				else if (put === 1) {
+
+					Put.forEach(Bid => {
+
+						Puts.bids[0].push(JSON.parse(Bid.json));
+
+						Puts.bids[1][JSON.parse(Bid.json).md] = JSON.parse(Bid.json);
+					});
+				}
+
+				else if (put === 2) {
+
 					Put.forEach(Mug => {
 
 						Puts.mugs[0].push(JSON.parse(Mug.json));
@@ -42,7 +62,7 @@ class Sql {
 					});
 				}
 
-				if (put === 1) {
+				if (put === 3) {
 
 					Put.forEach(Pays => {
 
@@ -52,7 +72,7 @@ class Sql {
 					});
 				}
 
-				if (put === 2) {
+				if (put === 4) {
 
 					Put.forEach(Vault => {
 

@@ -297,7 +297,7 @@ let Models = {
     							[`text-transform`]: `uppercase`, 
     							[`letter-spacing`]: `normal`,
     							[`font-size`]: `${12}px`}}, (Clients.mug)? Tools.typen(Clients.mug)[1][0]: ``]]], 
-    				[`a`, {id: `mug`, class: `_aWz mug`, style: {position: `absolute`, left: 0}, href:(Clients.mug)? `/u`:`javascript:;`}]]]],
+    				[`a`, {id: `mug`, class: `_aWz mug`, style: {position: `absolute`, left: 0}, href:(Clients.mug)? `/pit`:`javascript:;`}]]]],
 
     real: function (Real) {
 
@@ -351,6 +351,89 @@ let Models = {
    		`main`, {class: `_xC2 _aA2`, style: {height: `${100}%`}}, 
    			[[`div`, {class: `_geQ`, style: {[`justify-content`]: `center`}}, 
    				[[`span`, {class: `v202201180941`, style: {width:`${56}px`, height: `${56}px`}}]]]]],
+
+   	pit: function () {
+
+  		let Axis = Tools.typen(Clients.quo).btc[1][5];
+
+  		return [`main`, {class: `_tY0`, style: {height: `${100}px`}}, 
+  			[
+  				[`div`, {class: `_-tY`}, 
+  					[[`div`, {class: `_aXz`, style: {padding: `${0} ${16}px`}}, 
+  						[
+  							[`div`, {class: `_-Xg _gxM _geQ`}, 
+  								[
+  									[`a`, {class: `-_tX v202201180941`, style: {[`min-width`]: `${32}px`, height: `${32}px`}, href: `/`}, ``], 
+  									[`span`, {class: `_aA6 _tXx`, style: {
+  										[`border-left`]: `${1}px solid #d5d5d5`,
+  											margin: `${0} ${7}px`,
+  											padding: `${0} ${14}px`,
+  											[`font-size`]: `${14}px`,
+  											color: `#47008c`,
+  											overflow: `hidden`,
+  											[`font-family`]: `arcane`,
+  											//[`text-overflow`]: `ellipsis`,
+  											[`white-space`]: `nowrap`}}, `${Tools.typen(Clients.wallet)[2][0]} USD`], 
+  									[`span`, {class: `_tXx`, style: {
+  											color: `#feef11`, 
+  											margin: `${1.5}px ${0} ${0} ${-14}px`, 
+  											[`font-size`]: `${12}px`}}, (Clients.wallet && Tools.typen(Clients.wallet)[2][1] > 0)? `+BTC`: ``]]],
+  							[`div`, {class: `_gZz`}, 
+  								[this.wallets]]]]]], 
+  				[`section`, {id: `wallet`, style: {padding: `${0} ${24}px`, [`max-width`]: `${1000}px`, width: `${100}%`, margin: `${90}px auto`}}, 
+  					[
+  						[`div`, {class: `_wrap_202203262208`}, 
+  							[
+  								[`div`, {id: `pitaxis`}],
+  								[`div`, {id: `pittools`}, 
+  									[
+  										[`div`, {id: `pitmove`, class: `_gxM`}, 
+  											[
+  												[`div`, {class: `_geQ`}, [[`span`, {style: {
+  													background: `#1bd401`,
+  													opacity: 1,
+  													color: `#fff`}}, `Buy`]]],
+  												[`div`, {class: `_geQ`}, [[`span`, {}, `Sell`]]]]], 
+  										[`div`, {id: `pittype`, class: `_gxM`, style: {padding: `${18}px ${0}`}}, 
+  											[
+  												[`div`, {class: `_geQ pittype`}, [[`span`, {style: {opacity: 1}}, `Market`]]],
+  												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Take-profit`]]],
+  												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Limit`]]]/**,
+  												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Stop-limit`]]]**/]], 
+  										[`div`, {class: `_gxM`}, 
+  											[
+  												[`span`, {style: {[`font-size`]: `${12}px`, opacity: .5}}, `index price`], 
+  												[`div`, {class: `_gZz`}, 
+  													[
+  														[`span`, {style: {
+  															[`font-family`]: `geometria`, [`font-size`]: `${12}px`}}, `${1}BTC/`],
+  														[`span`, {style: {
+  															//padding: `${0} ${0} ${0} ${3}px`,
+  															[`font-family`]: `geometria`,
+  															[`font-size`]: `${12}px`,
+  															color: (((Axis[1] - Axis[0])/Axis[1])*100 >= 0) ? `#1bd401`: `#d40101`}}, 
+  															`${Tools.typen(Clients.quo).btc[0]} USD`]]]]], 
+  										[`div`, {id: `pitamount`, class: `_gxM`, style: {padding: `${18}px ${0}`}}, 
+  											[
+  												[`input`, {id: `amount`, placeholder: `0.00BTC`, type: `text`}], 
+  												[`div`, {class: `_gZz`, style: {width: `${35}%`}}, 
+  													[[`span`, {id: `pitalias`, style: {
+  														[`font-family`]: `geometria`, 
+  														[`font-size`]: `${12}px`,
+  														[`white-space`]: `nowrap`, 
+  														opacity: .5}}, `0.00 USD`]]]]], 
+  										[`div`, {}, 
+  											[[`div`, {class: `_geQ`}, 
+  												[[`span`, {id: `place`, role: `btc-buy-market`, style: {
+  													width: `${100}%`,
+  													padding: `${12}px ${0}`,
+  													background: `#1bd401`,
+  													[`font-size`]: `${12}px`,
+  													opacity: 1,
+  													[`text-align`]: `center`,
+  													color: `#fff`,
+  													cursor: `pointer`}}, `place order`]]]]]]]]]]]]];
+  	}, 
 
    	trails: function (Trail) {
 
