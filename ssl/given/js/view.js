@@ -226,7 +226,7 @@ let Models = {
 
   		Axis = Tools.typen(Clients.quo).btc[1][5];
 
-  		let portfolio = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Axis)*Tools.typen(Clients.wallet)[2][1]).toFixed(2)
+  		let portfolio = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Axis[1])*Tools.typen(Clients.wallet)[2][1]).toFixed(2)
 
   		Main[0] = 
   			[`main`, {class: `_tY0`, style: {height: `${100}px`}}, 
@@ -358,7 +358,7 @@ let Models = {
 
   		let Axis = Tools.typen(Clients.quo).btc[1][5];
 
-  		let portfolio = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Axis)*Tools.typen(Clients.wallet)[2][1]).toFixed(2)
+  		let portfolio = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Axis[1])*Tools.typen(Clients.wallet)[2][1]).toFixed(2)
 
   		return [`main`, {class: `_tY0`, style: {height: `${100}px`}}, 
   			[
@@ -438,6 +438,76 @@ let Models = {
   													color: `#fff`,
   													cursor: `pointer`}}, `place order`]]]]]]]]], 
   						[`div`, {id: `pits`, style: {margin: `${30}px ${0}`}}, [this.pitmoves()]]]]]];
+  	},
+
+  	pitaxis: function () {
+
+  		let Pit = [Tools.typen(Clients.pitmoves).sort((A, B) => {return B.secs - A.secs}), [], [], ``];
+
+  		let Axis = Tools.typen(Clients.quo).btc[1][5];
+
+  		let pit = Tools.typen(Clients.wallet)[2][1];
+
+  		let Span = [document.querySelector(`#pitaxis`).clientWidth, 200];
+
+  		let Y = [Axis[2], Axis[3]];
+
+		let y = Y[1] - Y[0];
+
+  		if ((new Date().valueOf() - Pit[0][0].secs) > 3600000) {
+
+  			let AXIS = [Tools.typen(Clients.axis)];
+
+			let X = [AXIS[0][AXIS[0].length - 1][0], AXIS[0][0][0]];
+
+			let x = AXIS[0][AXIS[0].length - 1][0] - AXIS[0][0][0];
+
+			AXIS[0].forEach(Vault => {
+
+				Pit[3] += `${(((Vault[0] - AXIS[0][0][0])/x)*Span[0]) + 0} ${(y === 0)? 50: ((Vault[1] - Y[1])/y)*(-185)} `;
+			});
+
+  			Pit[1] = [`div`, {class: `_eYG`}, 
+  				[[`span`, {style: {
+  					color: (((Axis[1] - Axis[0])/Axis[1])*100 >= 0) ? `#1bd401`: `#d40101`,
+  					[`font-family`]: `geometria`, 
+  					[`font-size`]: `${11}px`}}, 
+  					`${(((Axis[1] - Axis[0])/Axis[1])*100 >= 0) ? `+`: ``}${((pit*Axis[1]) - (pit*Axis[0])).toFixed(3)} (${(((Axis[1] - Axis[0])/Axis[1])*100).toFixed(2)}%)`]]];
+  			
+  			Pit[2] = 
+				[`svg`, {height: `${200}px`, style: {[`margin-top`]: `${30}px`}}, 
+					[
+						[`path`, {
+							opacity: .75,
+							stroke: `#1bd401`, 
+							[`stroke-width`]: 1, 
+							fill: `none`, d: `M15 ${((Pit[0][0].coin[1] - Y[1])/y)*(-175) + 5.5} ${Span[0]} ${((Pit[0][0].coin[1] - Y[1])/y)*(-175) + 7.5}`}], 
+						[`text`, {x: 0, y: ((Pit[0][0].coin[1] - Y[1])/y)*(-175) + 7.5, fill: `#a6a6a6`, style: {
+							[`font-family`]: `geometria`,
+							[`font-size`]: `${8}px`}}, `${(Pit[0][0].coin[1]*pit).toFixed(3)}`], 
+						[`path`, {
+							opacity: 1,
+							stroke: `#5841d8`, 
+							[`stroke-width`]: 1, 
+							fill: `none`, d: `M${Pit[3]}`}]]];
+  		}
+
+  		return [`div`, {}, 
+  			[
+  				[`div`, {class: `_gxM`}, 
+  					[
+  						[`span`, {style: {[`font-size`]: `${12}px`}}, `Portfolio Balance`],
+  						[`div`, {class: `_gZz`}, [[`span`, {style: {
+  							[`text-decoration`]: `underline`,
+  							color: `#feef11`, [`font-size`]: `${12}px`}}, `BTC`]]]]],
+  				[`div`, {class: `_gxM`}, 
+  					[
+  						[`span`, {style: {
+  							[`font-family`]: `geometria`,
+  							[`font-size`]: `${12}px`,
+  							[`font-weight`]: 600}}, `${(parseFloat(Axis[1])*pit).toFixed(2)} USD`],
+  						Pit[1]]],
+  				Pit[2]]];
   	},
 
   	pitmoves: function () {

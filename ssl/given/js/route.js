@@ -167,6 +167,10 @@ class Route {
 
     					View.DOM([`main`, [Models.pit()]]);
 
+    					View.pop();
+
+    					if (Tools.typen(Clients.wallet)[2][1] > 0) View.DOM([`#pitaxis`, [Models.pitaxis()]]);
+
     					Events.pitalias();
 
     					Events.pitplace();
