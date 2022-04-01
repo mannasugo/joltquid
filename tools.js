@@ -171,6 +171,57 @@ class Tools {
 
 		return [vaults, (vault[0] + vault[1]).toFixed(2), (vault[2] + vault[3]).toFixed(2), ((vault[0] + vault[1]) - (vault[2] + vault[3])).toFixed(2)];
 	}
+
+    wallet (Raw) {
+
+		let Wallet = Raw[1];
+
+			let Balance = {},
+
+			Trail = [],
+
+			Vaults = {coin: [], plain: []};
+
+			Wallet.mugs[0].forEach(Mug => {
+
+				Balance[Mug.md] = {};
+
+				Balance[Mug.md][`wallet`] = [[0, 0], [0, 0]]
+			});
+
+			for (let mug in Wallet.pays[1]) {
+
+				let Pay = Wallet.pays[1][mug];
+
+				if (Pay.mug === Raw[0]) {
+
+					if (Pay.sort[1] === `legacy`) Balance[Raw[0]][`wallet`][0][1] += Pay.dollars;
+
+					else if (Pay.sort[1] === `vault`) Balance[Raw[0]][`wallet`][1][1] += Pay.coin[0];
+
+				}
+			}
+
+			for (let mug in Wallet.vault[1]) {
+
+				let Vault = Wallet.vault[1][mug];
+
+				if (Vault.mug === Raw[0] && Vault.complete === true) {
+
+					if (Vault.sort[1] === `legacy`) {
+
+						Balance[Raw[0]][`wallet`][0][0] += Vault.dollars;
+
+						Vaults.plain.push(Vault);
+					}
+
+					else if (Vault.sort[1] === `vault`) Balance[Raw[0]][`wallet`][1][0] += Vault.coin[0];
+
+				}
+			}
+
+		return [Balance[Raw[0]].wallet];
+    }
 }
 
 module.exports = {

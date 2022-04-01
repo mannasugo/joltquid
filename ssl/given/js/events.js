@@ -106,10 +106,57 @@ class Events {
 
 			else if (!parseInt(omega) && parseInt(omega) !== 0 && omega !== `.`) Via.value = Via.value.substr(0, Via.value.length - 1);
 
-			if (!parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] > 0) document.querySelector(`#pitalias`).innerHTML = `0.00 USD`
+			if (!parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] > 0) {
 
-			else document.querySelector(`#pitalias`).innerHTML = `${(parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0]).toFixed(2)} USD`;
+				document.querySelector(`#place`).style.opacity = .3
 
+				document.querySelector(`#pitalias`).innerHTML = `0.00 USD`
+			}
+
+			else {
+
+				document.querySelector(`#place`).style.opacity = 1
+
+				document.querySelector(`#pitalias`).innerHTML = `${(parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0]).toFixed(2)} USD`;
+			}
+
+		}]);
+	}
+
+	pitplace () {
+
+		this.listen([document.querySelector(`#place`), `click`, S => {
+
+			let role = this.getSource(S).getAttribute(`role`);
+
+			if (role === `btc-buy-market`) {
+
+				let vault = Tools.typen(Clients.wallet)[2][0],
+
+				place = parseFloat(document.querySelector(`#amount`).value);
+
+				if (place > 0 && vault >= place*Tools.typen(Clients.quo).btc[0] && vault >= 0) { // > 3
+
+					document.querySelector(`#amount`).value = `0.00BTC`;
+
+					let Puts = Tools.pull([
+						`/json/web/`, {
+							mug: Tools.typen(Clients.mug)[0],
+							pull: `buy-pit`, //side 
+							puts : place}]);
+
+					View.pop();
+
+					View.DOM([`span`, [Models.splash]]);
+
+					Puts.onload = () => {
+
+						let Web = JSON.parse(Puts.response);
+
+						if (Web && Web.mug) window.location = `/pit`;
+					}
+				}
+			}
 		}]);
 	}
 

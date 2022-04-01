@@ -155,6 +155,8 @@ class Route {
     			View.DOM([`main`, [Models.pit()]]);
 
     			Events.pitalias();
+
+    			Events.pitplace();
     		}
     	}
 

@@ -345,8 +345,79 @@ class Route {
 									Coat = Tools.typen(Coat);
 
 									Arg[1].end(Tools.coats({axis: Coat[Pulls.puts]}));
-								});
-								
+								});	
+							}
+
+							else if (Pulls.pull === `buy-pit`) {
+
+								readFile(`json/last_btc.json`, {encoding: `utf8`}, (flaw, Coat) => {
+
+									let swap = Tools.typen(Coat)[5][0][1];
+
+									let Wallet = Tools.wallet([Pulls.mug, Raw])[0];
+
+									let Balance = [Wallet[0][0] - Wallet[0][1], Wallet[1][0] - Wallet[1][1]];
+
+									Pulls.place = parseFloat(Pulls.puts);
+
+									if (Balance[0] > Pulls.place*swap) {
+
+										let secs = new Date().valueOf();
+
+										let Puts = [{}, {}, {}];
+
+										Puts[0] = {
+											dollars: Pulls.place*swap,
+											md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+											mug: Pulls.mug, 
+											secs: secs, 
+											sort: [`vault`, `legacy`]};
+
+										Sql.puts([`pays`, Puts[0], (Raw) => {
+
+											Puts[1] = {
+												call: null,
+												coin: [Pulls.place, swap, `btc`],
+												complete: true,
+												dollars: Pulls.place*swap,
+												md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+												mug: Pulls.mug,
+												secs: secs,
+												sort: [`vault`, `vault`],
+												trace: null}
+
+											Sql.puts([`vault`, Puts[1], (Raw) => {
+
+												Puts[2] = {
+													coin: [Pulls.place, swap, `btc`],
+													dollars: Pulls.place*swap,
+													md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+													mug: Pulls.mug,
+													open: false, //null/canceled
+													secs: secs,
+													side: `buy`,
+													type: `market`}
+
+												Sql.puts([`asks`, Puts[2], (Raw) => {
+
+													readFile(`json/volume.json`, {encoding: `utf8`}, (flaw, Coat) => {
+
+														Coat = Tools.typen(Coat);
+
+														let last = parseFloat(Coat.volume[Coat.volume.length - 1][1]);
+
+														Coat.volume.push([secs, (Pulls.place + last)]);
+
+														writeFile(`json/volume.json`, Tools.coats(Coat), flaw => {
+
+															Arg[1].end(Tools.coats({mug: Pulls.mug}));
+														});
+													});
+												}]);
+											}]);
+										}]);
+									}
+								});	
 							}
 
 							else if (Pulls.pull === `fileMug`) {
@@ -501,6 +572,15 @@ class Route {
 
 				Sql.pulls(Wallet => {
 
+					let Default = [];
+
+					Wallet.vault[0].forEach(Vault => {
+
+						if (Vault.complete === false) Default.push(Vault);
+					});
+
+					writeFileSync(`json/defaults.json`, Tools.coats(Default));
+
 					let secs = new Date().valueOf(),
 
 					State = {
@@ -565,47 +645,8 @@ class Route {
 						});
 
 						readFile(`json/last_btc.json`, {encoding: `utf8`}, (flaw, btc) => {
-							/**
-
-							let Value = Tools.typen(btc).last;
-
-							Value.sort((A, B) => {return A[0] - B[0]});
-
-							Times[0] = secs - Value[0][0];
-
-							let Values = [[], [], [], [], [], []];
-
-							Times.forEach((i, a) => {
-
-								Value.forEach((Span) => {
-
-									if (Span[0] >= i && Span[0] <= secs) Values[a].push(Span);
-								});
-
-								if (Values[a].length === 0) {
-
-									if (Value.length > 0) Values[a] = [[i, Value[Value.length - 1][1]], [secs, Value[Value.length - 1][1]]];
-
-									else Values[a] = [[i, 0], [secs, 0]];
-								}
-
-								else if (Values[a].length > 0) {
-
-									if (Value.indexOf(Values[a][0]) > 0) Values[a].push([i, Value[Value.indexOf(Values[a][0]) - 1][1]]);
-
-									Values[a] = Values[a].sort((A, B) => {return B[0] - A[0]});
-
-									Values[a].push([secs, Values[a][0][1]]);
-								}
-
-								Values[a] = Values[a].sort((A, B) => {return B[0] - A[0]});
-							});
-
-							**/
 
 							let Values = Tools.typen(btc);
-
-							//State.btc[0] = Value[Value.length - 1][1];
 
 							State.btc[0] = Values[0][0][1];
 
@@ -687,7 +728,7 @@ class Route {
 
 	reals () {
 
-		let Real = [`bitcoin`, `volume`];
+		let Real = [`bitcoin`, `defaults`, `volume`];
 
 		Real.forEach((File, file) => {
 
@@ -698,6 +739,8 @@ class Route {
 				if (err) { 
 
 					if (Real[file] === `bitcoin`) real = Tools.coats({last: []});
+
+					else if (Real[file] === `defaults`) real = Tools.coats([]);
 
 					else if (Real[file] === `volume`) real = Tools.coats({volume: [[new Date().valueOf(), 0.00304999754]]});
 
@@ -772,13 +815,16 @@ class Route {
 		}, 5000);
 
 		
-		//setInterval(() => {
-			/**
-			Sql.pulls(Wallet => {
+		
+		setInterval(() => {
 
-				Wallet.vault[0].forEach(Vault => {
+			readFile(`json/defaults.json`, {encoding: `utf8`}, (flaw, Coat) => {
 
-					if (Vault.complete !== true) {
+				Coat = Tools.typen(Coat);
+
+				Coat.forEach(Vault => {
+
+					if (Vault.complete === false) {
 
               			get({method: `POST`, uri: `https://payment.intasend.com/api/v1/payment/status/`, json: { 
               				public_key: `ISPubKey_live_be13c375-b61d-4995-8c50-4268c604c335`,
@@ -800,9 +846,8 @@ class Route {
                   		});
                 	} 
 				});
-			});
-			**/
-		//}, 7500);
+			});			
+		}, 7500);
 	}
 
 }

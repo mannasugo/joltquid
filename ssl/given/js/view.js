@@ -244,7 +244,7 @@ let Models = {
   											overflow: `hidden`,
   											[`font-family`]: (Clients.wallet)? `arcane`: `inherit`,
   											//[`text-overflow`]: `ellipsis`,
-  											[`white-space`]: `nowrap`}}, (Clients.wallet)? `${Tools.typen(Clients.wallet)[2][0]} USD`: `joltquid`], 
+  											[`white-space`]: `nowrap`}}, (Clients.wallet)? `${(Tools.typen(Clients.wallet)[2][0]).toFixed(2)} USD`: `joltquid`], 
   										[`span`, {class: `_tXx`, style: {
   											color: `#feef11`, 
   											margin: `${1.5}px ${0} ${0} ${-14}px`, 
@@ -373,7 +373,7 @@ let Models = {
   											overflow: `hidden`,
   											[`font-family`]: `arcane`,
   											//[`text-overflow`]: `ellipsis`,
-  											[`white-space`]: `nowrap`}}, `${Tools.typen(Clients.wallet)[2][0]} USD`], 
+  											[`white-space`]: `nowrap`}}, `${(Tools.typen(Clients.wallet)[2][0]).toFixed(2)} USD`], 
   									[`span`, {class: `_tXx`, style: {
   											color: `#feef11`, 
   											margin: `${1.5}px ${0} ${0} ${-14}px`, 
@@ -429,7 +429,7 @@ let Models = {
   													padding: `${12}px ${0}`,
   													background: `#1bd401`,
   													[`font-size`]: `${12}px`,
-  													opacity: 1,
+  													opacity: .3,
   													[`text-align`]: `center`,
   													color: `#fff`,
   													cursor: `pointer`}}, `place order`]]]]]]]]]]]]];
