@@ -333,6 +333,10 @@ body {
 
 #pitamount input { width: 65%; font-family: geometria; font-size: 12px; text-align: right;}
 
+#pittile span {/*padding: 1px 8px; line-height: 13px; color: #1bd401; */font-size: 12px; opacity: .3; }
+
+#pitmoves span {font-family: geometria; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+
 @media (min-width: 600px) {
 
   #mugs {justify-content: center;}

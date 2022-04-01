@@ -226,6 +226,8 @@ let Models = {
 
   		Axis = Tools.typen(Clients.quo).btc[1][5];
 
+  		let portfolio = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Axis)*Tools.typen(Clients.wallet)[2][1]).toFixed(2)
+
   		Main[0] = 
   			[`main`, {class: `_tY0`, style: {height: `${100}px`}}, 
   				[
@@ -244,7 +246,7 @@ let Models = {
   											overflow: `hidden`,
   											[`font-family`]: (Clients.wallet)? `arcane`: `inherit`,
   											//[`text-overflow`]: `ellipsis`,
-  											[`white-space`]: `nowrap`}}, (Clients.wallet)? `${(Tools.typen(Clients.wallet)[2][0]).toFixed(2)} USD`: `joltquid`], 
+  											[`white-space`]: `nowrap`}}, (Clients.wallet)? `${portfolio} USD`: `joltquid`], 
   										[`span`, {class: `_tXx`, style: {
   											color: `#feef11`, 
   											margin: `${1.5}px ${0} ${0} ${-14}px`, 
@@ -356,6 +358,8 @@ let Models = {
 
   		let Axis = Tools.typen(Clients.quo).btc[1][5];
 
+  		let portfolio = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Axis)*Tools.typen(Clients.wallet)[2][1]).toFixed(2)
+
   		return [`main`, {class: `_tY0`, style: {height: `${100}px`}}, 
   			[
   				[`div`, {class: `_-tY`}, 
@@ -373,7 +377,7 @@ let Models = {
   											overflow: `hidden`,
   											[`font-family`]: `arcane`,
   											//[`text-overflow`]: `ellipsis`,
-  											[`white-space`]: `nowrap`}}, `${(Tools.typen(Clients.wallet)[2][0]).toFixed(2)} USD`], 
+  											[`white-space`]: `nowrap`}}, `${portfolio} USD`], 
   									[`span`, {class: `_tXx`, style: {
   											color: `#feef11`, 
   											margin: `${1.5}px ${0} ${0} ${-14}px`, 
@@ -432,7 +436,41 @@ let Models = {
   													opacity: .3,
   													[`text-align`]: `center`,
   													color: `#fff`,
-  													cursor: `pointer`}}, `place order`]]]]]]]]]]]]];
+  													cursor: `pointer`}}, `place order`]]]]]]]]], 
+  						[`div`, {id: `pits`, style: {margin: `${30}px ${0}`}}, [this.pitmoves()]]]]]];
+  	},
+
+  	pitmoves: function () {
+
+  		let Pit = [[], []];
+
+  		Pit[0] = Tools.typen(Clients.pitmoves).sort((A, B) => {return B.secs - A.secs});
+
+  		Pit[0].forEach(Move => {
+
+  			Pit[1].push(
+  				[`div`, {id: `pitmoves`, class: `_wrap_202203262208`, style: {
+  					padding: `${12}px ${0}`, [`border-bottom`]: `${1}px solid #e8e8e8`}}, 
+  					[
+  						[`div`, {style: {width: `${20}%`}}, [[`a`, {href: `javascript:;`, style: {
+  							color: (Move.side === `buy`) ? `#1bd401`: `#d40101`,
+  							[`font-size`]: `${12}px`,
+  							[`text-transform`]: `uppercase`}}, Move.side]]],
+  						[`div`, {style: {width: `${30}%`}}, [[`span`, {}, Tools.logs(Move.secs).substr(5, 10)]]],
+  						[`div`, {style: {width: `${30}%`}}, [[`span`, {}, `${Move.coin[0]} BTC`]]],
+  						[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `${Move.coin[1]}`]]]]]);
+  		});
+
+  		return [`div`, {class: ``}, 
+  			[
+  				[`div`, {id: `pittile`, class: `_wrap_202203262208`, style: {
+  					padding: `${24}px ${0} ${6}px`, [`border-bottom`]: `${1}px solid #e8e8e8`}}, 
+  					[
+  						[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `side`]]],
+  						[`div`, {style: {width: `${30}%`}}, [[`span`, {}, `date`]]],
+  						[`div`, {style: {width: `${30}%`}}, [[`span`, {}, `amount`]]],
+  						[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `price`]]]]], 
+  				[`div`, {}, Pit[1]]]];
   	}, 
 
    	trails: function (Trail) {

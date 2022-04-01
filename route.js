@@ -512,6 +512,26 @@ class Route {
 								Sql.puts([`mugs`, Mug, (Raw) => {Arg[1].end(JSON.stringify(Quo));}]);
 							}
 
+							else if (Pulls.pull === `pit`) {
+
+								if (Raw.mugs[1][Pulls.mug]) {
+
+									let Puts = [[]];
+
+									Raw.asks[0].forEach(Ask => {
+
+										if (Ask.mug === Pulls.mug) Puts[0].push(Ask);
+									});
+
+									Raw.bids[0].forEach(Bid => {
+
+										if (Bid.mug === Pulls.mug) Puts[0].push(Bid);
+									});
+
+									Arg[1].end(JSON.stringify({mug: Pulls.mug, pitmoves: Puts[0]}));
+								}
+							}
+
 							else if (Pulls.pull === `vault`) {
 
 								if (Raw.mugs[1][Pulls.mug]) {

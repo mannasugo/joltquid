@@ -152,11 +152,26 @@ class Route {
 
     		else if (!State[4] && !Tools.slim[State[4]] && Clients.mug) {
 
-    			View.DOM([`main`, [Models.pit()]]);
+				let Puts = Tools.pull([
+					`/json/web/`, {
+						mug: Tools.typen(Clients.mug)[0],
+						pull: `pit`}]);
 
-    			Events.pitalias();
+				Puts.onload = () => {
 
-    			Events.pitplace();
+					let Web = JSON.parse(Puts.response);
+
+					if (Web && Web.mug) {
+
+						Clients.pitmoves = Tools.coats(Web.pitmoves);
+
+    					View.DOM([`main`, [Models.pit()]]);
+
+    					Events.pitalias();
+
+    					Events.pitplace();
+					}
+				}
     		}
     	}
 

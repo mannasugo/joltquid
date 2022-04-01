@@ -135,14 +135,14 @@ class Events {
 
 				place = parseFloat(document.querySelector(`#amount`).value);
 
-				if (place > 0 && vault >= place*Tools.typen(Clients.quo).btc[0] && vault >= 0) { // > 3
+				if (place > 0 && vault >= place*Tools.typen(Clients.quo).btc[0] && vault >= 3) {
 
 					document.querySelector(`#amount`).value = `0.00BTC`;
 
 					let Puts = Tools.pull([
 						`/json/web/`, {
 							mug: Tools.typen(Clients.mug)[0],
-							pull: `buy-pit`, //side 
+							pull: `buy-pit`,
 							puts : place}]);
 
 					View.pop();
