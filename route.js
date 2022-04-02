@@ -797,7 +797,7 @@ class Route {
 
 						Coat = Tools.typen(Coat);
 
-						if (Coat.last[Coat.last.length - 1][1] !== Tools.typen(coat)[0].current_price) {
+						if (Coat.last.length === 0 || Coat.last[Coat.last.length - 1][1] !== Tools.typen(coat)[0].current_price) {
 
 							console.log(Tools.typen(coat)[0].current_price)
 
