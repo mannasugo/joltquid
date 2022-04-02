@@ -153,11 +153,42 @@ class Events {
 
 						let Web = JSON.parse(Puts.response);
 
-						if (Web && Web.mug) window.location = `/pit`;
+						if (Web && Web.mug) {
+
+							window.location = `/pit`;
+						}
 					}
 				}
 			}
 		}]);
+	}
+
+	pitreals () {
+
+		io().on(`pit`, Pit => {
+
+			let Quo = Tools.typen(Clients.quo);
+
+			let last = Quo.btc[0];
+
+			Quo.btc = Pit.quo.btc;
+
+			Clients.quo = Tools.coats(Quo);
+
+			Clients.axis = Tools.coats((Pit.axis).sort((A, B) => {return A[0] - B[0]}));
+
+			if (last !== Quo.btc[0]) {
+
+    			View.pop();
+
+    			if (Tools.typen(Clients.wallet)[2][1] > 0) View.DOM([`#pitaxis`, [Models.pitaxis()]]);
+
+    			this.pitalias();
+
+    			this.pitplace();
+
+			}
+		});
 	}
 
 	slotin () {

@@ -528,7 +528,12 @@ class Route {
 										if (Bid.mug === Pulls.mug) Puts[0].push(Bid);
 									});
 
-									Arg[1].end(JSON.stringify({mug: Pulls.mug, pitmoves: Puts[0]}));
+									readFile(`json/last_btc.json`, {encoding: `utf8`}, (flaw, Coat) => {
+
+										Coat = Tools.typen(Coat);
+
+										Arg[1].end(Tools.coats({axis: Coat[5], mug: Pulls.mug, pitmoves: Puts[0]}));
+									});
 								}
 							}
 
@@ -743,12 +748,23 @@ class Route {
 					App.emit(`wallet`, {mug: Raw[0], vaults: Vaults, wallet: Balance[Raw[0]].wallet});
 				});
 			});
+
+			setInterval(() => {
+
+				readFile(`json/pit.json`, {encoding: `utf8`}, (flaw, Coat) => {
+
+					Coat = Tools.typen(Coat);
+
+					if (Coat.quo && Coat.axis) App.emit(`pit`, Coat);
+				});
+
+			}, 2500);
 		});
 	}
 
 	reals () {
 
-		let Real = [`bitcoin`, `defaults`, `volume`];
+		let Real = [`bitcoin`, `defaults`, `pit`, `volume`];
 
 		Real.forEach((File, file) => {
 
@@ -761,6 +777,8 @@ class Route {
 					if (Real[file] === `bitcoin`) real = Tools.coats({last: []});
 
 					else if (Real[file] === `defaults`) real = Tools.coats([]);
+
+					else if (Real[file] === `pit`) real = Tools.coats({});
 
 					else if (Real[file] === `volume`) real = Tools.coats({volume: [[new Date().valueOf(), 0.00304999754]]});
 
@@ -825,7 +843,33 @@ class Route {
 								Values[a] = Values[a].sort((A, B) => {return B[0] - A[0]});
 							});
 
-							writeFileSync(`json/last_btc.json`, Tools.coats(Values), flaw => {});
+							let State = {
+								btc: [0, [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]]};
+
+							State.btc[0] = Values[0][0][1];
+
+							Values.forEach((Span, a) => {
+
+								Span = Span.sort((A, B) => {return B[0] - A[0]});
+
+								State.btc[1][a][0] = Span[Span.length - 1][1];
+
+								State.btc[1][a][1] = Span[0][1];
+
+								let Value = Span.sort((A, B) => {return B[1] - A[1]});
+
+								State.btc[1][a][2] = Span[Span.length - 1][1];
+
+								State.btc[1][a][3] = Span[0][1];
+
+								Span = Span.sort((A, B) => {return B[0] - A[0]});
+							});
+
+							writeFile(`json/last_btc.json`, Tools.coats(Values), flaw => {
+
+								writeFileSync(`json/pit.json`, Tools.coats({axis: Values[5], quo: State}))//, flaw => {});
+
+							});
 						//});
 						}
 					});

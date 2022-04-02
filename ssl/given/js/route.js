@@ -165,6 +165,8 @@ class Route {
 
 						Clients.pitmoves = Tools.coats(Web.pitmoves);
 
+						Clients.axis = Tools.coats(Web.axis.sort((A, B) => {return A[0] - B[0]}));
+
     					View.DOM([`main`, [Models.pit()]]);
 
     					View.pop();
@@ -174,6 +176,8 @@ class Route {
     					Events.pitalias();
 
     					Events.pitplace();
+
+    					Events.pitreals();
 					}
 				}
     		}
