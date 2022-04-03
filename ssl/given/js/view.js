@@ -95,12 +95,27 @@ let Models = {
 				[`font-size`]: `${10}px`}}, AXIS[4]]);
 		});
 
-		Y.forEach(Span => {
+		let Value = Tools.typen(Clients.axis).sort((A, B) => {return B[1] - A[1]});
 
-			AXIS[3].push([`text`, {x: 0, y: (y === 0) ? 55 : ((Span - Y[1])/y)*(-175) + 7.5, fill: `#a6a6a6`, style: {
-				//[`font-family`]: `geometria`,
-				[`font-size`]: `${10}px`}}, `${Span}`]);
-		});
+		let Feats = [Value[Value.length - 1], Value[0]];
+
+		Feats.forEach(Feat => {
+
+		let XY = [(((Feat[0] - AXIS[0][0][0])/x)*Axis[1]), ((Feat[1] - Y[1])/y)*(-185)];
+
+				(XY[1] < 5)? XY[1] = 7.5: XY[1];
+
+				(XY[1] > 195)? XY[1] = 191: XY[1];
+
+				(XY[0] < 5)? XY[0] = 6: XY[0] = XY[0] + 2.5;
+
+				(XY[0] > Axis[1] - 75)? XY[0] = Axis[1] - 70: XY[0] = XY[0] + 2.5;
+
+				AXIS[3].push(
+					[`text`, {x: XY[0], y: XY[1], fill: `#000`, style: {
+						[`font-family`]: `geometria`,
+						[`font-size`]: `${9}px`}}, `${(Feat[1]).toFixed(1)}`]);
+			});
 
     	let Span = [[], [`1H`, `1D`, `1W`, `All`]];
 
@@ -478,18 +493,18 @@ let Models = {
 
 				let XY = [(((Feat[0] - AXIS[0][0][0])/x)*Span[0]), ((Feat[1] - Y[1])/y)*(-185)];
 
-				(XY[1] < 5)? XY[1] = 6: XY[1];
+				(XY[1] < 5)? XY[1] = 7.5: XY[1];
 
 				(XY[1] > 195)? XY[1] = 191: XY[1];
 
 				(XY[0] < 5)? XY[0] = 6: XY[0] = XY[0] + 2.5;
 
-				(XY[0] > Span[1] - 5)? XY[0] = Span[1] - 10: XY[0] = XY[0] + 2.5;
+				(XY[0] > Span[0] - 75)? XY[0] = Span[0] - 70: XY[0] = XY[0] + 2.5;
 
 				Pit[4].push(
 					[`text`, {x: XY[0], y: XY[1], fill: `#000`, style: {
 						[`font-family`]: `geometria`,
-						[`font-size`]: `${8}px`}}, `${(Feat[1]*pit).toFixed(3)} USD`]);
+						[`font-size`]: `${9}px`}}, `${(Feat[1]*pit).toFixed(3)} USD`]);
 			});
 
   			Pit[1] = [`div`, {class: `_eYG`}, 
