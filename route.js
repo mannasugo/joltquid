@@ -745,7 +745,7 @@ class Route {
 						}
 					}
 
-					App.emit(`wallet`, {mug: Raw[0], vaults: Vaults, wallet: Balance[Raw[0]].wallet});
+					App.emit(`wallet`, {mug: Raw[0], secs: Raw[1], vaults: Vaults, wallet: Balance[Raw[0]].wallet});
 				});
 			});
 
@@ -758,7 +758,7 @@ class Route {
 					if (Coat.quo && Coat.axis) App.emit(`pit`, Coat);
 				});
 
-			}, 2500);
+			}, 1000);
 		});
 	}
 

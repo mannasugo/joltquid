@@ -51,11 +51,11 @@ class Route {
 
 					if (Clients.mug) {
 
-						io().emit(`wallet`, [Tools.typen(Clients.mug)[0], new Date().valueOf()]);
+						io().emit(`wallet`, [Tools.typen(Clients.mug)[0], secs]);
 
 						io().on(`wallet`, Wallet => {
 
-							if (Wallet.mug === Tools.typen(Clients.mug)[0]) {
+							if (Wallet.secs === secs && Wallet.mug === Tools.typen(Clients.mug)[0]) {
 
 								Wallet.wallet[2] = [Wallet.wallet[0][0] - Wallet.wallet[0][1], Wallet.wallet[1][0] - Wallet.wallet[1][1]];
 
@@ -194,11 +194,13 @@ class Route {
 
     		else if (!State[4] && !Tools.slim[State[4]] && Clients.mug) {
 
-				io().emit(`wallet`, [Tools.typen(Clients.mug)[0], new Date().valueOf()]);
+    			let secs = new Date().valueOf();
+
+				io().emit(`wallet`, [Tools.typen(Clients.mug)[0], secs]);
 
 				io().on(`wallet`, Wallet => {
 
-					if (Wallet.mug === Tools.typen(Clients.mug)[0]) {
+					if (Wallet.secs === secs && Wallet.mug === Tools.typen(Clients.mug)[0]) {
 
 						Clients.vaults = Tools.coats(Wallet.vaults);
 
