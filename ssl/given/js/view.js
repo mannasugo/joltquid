@@ -269,16 +269,17 @@ let Models = {
   											[`div`, {class: `_gxM`, style: {padding: `${12}px ${0}`}}, 
   												[
   													[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `INDEX PRICE`], 
-  													[`div`, {class: `_gZz _glyph_202203191319`}, 
+  													[`div`, {class: `_gZz`}, 
   														[[`span`, {class: `_tXx`, style: {
+                                [`font-family`]: `geometria`, [`font-size`]: `${13}px`,
   															color: (((Axis[1] - Axis[0])/Axis[1])*100 >= 0) ? `#1bd401`: `#d40101`}}, `${Tools.typen(Clients.quo).btc[0]} USD`]]]]],
   											[`div`, {id: `last-btc`}, 
   												[this.real([Tools.typen(Clients.quo).btc[1][5], `USD`, `last-btc`, `1H`])]], 
   											[`div`, {class: `_gxM`, style: {padding: `${12}px ${0}`}}, 
   												[
   													[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `INDEX VOLUME`], 
-  													[`div`, {class: `_gZz _glyph_202203191319`}, 
-  														[[`span`, {class: `_tXx`}, `${Tools.typen(Clients.quo).volume[0]} BTC`]]]]]/*,
+  													[`div`, {class: `_gZz`}, 
+  														[[`span`, {class: `_tXx`, style: {[`font-family`]: `geometria`, [`font-size`]: `${13}px`}}, `${Tools.typen(Clients.quo).volume[0]} BTC`]]]]]/*,
   											this.real([Tools.typen(Clients.quo).volume[1][5], `BTC`]), 
   							[`div`, {class: `_gxM`, style: {padding: `${12}px ${0}`}}, 
   								[
@@ -444,7 +445,7 @@ let Models = {
 
   	pitaxis: function () {
 
-  		let Pit = [Tools.typen(Clients.pitmoves).sort((A, B) => {return B.secs - A.secs}), [], [], ``];
+  		let Pit = [Tools.typen(Clients.pitmoves).sort((A, B) => {return B.secs - A.secs}), [], [], ``, []];
 
   		let Axis = Tools.typen(Clients.quo).btc[1][5];
 
@@ -469,6 +470,28 @@ let Models = {
 				Pit[3] += `${(((Vault[0] - AXIS[0][0][0])/x)*Span[0]) + 0} ${(y === 0)? 50: ((Vault[1] - Y[1])/y)*(-185)} `;
 			});
 
+			let Value = Tools.typen(Clients.axis).sort((A, B) => {return B[1] - A[1]});
+
+			let Feats = [Value[Value.length - 1], Value[0]];
+
+			Feats.forEach(Feat => {
+
+				let XY = [(((Feat[0] - AXIS[0][0][0])/x)*Span[0]), ((Feat[1] - Y[1])/y)*(-185)];
+
+				(XY[1] < 5)? XY[1] = 6: XY[1];
+
+				(XY[1] > 195)? XY[1] = 191: XY[1];
+
+				(XY[0] < 5)? XY[0] = 6: XY[0] = XY[0] + 2.5;
+
+				(XY[0] > Span[1] - 5)? XY[0] = Span[1] - 10: XY[0] = XY[0] + 2.5;
+
+				Pit[4].push(
+					[`text`, {x: XY[0], y: XY[1], fill: `#000`, style: {
+						[`font-family`]: `geometria`,
+						[`font-size`]: `${8}px`}}, `${(Feat[1]*pit).toFixed(3)} USD`]);
+			});
+
   			Pit[1] = [`div`, {class: `_eYG`}, 
   				[[`span`, {style: {
   					color: (((Axis[1] - Axis[0])/Axis[1])*100 >= 0) ? `#1bd401`: `#d40101`,
@@ -491,7 +514,8 @@ let Models = {
 							opacity: 1,
 							stroke: `#5841d8`, 
 							[`stroke-width`]: 1, 
-							fill: `none`, d: `M${Pit[3]}`}]]];
+							fill: `none`, d: `M${Pit[3]}`}], 
+						[`g`, {}, Pit[4]]]];
   		}
 
   		return [`div`, {}, 
