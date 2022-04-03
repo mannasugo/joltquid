@@ -226,7 +226,9 @@ let Models = {
 
   		Axis = Tools.typen(Clients.quo).btc[1][5];
 
-  		let portfolio = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Axis[1])*Tools.typen(Clients.wallet)[2][1]).toFixed(2)
+  		let portfolio = 0;
+
+      if (Clients.wallet) portfolio = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Axis[1])*Tools.typen(Clients.wallet)[2][1]).toFixed(2)
 
   		Main[0] = 
   			[`main`, {class: `_tY0`, style: {height: `${100}px`}}, 
