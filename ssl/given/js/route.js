@@ -35,7 +35,11 @@ class Route {
 
 			Puts.onload = () => {
 
+				let Pulls = JSON.parse(Puts.response);
+
 				Clients.instance = Tools.coats([`app`, new Date().valueOf()]);
+
+				Clients.moves = Tools.coats(Pulls.moves);
 
 				let secs = new Date().valueOf();
 

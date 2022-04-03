@@ -113,9 +113,11 @@ class Events {
 				document.querySelector(`#pitalias`).innerHTML = `0.00 USD`
 			}
 
-			else {
+			else if (parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] > 0) {
 
-				document.querySelector(`#place`).style.opacity = 1
+				if (parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] >= 3) document.querySelector(`#place`).style.opacity = 1;
+
+				else document.querySelector(`#place`).style.opacity = .3
 
 				document.querySelector(`#pitalias`).innerHTML = `${(parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0]).toFixed(2)} USD`;
 			}

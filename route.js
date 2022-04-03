@@ -335,7 +335,19 @@ class Route {
 
 							if (Pulls.pull === `app`) {
 
-								Arg[1].end(JSON.stringify(Quo));
+								let Puts = [[]];
+
+								Raw.asks[0].forEach(Ask => {
+
+									Puts[0].push(Ask);
+								});
+
+								Raw.bids[0].forEach(Bid => {
+
+									Puts[0].push(Bid);
+								});
+
+								Arg[1].end(Tools.coats({moves: Puts[0]}));
 							}
 
 							else if (Pulls.pull === `btc`) {

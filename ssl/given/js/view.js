@@ -301,9 +301,47 @@ let Models = {
   									[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `WEIGHTED AVG.`], 
   									[`div`, {class: `_gZz _glyph_202203191319`}, 
   										[[`span`, {class: `_tXx`}, `${Tools.typen(Clients.quo).volume[0]} BTC`]]]]],
-  							this.real(Tools.typen(Clients.quo).volume[1][0])*/]]]]]]]]]];
+  							this.real(Tools.typen(Clients.quo).volume[1][0])*/]]]], 
+  							[`div`, {id: `moves`, style: {margin: `${30}px ${0}`}}, 
+  								[
+  									[`div`, {class: `_gxM`}, 
+  										[[`span`, {style: {[`font-size`]: `${12}px`}}, `Order Book`]]],
+  									this.moves()]]]]]]]];
 
   		return Main[0];
+  	},
+
+  	moves: function () {
+
+  		let Pit = [[], []];
+
+  		Pit[0] = Tools.typen(Clients.moves).sort((A, B) => {return B.secs - A.secs});
+
+  		Pit[0].forEach(Move => {
+
+  			Pit[1].push(
+  				[`div`, {id: `pitmoves`, class: `_wrap_202203262208`, style: {
+  					padding: `${12}px ${0}`, [`border-bottom`]: `${1}px solid #e8e8e8`}}, 
+  					[
+  						[`div`, {style: {width: `${20}%`}}, [[`a`, {href: `javascript:;`, style: {
+  							color: (Move.side === `buy`) ? `#1bd401`: `#d40101`,
+  							[`font-size`]: `${12}px`,
+  							[`text-transform`]: `uppercase`}}, Move.side]]],
+  						[`div`, {style: {width: `${30}%`}}, [[`span`, {}, Tools.logs(Move.secs).substr(5, 10)]]],
+  						[`div`, {style: {width: `${30}%`}}, [[`span`, {}, `${Move.coin[0]} BTC`]]],
+  						[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `${Move.coin[1]}`]]]]]);
+  		});
+
+  		return [`div`, {class: ``}, 
+  			[
+  				[`div`, {id: `pittile`, class: `_wrap_202203262208`, style: {
+  					padding: `${24}px ${0} ${6}px`, [`border-bottom`]: `${1}px solid #e8e8e8`}}, 
+  					[
+  						[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `side`]]],
+  						[`div`, {style: {width: `${30}%`}}, [[`span`, {}, `date`]]],
+  						[`div`, {style: {width: `${30}%`}}, [[`span`, {}, `amount`]]],
+  						[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `price`]]]]], 
+  				[`div`, {}, Pit[1]]]];
   	},
 
   	mug: [
