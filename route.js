@@ -774,7 +774,7 @@ class Route {
 		});
 	}
 
-	reals () {
+	reals () { //create last_btc reset buttonn
 
 		let Real = [`bitcoin`, `defaults`, `pit`, `volume`];
 
@@ -815,7 +815,7 @@ class Route {
 
 							Coat.last.push([new Date().valueOf(), Tools.typen(coat)[0].current_price]);
 
-							writeFileSync(`json/bitcoin.json`, Tools.coats(Coat))//, flaw => {
+							writeFile(`json/bitcoin.json`, Tools.coats(Coat), flaw => {
 
 							let secs = new Date().valueOf();
 
@@ -882,13 +882,13 @@ class Route {
 								writeFileSync(`json/pit.json`, Tools.coats({axis: Values[5], quo: State}))//, flaw => {});
 
 							});
-						//});
+						});
 						}
 					});
 				}
 			});
 
-		}, 5000);
+		}, 75000);
 
 		
 		
