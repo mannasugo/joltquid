@@ -75,6 +75,8 @@ class Route {
 								}
 
 								Events.details();
+
+								Events.pitReals()
 							}
 
 						});
@@ -94,6 +96,8 @@ class Route {
 
 							Events.details()
 						}
+
+						Events.pitReals()
 					}
 				});
 			}
@@ -167,6 +171,8 @@ class Route {
 
 					if (Web && Web.mug) {
 
+						Clients.place = Tools.coats([`buy`, `market`]);
+
 						Clients.pitmoves = Tools.coats(Web.pitmoves);
 
 						Clients.axis = Tools.coats(Web.axis.sort((A, B) => {return A[0] - B[0]}));
@@ -181,7 +187,7 @@ class Route {
 
     					Events.pitplace();
 
-    					Events.pitreals();
+    					Events.pitReals();
 					}
 				}
     		}

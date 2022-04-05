@@ -460,7 +460,7 @@ let Models = {
   												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Take-profit`]]],
   												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Limit`]]]/**,
   												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Stop-limit`]]]**/]], 
-  										[`div`, {class: `_gxM`}, 
+  										/**[`div`, {class: `_gxM`}, 
   											[
   												[`span`, {style: {[`font-size`]: `${12}px`, opacity: .5}}, `index price`], 
   												[`div`, {class: `_gZz`}, 
@@ -472,7 +472,7 @@ let Models = {
   															[`font-family`]: `geometria`,
   															[`font-size`]: `${12}px`,
   															color: (((Axis[1] - Axis[0])/Axis[1])*100 >= 0) ? `#1bd401`: `#d40101`}}, 
-  															`${Tools.typen(Clients.quo).btc[0]} USD`]]]]], 
+  															`${Tools.typen(Clients.quo).btc[0]} USD`]]]]],**/ 
   										[`div`, {id: `pitamount`, class: `_gxM`, style: {padding: `${18}px ${0}`}}, 
   											[
   												[`input`, {id: `amount`, placeholder: `0.00BTC`, type: `text`}], 

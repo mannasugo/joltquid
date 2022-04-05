@@ -165,7 +165,7 @@ class Events {
 		}]);
 	}
 
-	pitreals () {
+	pitReals () {
 
 		io().on(`pit`, Pit => {
 
@@ -191,6 +191,11 @@ class Events {
 
 			}
 		});
+	}
+
+	pitSide () {
+
+		
 	}
 
 	slotin () {

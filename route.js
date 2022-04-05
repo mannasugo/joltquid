@@ -902,6 +902,8 @@ class Route {
 
 					if (Vault.complete === false) {
 
+                		let pay = Tools.typen(Tools.coats(Vault));
+
               			get({method: `POST`, uri: `https://payment.intasend.com/api/v1/payment/status/`, json: { 
               				public_key: `ISPubKey_live_be13c375-b61d-4995-8c50-4268c604c335`,
                   			invoice_id: Vault.trace}}, (flaw, State, coat) => {
@@ -911,8 +913,6 @@ class Route {
                   					let Pay = coat;
 
                 					if (Pay.invoice && Pay.invoice.state === `COMPLETE`) {
-
-                						let pay = Tools.typen(Tools.coats(Wallet.vault[1][Vault.md]));
 
                   						Vault.complete = true; 
 
