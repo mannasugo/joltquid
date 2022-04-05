@@ -372,7 +372,7 @@ class Route {
 
 									Pulls.place = parseFloat(Pulls.puts);
 
-									if (Balance[0] > Pulls.place*swap) {
+									if (Balance[0] >= Pulls.place*swap) {
 
 										let secs = new Date().valueOf();
 
@@ -544,10 +544,90 @@ class Route {
 
 										Coat = Tools.typen(Coat);
 
-										Arg[1].end(Tools.coats({axis: Coat[5], mug: Pulls.mug, pitmoves: Puts[0]}));
+										let Wallet = Tools.wallet([Pulls.mug, Raw])[0];
+
+										let Balance = [Wallet[0][0] - Wallet[0][1], Wallet[1][0] - Wallet[1][1]];
+
+										Wallet[2] = Balance;
+
+										Arg[1].end(Tools.coats({axis: Coat[5], mug: Pulls.mug, pitmoves: Puts[0], wallet: Wallet}));
 									});
 								}
 							}
+
+							else if (Pulls.pull === `sell-pit`) {
+
+								readFile(`json/last_btc.json`, {encoding: `utf8`}, (flaw, Coat) => {
+
+									let swap = Tools.typen(Coat)[5][0][1];
+
+									let Wallet = Tools.wallet([Pulls.mug, Raw])[0];
+
+									let Balance = [Wallet[0][0] - Wallet[0][1], Wallet[1][0] - Wallet[1][1]];
+
+									Pulls.place = parseFloat(Pulls.puts);
+
+									if (Balance[1] >= Pulls.place) {
+
+										let secs = new Date().valueOf();
+
+										let Puts = [{}, {}, {}];
+
+										Puts[0] = {
+											coin: [Pulls.place, swap, `btc`],
+											dollars: Pulls.place*swap,
+											md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+											mug: Pulls.mug, 
+											secs: secs, 
+											sort: [`vault`, `vault`]};
+
+										Sql.puts([`pays`, Puts[0], (Raw) => {
+
+											Puts[1] = {
+												call: null,
+												coin: [Pulls.place, swap, `btc`],
+												complete: true,
+												dollars: Pulls.place*swap,
+												md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+												mug: Pulls.mug,
+												secs: secs,
+												sort: [`vault`, `legacy`],
+												trace: null}
+
+											Sql.puts([`vault`, Puts[1], (Raw) => {
+
+												Puts[2] = {
+													coin: [Pulls.place, swap, `btc`],
+													dollars: Pulls.place*swap,
+													md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+													mug: Pulls.mug,
+													open: false,
+													secs: secs,
+													side: `sell`,
+													type: `market`}
+
+												Sql.puts([`bids`, Puts[2], (Raw) => {
+
+													readFile(`json/volume.json`, {encoding: `utf8`}, (flaw, Coat) => {
+
+														Coat = Tools.typen(Coat);
+
+														let last = parseFloat(Coat.volume[Coat.volume.length - 1][1]);
+
+														Coat.volume.push([secs, (last - Pulls.place)]);
+
+														writeFile(`json/volume.json`, Tools.coats(Coat), flaw => {
+
+															Arg[1].end(Tools.coats({mug: Pulls.mug}));
+														});
+													});
+												}]);
+											}]);
+										}]);
+									}
+								});	
+							}
+
 
 							else if (Pulls.pull === `vault`) {
 
@@ -732,7 +812,7 @@ class Route {
 
 						if (Pay.mug === Raw[0]) {
 
-							if (Pay.sort[1] === `legacy`) Balance[Raw[0]][`wallet`][0][1] += Pay.dollars;
+							if (Pay.sort[1] === `legacy`) Balance[Raw[0]][`wallet`][0][1] += parseFloat(Pay.dollars);
 
 							else if (Pay.sort[1] === `vault`) Balance[Raw[0]][`wallet`][1][1] += Pay.coin[0];
 
@@ -747,7 +827,7 @@ class Route {
 
 							if (Vault.sort[1] === `legacy`) {
 
-								Balance[Raw[0]][`wallet`][0][0] += Vault.dollars;
+								Balance[Raw[0]][`wallet`][0][0] += parseFloat(Vault.dollars);
 
 								Vaults.plain.push(Vault);
 							}

@@ -449,16 +449,16 @@ let Models = {
   									[
   										[`div`, {id: `pitmove`, class: `_gxM`}, 
   											[
-  												[`div`, {class: `_geQ`}, [[`span`, {style: {
+  												[`div`, {class: `_geQ`}, [[`span`, {class: `pitside`, style: {
   													background: `#1bd401`,
   													opacity: 1,
   													color: `#fff`}}, `Buy`]]],
-  												[`div`, {class: `_geQ`}, [[`span`, {}, `Sell`]]]]], 
+  												[`div`, {class: `_geQ`}, [[`span`, {class: `pitside`}, `Sell`]]]]], 
   										[`div`, {id: `pittype`, class: `_gxM`, style: {padding: `${18}px ${0}`}}, 
   											[
-  												[`div`, {class: `_geQ pittype`}, [[`span`, {style: {opacity: 1}}, `Market`]]],
+  												[`div`, {class: `_geQ pittype`}, [[`span`, {style: {opacity: 1}}, `Market`]]]/**,
   												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Take-profit`]]],
-  												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Limit`]]]/**,
+  												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Limit`]]],
   												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Stop-limit`]]]**/]], 
   										/**[`div`, {class: `_gxM`}, 
   											[
@@ -484,7 +484,7 @@ let Models = {
   														opacity: .5}}, `0.00 USD`]]]]], 
   										[`div`, {}, 
   											[[`div`, {class: `_geQ`}, 
-  												[[`span`, {id: `place`, role: `btc-buy-market`, style: {
+  												[[`span`, {id: `place`, style: {
   													width: `${100}%`,
   													padding: `${12}px ${0}`,
   													background: `#1bd401`,

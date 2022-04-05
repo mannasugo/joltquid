@@ -195,7 +195,7 @@ class Tools {
 
 				if (Pay.mug === Raw[0]) {
 
-					if (Pay.sort[1] === `legacy`) Balance[Raw[0]][`wallet`][0][1] += Pay.dollars;
+					if (Pay.sort[1] === `legacy`) Balance[Raw[0]][`wallet`][0][1] += parseFloat(Pay.dollars);
 
 					else if (Pay.sort[1] === `vault`) Balance[Raw[0]][`wallet`][1][1] += Pay.coin[0];
 
@@ -210,7 +210,7 @@ class Tools {
 
 					if (Vault.sort[1] === `legacy`) {
 
-						Balance[Raw[0]][`wallet`][0][0] += Vault.dollars;
+						Balance[Raw[0]][`wallet`][0][0] += parseFloat(Vault.dollars);
 
 						Vaults.plain.push(Vault);
 					}

@@ -102,26 +102,49 @@ class Events {
 
 			let omega = Via.value[Via.value.length - 1];
 
+			let Place = Tools.typen(Clients.place);
+
 			if (omega === `.` && Via.value.indexOf(`.`) !== Via.value.length - 1) Via.value = Via.value.substr(0, Via.value.length - 1);
 
 			else if (!parseInt(omega) && parseInt(omega) !== 0 && omega !== `.`) Via.value = Via.value.substr(0, Via.value.length - 1);
 
-			if (!parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] > 0) {
+			if (Place[0] === `buy`) {
 
-				document.querySelector(`#place`).style.opacity = .3
+				if (!parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] > 0) {
 
-				document.querySelector(`#pitalias`).innerHTML = `0.00 USD`
+					document.querySelector(`#place`).style.opacity = .3
+
+					document.querySelector(`#pitalias`).innerHTML = `0.00 USD`
+				}
+
+				else if (parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] > 0) {
+
+					if (parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] >= 3) document.querySelector(`#place`).style.opacity = 1;
+
+					else document.querySelector(`#place`).style.opacity = .3
+
+					document.querySelector(`#pitalias`).innerHTML = `${(parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0]).toFixed(2)} USD`;
+				}
 			}
 
-			else if (parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] > 0) {
+			if (Place[0] === `sell`) {
 
-				if (parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] >= 3) document.querySelector(`#place`).style.opacity = 1;
+				if (parseFloat(Via.value) > 0) {
 
-				else document.querySelector(`#place`).style.opacity = .3
+					if (parseFloat(Via.value) <= Tools.typen(Clients.wallet)[2][1]) document.querySelector(`#place`).style.opacity = 1;
 
-				document.querySelector(`#pitalias`).innerHTML = `${(parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0]).toFixed(2)} USD`;
+					else document.querySelector(`#place`).style.opacity = .3
+
+					document.querySelector(`#pitalias`).innerHTML = `${(parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0]).toFixed(2)} USD`;
+				}
+
+				else {
+
+					document.querySelector(`#place`).style.opacity = .3
+
+					document.querySelector(`#pitalias`).innerHTML = `0.00 USD`
+				}
 			}
-
 		}]);
 	}
 
@@ -129,37 +152,45 @@ class Events {
 
 		this.listen([document.querySelector(`#place`), `click`, S => {
 
-			let role = this.getSource(S).getAttribute(`role`);
+			let Role = Tools.typen(Clients.place);
 
-			if (role === `btc-buy-market`) {
+			let vault = Tools.typen(Clients.wallet)[2][0],
 
-				let vault = Tools.typen(Clients.wallet)[2][0],
+			place = parseFloat(document.querySelector(`#amount`).value);
 
-				place = parseFloat(document.querySelector(`#amount`).value);
+			let Meet = [0, `buy-pit`];
 
-				if (place > 0 && vault >= place*Tools.typen(Clients.quo).btc[0] && vault >= 3) {
+			let Vault = Tools.typen(Clients.wallet)[2];
 
-					document.querySelector(`#amount`).value = `0.00BTC`;
+			if (Role[0] === `buy` && Role[1] === `market`) {
 
-					let Puts = Tools.pull([
-						`/json/web/`, {
-							mug: Tools.typen(Clients.mug)[0],
-							pull: `buy-pit`,
-							puts : place}]);
+				if (place > 0 && vault >= place*Tools.typen(Clients.quo).btc[0] && vault >= 3) Meet[0] = 1;
+			}
 
-					View.pop();
+			if (Role[0] === `sell` && Role[1] === `market`) {
 
-					View.DOM([`span`, [Models.splash]]);
+				if (place > 0 && Vault[1] >= place) Meet = [1, `sell-pit`];
+			}
 
-					Puts.onload = () => {
+			if (Meet[0] === 1) {
 
-						let Web = JSON.parse(Puts.response);
+				document.querySelector(`#amount`).value = `0.00BTC`;
 
-						if (Web && Web.mug) {
+				let Puts = Tools.pull([
+					`/json/web/`, {
+						mug: Tools.typen(Clients.mug)[0],
+						pull: Meet[1],
+						puts : place}]);
 
-							window.location = `/pit`;
-						}
-					}
+				View.pop();
+
+				View.DOM([`span`, [Models.splash]]);
+
+				Puts.onload = () => {
+
+					let Web = JSON.parse(Puts.response);
+
+					if (Web && Web.mug) window.location = `/pit`;
 				}
 			}
 		}]);
@@ -195,7 +226,52 @@ class Events {
 
 	pitSide () {
 
-		
+		document.querySelectorAll(`.pitside`).forEach(Move => {
+
+			this.listen([Move, `click`, Plot => {
+
+				let Place = Tools.typen(Clients.place);
+
+				document.querySelectorAll(`.pitside`).forEach(Move => {
+
+					Move.style.opacity = .3;
+
+					Move.style.background = `none`;
+
+					Move.style.color = `#1bd401`;
+				});
+
+				Plot = this.getSource(Plot);
+
+				if (Plot.innerHTML === `Sell`) {
+
+					Plot.style.opacity = 1;
+
+					Plot.style.background = `#d40101`;	
+
+					document.querySelector(`#place`).style.background = `#d40101`;
+
+					Plot.style.color = `#fff`;
+
+					Place[0] = `sell`;
+				}
+
+				else if (Plot.innerHTML === `Buy`) {
+
+					Plot.style.opacity = 1;
+
+					Plot.style.background = `#1bd401`;	
+
+					document.querySelector(`#place`).style.background = `#1bd401`;
+
+					Plot.style.color = `#fff`;
+
+					Place[0] = `buy`;
+				}
+
+				Clients.place = Tools.coats(Place);
+			}]);
+		});		
 	}
 
 	slotin () {
