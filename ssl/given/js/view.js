@@ -600,7 +600,7 @@ let Models = {
   					color: (((Axis[1] - Pit[0][0].coin[1])/Axis[1])*100 >= 0) ? `#1bd401`: `#d40101`,
   					[`font-family`]: `geometria`, 
   					[`font-size`]: `${11}px`}}, 
-  					`${(((Axis[1] - Pit[0][0].coin[1])/Axis[1])*100 >= 0) ? `+`: ``}${((pit*Axis[1]) - (pit*Axis[0])).toFixed(3)} (${(((Axis[1] - Pit[0][0].coin[1])/Axis[1])*100).toFixed(2)}%)`]]];
+  					`${(((Axis[1] - Pit[0][0].coin[1])/Axis[1])*100 >= 0) ? `+`: ``}${((pit*Axis[1]) - (pit*Pit[0][0].coin[1])).toFixed(2)} (${(((Axis[1] - Pit[0][0].coin[1])/Axis[1])*100).toFixed(2)}%)`]]];
   			
   			Pit[2] = 
 				[`svg`, {height: `${200}px`, style: {[`margin-top`]: `${30}px`}}, 
