@@ -65,6 +65,55 @@ class View {
 
 let Models = {
 
+  	assets: function () {
+
+		let Axis = Tools.typen(Clients.axis).sort((A, B) => {return B[0] - A[0]});
+
+  		let Vault = [[], [], [Axis[0][1], Axis[Axis.length - 1][1]]];
+
+  		Vault[0] = Tools.typen(Clients.wallet)[2];
+
+  		if (Vault[0][0] > 0 || Vault[0][1] > 0) {
+
+  			Vault[0] = [
+  				[`USD`, Vault[0][0].toFixed(2), 1, 0], 
+  				[`BTC`, Vault[0][1].toFixed(7), Tools.typen(Clients.quo).btc[0]], Vault[2][0] - Vault[2][1]];
+
+  			Vault[0].forEach(Asset => {
+
+  				if (Asset[1] > 0) {
+
+  					Vault[1].push(
+  						[`div`, {class: `asset _wrap_202203262208`, style: {
+  							padding: `${12}px ${0}`, [`border-bottom`]: `${1}px solid #e8e8e8`}}, 
+  							[
+  								[`div`, {style: {width: `${20}%`}}, [[`a`, {href: `javascript:;`, style: {
+  									[`font-family`]: `litera`,
+  									[`font-size`]: `${12}px`}}, Asset[0]]]],
+  								[`div`, {style: {width: `${35}%`}}, [[`span`, {}, `${Asset[1]}`]]],
+  								[`div`, {style: {width: `${25}%`}}, [[`span`, {style: {
+  									color: (Asset[3] >= 0) ? `#1bd401`: `#d40101`}}, `${Asset[2]}`]]],
+  								[`div`, {style: {width: `${20}%`}}, [[`span`, {style: {
+  									color: (Asset[3] >= 0) ? `#1bd401`: `#d40101`}}, `${(Asset[2]*Asset[1]).toFixed(2)}`]]]]]);
+  				}
+  			});
+
+  			return [`div`, {style: {margin: `${30}px ${0} ${0}`}}, 
+  				[
+  					[`div`, {class: `_gxM _tXx`, style: {[`font-size`]: `${12}px`}}, `Assets`],
+  					[`div`, {id: `pittile`, class: `_wrap_202203262208`, style: {
+  						padding: `${24}px ${0} ${6}px`, [`border-bottom`]: `${1}px solid #e8e8e8`}}, 
+  						[
+  							[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `asset`]]],
+  							[`div`, {style: {width: `${35}%`}}, [[`span`, {}, `amount`]]],
+  							[`div`, {style: {width: `${25}%`}}, [[`span`, {}, `price`]]],
+  							[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `value`]]]]], 
+  				[`div`, {}, Vault[1]]]];
+  		}
+
+  		else return [];
+  	}, 
+
 	axis: function (Axis) {
 
 		let AXIS = [Tools.typen(Clients.axis), ``, [], [], ``];
@@ -412,9 +461,9 @@ let Models = {
 
    	pit: function () {
 
-  		let Axis = Tools.typen(Clients.quo).btc[1][5];
+  		let Axis = Tools.typen(Clients.quo).btc;
 
-  		let portfolio = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Axis[1])*Tools.typen(Clients.wallet)[2][1]).toFixed(2)
+  		let vault = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Axis[0])*Tools.typen(Clients.wallet)[2][1]).toFixed(2)
 
   		return [`main`, {class: `_tY0`, style: {height: `${100}px`}}, 
   			[
@@ -424,19 +473,19 @@ let Models = {
   							[`div`, {class: `_-Xg _gxM _geQ`}, 
   								[
   									[`a`, {class: `-_tX v202201180941`, style: {[`min-width`]: `${32}px`, height: `${32}px`}, href: `/`}, ``], 
-  									[`span`, {class: `_aA6 _tXx`, style: {
+  									[`span`, {id: `vault`, class: `_aA6 _tXx`, style: {
   										[`border-left`]: `${1}px solid #d5d5d5`,
   											margin: `${0} ${7}px`,
   											padding: `${0} ${14}px`,
   											[`font-size`]: `${14}px`,
   											color: `#47008c`,
-  											overflow: `hidden`,
+  											//overflow: `hidden`,
   											[`font-family`]: `arcane`,
   											//[`text-overflow`]: `ellipsis`,
-  											[`white-space`]: `nowrap`}}, `${portfolio} USD`], 
-  									[`span`, {class: `_tXx`, style: {
+  											[`white-space`]: `nowrap`}}, `${vault} USD`], 
+  									[`span`, {id: `coins`, class: `_tXx`, style: {
   											color: `#feef11`, 
-  											margin: `${1.5}px ${0} ${0} ${-14}px`, 
+  											margin: `${1.5}px ${0} ${0}px ${-8}px`, 
   											[`font-size`]: `${12}px`}}, (Clients.wallet && Tools.typen(Clients.wallet)[2][1] > 0)? `+BTC`: ``]]],
   							[`div`, {class: `_gZz`}, 
   								[this.wallets]]]]]], 
@@ -492,7 +541,8 @@ let Models = {
   													opacity: .3,
   													[`text-align`]: `center`,
   													color: `#fff`,
-  													cursor: `pointer`}}, `place order`]]]]]]]]], 
+  													cursor: `pointer`}}, `place order`]]]]]]]]],
+  						[`div`, {id: `assets`}, [this.assets()]], 
   						[`div`, {id: `pits`, style: {margin: `${30}px ${0}`}}, [this.pitmoves()]]]]]];
   	},
 
@@ -612,6 +662,7 @@ let Models = {
 
   		return [`div`, {class: ``}, 
   			[
+  				[`div`, {class: `_gxM _tXx`, style: {[`font-size`]: `${12}px`}}, `Trades`],
   				[`div`, {id: `pittile`, class: `_wrap_202203262208`, style: {
   					padding: `${24}px ${0} ${6}px`, [`border-bottom`]: `${1}px solid #e8e8e8`}}, 
   					[

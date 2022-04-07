@@ -212,9 +212,19 @@ class Events {
 
 			if (last !== Quo.btc[0]) {
 
+				let vault = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Quo.btc[0])*Tools.typen(Clients.wallet)[2][1]).toFixed(2);
+
+				document.querySelector(`#vault`).innerHTML = `${vault} USD`;
+
+				document.querySelector(`#coins`).innerHTML = (Clients.wallet && Tools.typen(Clients.wallet)[2][1] > 0)? `+BTC`: ``;
+
     			View.pop();
 
     			if (Tools.typen(Clients.wallet)[2][1] > 0) View.DOM([`#pitaxis`, [Models.pitaxis()]]);
+
+    			View.pop();
+
+    			View.DOM([`#assets`, [Models.assets()]]);
 
     			this.pitalias();
 

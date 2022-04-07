@@ -177,7 +177,7 @@ class Route {
 
 						Clients.axis = Tools.coats(Web.axis.sort((A, B) => {return A[0] - B[0]}));
 
-						Clients.wallet
+						Clients.wallet = Tools.coats(Web.wallet);
 
     					View.DOM([`main`, [Models.pit()]]);
 

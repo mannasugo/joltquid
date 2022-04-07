@@ -829,7 +829,7 @@ class Route {
 
 								Balance[Raw[0]][`wallet`][0][0] += parseFloat(Vault.dollars);
 
-								Vaults.plain.push(Vault);
+								if (!Vault.coin) Vaults.plain.push(Vault);
 							}
 
 							else if (Vault.sort[1] === `vault`) Balance[Raw[0]][`wallet`][1][0] += Vault.coin[0];
