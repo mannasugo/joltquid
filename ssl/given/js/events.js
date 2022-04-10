@@ -273,7 +273,7 @@ class Events {
 
 				document.querySelector(`#coins`).innerHTML = (Clients.wallet && Tools.typen(Clients.wallet)[2][1] > 0)? `+BTC`: ``;
 
-				if (Tools.typen(Clients.place)[1] === `market`) document.querySelector(`value`).value = Quo.btc[0];
+				if (Tools.typen(Clients.place)[1] === `market`) document.querySelector(`#value`).value = Quo.btc[0];
 
     			View.pop();
 
