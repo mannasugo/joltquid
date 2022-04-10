@@ -445,7 +445,7 @@ let Models = {
   								ry: 4, 
   								stroke: `#5841d8`, //`rgba(${88}, ${65}, ${216}, ${.5})`, 
   								fill: `none`, 
-  								width: `${(Real[0][1]/Real[0][3])*100}%`, 
+  								width: `${((Real[0][1]- Real[0][2])/(Real[0][3] - Real[0][2]))*100}%`, 
   								height: `${1}px`}]]], 
   					[`div`, {class: `_gxM glyph_202203191319`, style: {[`font-family`]: `geometria`, [`font-size`]: `${10}px`}}, 
   						[
