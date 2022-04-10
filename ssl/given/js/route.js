@@ -192,6 +192,10 @@ class Route {
     					Events.pitReals();
 
     					Events.pitSide();
+
+    					Events.pitSort();
+
+    					Events.pitValue();
 					}
 				}
     		}

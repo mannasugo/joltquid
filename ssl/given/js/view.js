@@ -505,23 +505,19 @@ let Models = {
   												[`div`, {class: `_geQ`}, [[`span`, {class: `pitside`}, `Sell`]]]]], 
   										[`div`, {id: `pittype`, class: `_gxM`, style: {padding: `${18}px ${0}`}}, 
   											[
-  												[`div`, {class: `_geQ pittype`}, [[`span`, {style: {opacity: 1}}, `Market`]]]/**,
-  												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Take-profit`]]],
-  												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Limit`]]],
-  												[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Stop-limit`]]]**/]], 
-  										/**[`div`, {class: `_gxM`}, 
+  												[`div`, {class: `sort _geQ`}, [[`span`, {class: `pittype`, style: {opacity: 1}}, `Market`]]],
+  												//[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Take-profit`]]],
+  												[`div`, {class: `sort _geQ`}, [[`span`, {class: `pittype`}, `Limit`]]],
+  												/**[`div`, {class: `sort _geQ`}, [[`span`, {}, `Stop-limit`]]]**/]], 
+  										[`div`, {class: `_gxM _geQ`}, 
   											[
-  												[`span`, {style: {[`font-size`]: `${12}px`, opacity: .5}}, `index price`], 
-  												[`div`, {class: `_gZz`}, 
-  													[
-  														[`span`, {style: {
-  															[`font-family`]: `geometria`, [`font-size`]: `${12}px`}}, `${1}BTC/`],
-  														[`span`, {style: {
-  															//padding: `${0} ${0} ${0} ${3}px`,
-  															[`font-family`]: `geometria`,
-  															[`font-size`]: `${12}px`,
-  															color: (((Axis[1] - Axis[0])/Axis[1])*100 >= 0) ? `#1bd401`: `#d40101`}}, 
-  															`${Tools.typen(Clients.quo).btc[0]} USD`]]]]],**/ 
+  												[`span`, {style: {[`font-size`]: `${12}px`, opacity: .5}}, `price`], 
+  												[`div`, {class: `_gZz _eYG`}, 
+  													[	
+  														[`div`, {id: `pitvalue`, class: `_gxM _gZz _geQ`}, 
+  															[
+  																[`input`, {id: `value`, placeholder: `${Tools.typen(Clients.quo).btc[0]}`}],
+  																[`span`, {class: `_tXx`, style: {color: `#d0d1d2`}}, `USD`]]]]]]], 
   										[`div`, {id: `pitamount`, class: `_gxM`, style: {padding: `${18}px ${0}`}}, 
   											[
   												[`input`, {id: `amount`, placeholder: `0.00BTC`, type: `text`}], 
@@ -548,7 +544,14 @@ let Models = {
 
   	pitaxis: function () {
 
-  		let Pit = [Tools.typen(Clients.pitmoves).sort((A, B) => {return B.secs - A.secs}), [], [], ``, []];
+  		let Pit = [[], [], [], ``, []];
+
+  		let Moves = Tools.typen(Clients.pitmoves).sort((A, B) => {return B.secs - A.secs});
+
+  		Moves.forEach(Move => {
+
+  			if (Move.side === `buy` && Move.open === false) Pit[0].push(Move);
+  		});
 
   		let Axis = Tools.typen(Clients.quo).btc[1][5];
 

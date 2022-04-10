@@ -360,6 +360,30 @@ class Route {
 								});	
 							}
 
+							else if (Pulls.pull === `buy-limit`) {
+
+								let Puts = [{}];
+
+								let secs = new Date().valueOf();
+
+								let Pit = [parseFloat(Pulls.puts), parseFloat(Pulls.place)];
+
+								Puts[0] = {
+									coin: [Pit[0], Pit[1], `btc`],
+									dollars: Pit[0]*Pit[1],
+									md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+									mug: Pulls.mug,
+									open: true,
+									secs: secs,
+									side: `buy`,
+									type: `limit`};
+
+								Sql.puts([`asks`, Puts[0], (Raw) => {
+
+									Arg[1].end(Tools.coats({mug: Pulls.mug}));
+								}]);
+							}
+
 							else if (Pulls.pull === `buy-pit`) {
 
 								readFile(`json/last_btc.json`, {encoding: `utf8`}, (flaw, Coat) => {
@@ -553,6 +577,30 @@ class Route {
 										Arg[1].end(Tools.coats({axis: Coat[5], mug: Pulls.mug, pitmoves: Puts[0], wallet: Wallet}));
 									});
 								}
+							}
+
+							else if (Pulls.pull === `sell-limit`) {
+
+								let Puts = [{}];
+
+								let secs = new Date().valueOf();
+
+								let Pit = [parseFloat(Pulls.puts), parseFloat(Pulls.place)];
+
+								Puts[0] = {
+									coin: [Pit[0], Pit[1], `btc`],
+									dollars: Pit[0]*Pit[1],
+									md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+									mug: Pulls.mug,
+									open: true,
+									secs: secs,
+									side: `sell`,
+									type: `limit`};
+
+								Sql.puts([`bids`, Puts[0], (Raw) => {
+
+									Arg[1].end(Tools.coats({mug: Pulls.mug}));
+								}]);
 							}
 
 							else if (Pulls.pull === `sell-pit`) {

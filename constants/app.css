@@ -237,7 +237,7 @@ body {
 
 #mugin h2 {padding: 32px 0 8px;width: 100%;margin: 0;text-transform: capitalize;font-weight: normal;}
 
-#mugin input, #wallet input, textarea {
+#mugin input, #pitvalue, #wallet input, textarea {
   block-size: 40px;
   background-color:#f4f4f4;
   color:#171a20;
@@ -250,10 +250,16 @@ body {
   letter-spacing: 1.21px;
 }
 
+#pitvalue {padding: 0 12px; font-size: 12px}
+
+#pitvalue input {padding: 10px 8px; text-align: right; font-family: geometria; font-size: 12px}
+
 #mugin input:focus, textarea:focus {
   border: 1px solid #d0d1d2;
   outline: none;
 }
+
+#pitvalue input:focus {outline: none}
 
 ._tY0 {letter-spacing: 1.2px;line-height: 1.5rem;}
 
@@ -329,7 +335,7 @@ body {
 
 #pittype span {padding: 1px 8px; line-height: 13px; color: #1bd401; font-size: 12px; font-weight: 300; opacity: .3; cursor: pointer; }
 
-.pittype + .pittype { border-left: 1px solid #a6a6a6 }
+.sort + .sort { border-left: 1px solid #a6a6a6 }
 
 #pitamount input { width: 65%; font-family: geometria; font-size: 12px; text-align: right;}
 

@@ -108,41 +108,83 @@ class Events {
 
 			else if (!parseInt(omega) && parseInt(omega) !== 0 && omega !== `.`) Via.value = Via.value.substr(0, Via.value.length - 1);
 
-			if (Place[0] === `buy`) {
+			if (Place[0] === `buy` && Place[1] === `market`) {
 
 				if (!parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] > 0) {
 
-					document.querySelector(`#place`).style.opacity = .3
+					document.querySelector(`#place`).style.opacity = .3;
 
-					document.querySelector(`#pitalias`).innerHTML = `0.00 USD`
+					document.querySelector(`#pitalias`).innerHTML = `0.00 USD`;
 				}
 
 				else if (parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] > 0) {
 
 					if (parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0] >= 3) document.querySelector(`#place`).style.opacity = 1;
 
-					else document.querySelector(`#place`).style.opacity = .3
+					else document.querySelector(`#place`).style.opacity = .3;
 
 					document.querySelector(`#pitalias`).innerHTML = `${(parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0]).toFixed(2)} USD`;
 				}
 			}
 
-			if (Place[0] === `sell`) {
+			if (Place[0] === `sell` && Place[1] === `market`) {
 
 				if (parseFloat(Via.value) > 0) {
 
 					if (parseFloat(Via.value) <= Tools.typen(Clients.wallet)[2][1]) document.querySelector(`#place`).style.opacity = 1;
 
-					else document.querySelector(`#place`).style.opacity = .3
+					else document.querySelector(`#place`).style.opacity = .3;
 
 					document.querySelector(`#pitalias`).innerHTML = `${(parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0]).toFixed(2)} USD`;
 				}
 
 				else {
 
-					document.querySelector(`#place`).style.opacity = .3
+					document.querySelector(`#place`).style.opacity = .3;
 
-					document.querySelector(`#pitalias`).innerHTML = `0.00 USD`
+					document.querySelector(`#pitalias`).innerHTML = `0.00 USD`;
+				}
+			}
+
+			let Vault = Tools.typen(Clients.wallet)[2],
+
+			pit = parseFloat(document.querySelector(`#value`).value);
+
+			if (Place[0] === `buy` && Place[1] === `limit`) {
+
+				if (pit > 0) {
+
+					if (Vault[0] > 0 && Vault[0] >= pit*parseFloat(Via.value)) document.querySelector(`#place`).style.opacity = 1;
+
+					else document.querySelector(`#place`).style.opacity = .3;
+
+					document.querySelector(`#pitalias`).innerHTML = `${(parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0]).toFixed(2)} USD`;
+				}
+
+				else {
+
+					document.querySelector(`#place`).style.opacity = .3;
+
+					document.querySelector(`#pitalias`).innerHTML = `0.00 USD`;
+				}
+			}
+
+			if (Place[0] === `sell` && Place[1] === `limit`) {
+
+				if (parseFloat(Via.value) > 0) {
+
+					if (parseFloat(Via.value) <= Vault[1]) document.querySelector(`#place`).style.opacity = 1;
+
+					else document.querySelector(`#place`).style.opacity = .3;
+
+					document.querySelector(`#pitalias`).innerHTML = `${(parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0]).toFixed(2)} USD`;
+				}
+
+				else {
+
+					document.querySelector(`#place`).style.opacity = .3;
+
+					document.querySelector(`#pitalias`).innerHTML = `0.00 USD`;
 				}
 			}
 		}]);
@@ -156,7 +198,9 @@ class Events {
 
 			let vault = Tools.typen(Clients.wallet)[2][0],
 
-			place = parseFloat(document.querySelector(`#amount`).value);
+			place = parseFloat(document.querySelector(`#amount`).value),
+
+			pit = parseFloat(document.querySelector(`#value`).value);
 
 			let Meet = [0, `buy-pit`];
 
@@ -172,6 +216,16 @@ class Events {
 				if (place > 0 && Vault[1] >= place) Meet = [1, `sell-pit`];
 			}
 
+			if (Role[0] === `buy` && Role[1] === `limit`) {
+
+				if (pit > 0 && place > 0 && Vault[0] >= place*pit) Meet = [1, `buy-limit`];
+			}
+
+			if (Role[0] === `sell` && Role[1] === `limit`) {
+
+				if (pit > 0 && place > 0 /*&& Vault[1] >= place*/) Meet = [1, `sell-limit`];
+			}
+
 			if (Meet[0] === 1) {
 
 				document.querySelector(`#amount`).value = `0.00BTC`;
@@ -179,6 +233,7 @@ class Events {
 				let Puts = Tools.pull([
 					`/json/web/`, {
 						mug: Tools.typen(Clients.mug)[0],
+						place: (Role[1] === `limit`)? pit: ``,
 						pull: Meet[1],
 						puts : place}]);
 
@@ -217,6 +272,8 @@ class Events {
 				document.querySelector(`#vault`).innerHTML = `${vault} USD`;
 
 				document.querySelector(`#coins`).innerHTML = (Clients.wallet && Tools.typen(Clients.wallet)[2][1] > 0)? `+BTC`: ``;
+
+				if (Tools.typen(Clients.place)[1] === `market`) document.querySelector(`value`).value = Quo.btc[0];
 
     			View.pop();
 
@@ -282,6 +339,70 @@ class Events {
 				Clients.place = Tools.coats(Place);
 			}]);
 		});		
+	}
+
+	pitSort () {
+
+		document.querySelectorAll(`.pittype`).forEach(Move => {
+
+			this.listen([Move, `click`, Plot => {
+
+				let Place = Tools.typen(Clients.place);
+
+				document.querySelectorAll(`.pittype`).forEach(Move => {
+
+					Move.style.opacity = .3;
+				});
+
+				Plot = this.getSource(Plot);
+
+				if (Plot.innerHTML === `Market`) {
+
+					Plot.style.opacity = 1;
+
+					Place[1] = `market`;
+
+					document.querySelector(`#value`).value = Tools.typen(Clients.quo).btc[0]
+				}
+
+				else if (Plot.innerHTML === `Limit`) {
+
+					Plot.style.opacity = 1;
+
+					Place[1] = `limit`;
+				}
+
+				Clients.place = Tools.coats(Place);
+			}]);
+		});		
+	}
+
+	pitValue () {
+
+		this.listen([document.querySelector(`#value`), `keyup`, Plot => {
+
+			let Place = Tools.typen(Clients.place);
+
+			if (Place[1] === `market`) {
+
+				this.getSource(Plot).value = Tools.typen(Clients.quo).btc[0];
+			}
+
+			if (Place[1] === `limit`) {
+
+				let Via = this.getSource(Plot);
+
+				let omega = Via.value[Via.value.length - 1];
+
+				let Place = Tools.typen(Clients.place);
+
+				if (omega === `.` && Via.value.indexOf(`.`) !== Via.value.length - 1) Via.value = Via.value.substr(0, Via.value.length - 1);
+
+				else if (!parseInt(omega) && parseInt(omega) !== 0 && omega !== `.`) Via.value = Via.value.substr(0, Via.value.length - 1);
+			}
+		}]);
+
+
 	}
 
 	slotin () {
