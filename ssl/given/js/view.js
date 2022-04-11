@@ -506,8 +506,8 @@ let Models = {
   										[`div`, {id: `pittype`, class: `_gxM`, style: {padding: `${18}px ${0}`}}, 
   											[
   												[`div`, {class: `sort _geQ`}, [[`span`, {class: `pittype`, style: {opacity: 1}}, `Market`]]],
-  												//[`div`, {class: `_geQ pittype`}, [[`span`, {}, `Take-profit`]]],
   												[`div`, {class: `sort _geQ`}, [[`span`, {class: `pittype`}, `Limit`]]],
+  												[`div`, {class: `sort _geQ`}, [[`span`, {class: `pittype`}, `Take-profit`]]],
   												/**[`div`, {class: `sort _geQ`}, [[`span`, {}, `Stop-limit`]]]**/]], 
   										[`div`, {class: `_gxM _geQ`}, 
   											[

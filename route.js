@@ -456,6 +456,30 @@ class Route {
 								});	
 							}
 
+							else if (Pulls.pull === `buy-profit`) {
+
+								let Puts = [{}];
+
+								let secs = new Date().valueOf();
+
+								let Pit = [parseFloat(Pulls.puts), parseFloat(Pulls.place)];
+
+								Puts[0] = {
+									coin: [Pit[0], Pit[1], `btc`],
+									dollars: Pit[0]*Pit[1],
+									md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+									mug: Pulls.mug,
+									open: true,
+									secs: secs,
+									side: `buy`,
+									type: `take-profit`};
+
+								Sql.puts([`asks`, Puts[0], (Raw) => {
+
+									Arg[1].end(Tools.coats({mug: Pulls.mug}));
+								}]);
+							}
+
 							else if (Pulls.pull === `fileMug`) {
 
 								if (Raw.mugs[1][Pulls.md]) {
@@ -1016,9 +1040,7 @@ class Route {
 				}
 			});
 
-		}, 75000);
-
-		
+		}, 75000);	
 		
 		setInterval(() => {
 

@@ -187,6 +187,25 @@ class Events {
 					document.querySelector(`#pitalias`).innerHTML = `0.00 USD`;
 				}
 			}
+
+			if (Place[0] === `buy` && Place[1] === `take-profit`) {
+
+				if (pit > 0) {
+
+					if (Vault[1] > 0 && Vault[1] > parseFloat(Via.value)) document.querySelector(`#place`).style.opacity = 1;
+
+					else document.querySelector(`#place`).style.opacity = .3;
+
+					document.querySelector(`#pitalias`).innerHTML = `${(parseFloat(Via.value)*Tools.typen(Clients.quo).btc[0]).toFixed(2)} USD`;
+				}
+
+				else {
+
+					document.querySelector(`#place`).style.opacity = .3;
+
+					document.querySelector(`#pitalias`).innerHTML = `0.00 USD`;
+				}
+			}
 		}]);
 	}
 
@@ -223,7 +242,12 @@ class Events {
 
 			if (Role[0] === `sell` && Role[1] === `limit`) {
 
-				if (pit > 0 && place > 0 /*&& Vault[1] >= place*/) Meet = [1, `sell-limit`];
+				if (pit > 0 && place > 0 && Vault[1] >= place) Meet = [1, `sell-limit`];
+			}
+
+			if (Role[0] === `buy` && Role[1] === `take-profit`) {
+
+				if (pit > 0 && place > 0 && Vault[1] >= place) Meet = [1, `buy-profit`];
 			}
 
 			if (Meet[0] === 1) {
@@ -233,7 +257,7 @@ class Events {
 				let Puts = Tools.pull([
 					`/json/web/`, {
 						mug: Tools.typen(Clients.mug)[0],
-						place: (Role[1] === `limit`)? pit: ``,
+						place: pit,
 						pull: Meet[1],
 						puts : place}]);
 
@@ -356,7 +380,14 @@ class Events {
 
 				Plot = this.getSource(Plot);
 
-				if (Plot.innerHTML === `Market`) {
+				if (Plot.innerHTML === `Limit`) {
+
+					Plot.style.opacity = 1;
+
+					Place[1] = `limit`;
+				}
+
+				else if (Plot.innerHTML === `Market`) {
 
 					Plot.style.opacity = 1;
 
@@ -365,11 +396,13 @@ class Events {
 					document.querySelector(`#value`).value = Tools.typen(Clients.quo).btc[0]
 				}
 
-				else if (Plot.innerHTML === `Limit`) {
+				if (Plot.innerHTML === `Take-profit`) {
 
 					Plot.style.opacity = 1;
 
-					Place[1] = `limit`;
+					Place[1] = `take-profit`;
+
+					document.querySelector(`#value`).value = 0.00
 				}
 
 				Clients.place = Tools.coats(Place);
@@ -388,7 +421,7 @@ class Events {
 				this.getSource(Plot).value = Tools.typen(Clients.quo).btc[0];
 			}
 
-			if (Place[1] === `limit`) {
+			if (Place[1] === `limit` || Place[1] === `take-profit`) {
 
 				let Via = this.getSource(Plot);
 
