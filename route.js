@@ -350,6 +350,29 @@ class Route {
 								Arg[1].end(Tools.coats({moves: Puts[0]}));
 							}
 
+							else if (Pulls.pull === `assets`) {
+
+								if (Raw.mugs[1][Pulls.mug]) {
+
+									let Puts = [[]];
+
+									readFile(`json/last_btc.json`, {encoding: `utf8`}, (flaw, Coat) => {
+
+										Coat = Tools.typen(Coat);
+
+										let Wallet = Tools.wallet([Pulls.mug, Raw])[0];
+
+										let Balance = [Wallet[0][0] - Wallet[0][1], Wallet[1][0] - Wallet[1][1]];
+
+										Wallet[3] = Wallet[2];
+
+										Wallet[2] = Balance;
+
+										Arg[1].end(Tools.coats({axis: Coat[5], mug: Pulls.mug, pitmoves: Puts[0], wallet: Wallet}));
+									});
+								}
+							}
+
 							else if (Pulls.pull === `btc`) {
 
 								readFile(`json/last_btc.json`, {encoding: `utf8`}, (flaw, Coat) => {
@@ -371,6 +394,7 @@ class Route {
 								Puts[0] = {
 									coin: [Pit[0], Pit[1], `btc`],
 									dollars: Pit[0]*Pit[1],
+									fill: 0,
 									md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
 									mug: Pulls.mug,
 									open: true,
@@ -467,12 +491,17 @@ class Route {
 								Puts[0] = {
 									coin: [Pit[0], Pit[1], `btc`],
 									dollars: Pit[0]*Pit[1],
+									fill: 0,
 									md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
 									mug: Pulls.mug,
 									open: true,
 									secs: secs,
 									side: `buy`,
 									type: `take-profit`};
+
+									//write method to consolidate all unfilled trades on awaits.json per request
+
+									//instead of overtasking db on query replace upon trade match or fill, log and maintain price match or fill then replace on user SOCK
 
 								Sql.puts([`asks`, Puts[0], (Raw) => {
 
@@ -614,6 +643,7 @@ class Route {
 								Puts[0] = {
 									coin: [Pit[0], Pit[1], `btc`],
 									dollars: Pit[0]*Pit[1],
+									fill: 0,
 									md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
 									mug: Pulls.mug,
 									open: true,
@@ -763,9 +793,16 @@ class Route {
 
 					let Default = [];
 
+					let Pit = [[]];
+
 					Wallet.vault[0].forEach(Vault => {
 
 						if (Vault.complete === false) Default.push(Vault);
+					});
+
+					Wallet.asks[0].forEach(Ask => {
+
+						if (Ask.open === true && Ask.type === `take-profit` && Ask.fill === 0) Pit[0].push(Ask);
 					});
 
 					writeFileSync(`json/defaults.json`, Tools.coats(Default));
@@ -875,7 +912,7 @@ class Route {
 
 						Balance[Mug.md] = {};
 
-						Balance[Mug.md][`wallet`] = [[0, 0], [0, 0]]
+						Balance[Mug.md][`wallet`] = [[0, 0], [0, 0], [0, 0]];
 					});
 
 					for (let mug in Wallet.pays[1]) {
@@ -883,6 +920,8 @@ class Route {
 						let Pay = Wallet.pays[1][mug];
 
 						if (Pay.mug === Raw[0]) {
+
+							Balance[Raw[0]][`wallet`][2][1] += parseFloat(Pay.dollars);
 
 							if (Pay.sort[1] === `legacy`) Balance[Raw[0]][`wallet`][0][1] += parseFloat(Pay.dollars);
 
@@ -896,6 +935,8 @@ class Route {
 						let Vault = Wallet.vault[1][mug];
 
 						if (Vault.mug === Raw[0] && Vault.complete === true) {
+
+							Balance[Raw[0]][`wallet`][2][0] += parseFloat(Vault.dollars);
 
 							if (Vault.sort[1] === `legacy`) {
 
@@ -928,7 +969,7 @@ class Route {
 
 	reals () { //create last_btc reset buttonn
 
-		let Real = [`bitcoin`, `defaults`, `pit`, `volume`];
+		let Real = [`awaits`, `bitcoin`, `defaults`, `pit`, `volume`];
 
 		Real.forEach((File, file) => {
 
@@ -938,7 +979,9 @@ class Route {
 
 				if (err) { 
 
-					if (Real[file] === `bitcoin`) real = Tools.coats({last: []});
+					if (Real[file] === `awaits`) real = Tools.coats({});
+
+					else if (Real[file] === `bitcoin`) real = Tools.coats({last: []});
 
 					else if (Real[file] === `defaults`) real = Tools.coats([]);
 

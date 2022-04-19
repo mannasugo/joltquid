@@ -2,7 +2,7 @@
 
 const {createConnection} = require(`mysql`);
 
-const { readFileSync } = require(`fs`);
+const { mkdir, readFileSync, stat, writeFileSync } = require(`fs`);
 
 const get = require(`request`);
 
@@ -186,7 +186,7 @@ class Tools {
 
 				Balance[Mug.md] = {};
 
-				Balance[Mug.md][`wallet`] = [[0, 0], [0, 0]]
+				Balance[Mug.md][`wallet`] = [[0, 0], [0, 0], [0, 0]]
 			});
 
 			for (let mug in Wallet.pays[1]) {
@@ -194,6 +194,8 @@ class Tools {
 				let Pay = Wallet.pays[1][mug];
 
 				if (Pay.mug === Raw[0]) {
+
+					Balance[Raw[0]][`wallet`][2][1] += parseFloat(Pay.dollars);
 
 					if (Pay.sort[1] === `legacy`) Balance[Raw[0]][`wallet`][0][1] += parseFloat(Pay.dollars);
 
@@ -208,6 +210,8 @@ class Tools {
 
 				if (Vault.mug === Raw[0] && Vault.complete === true) {
 
+					Balance[Raw[0]][`wallet`][2][0] += parseFloat(Vault.dollars);
+
 					if (Vault.sort[1] === `legacy`) {
 
 						Balance[Raw[0]][`wallet`][0][0] += parseFloat(Vault.dollars);
@@ -221,6 +225,24 @@ class Tools {
 			}
 
 		return [Balance[Raw[0]].wallet];
+    }
+
+    fileup (Raw) {
+
+		stat(`${Raw[0]}/${Raw[1]}`, (flaw, Stat) => {
+
+			if (flaw) {
+							
+				mkdir(Raw[0], {recursive: true}, (err) => {
+
+					writeFileSync(`${Raw[0]}/${Raw[1]}`, Raw[2]);
+
+					Raw[3]();
+				});
+			}
+
+			else Raw[3]();
+		});
     }
 }
 

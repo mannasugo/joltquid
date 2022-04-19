@@ -61,9 +61,13 @@ class Route {
 
 							if (Wallet.secs === secs && Wallet.mug === Tools.typen(Clients.mug)[0]) {
 
+								Wallet.wallet[3] = [Wallet.wallet[2][0], Wallet.wallet[2][1]];
+
 								Wallet.wallet[2] = [Wallet.wallet[0][0] - Wallet.wallet[0][1], Wallet.wallet[1][0] - Wallet.wallet[1][1]];
 
 								Clients.wallet = Tools.coats(Wallet.wallet);
+
+								Clients.vault = parseFloat(Wallet.wallet[3][0] - Wallet.wallet[3][1]);
 
 								View.DOM([`main`, [Models.main()]]);
 
@@ -100,6 +104,49 @@ class Route {
 						Events.pitReals()
 					}
 				});
+			}
+		}
+
+    	else if (this.State[3] === `assets`) {
+
+    		if (!Clients.mug) {
+
+    			history.pushState(``, ``, `/`);
+
+    			Route.Call();
+    		}
+
+    		else if (!State[4] && !Tools.slim[State[4]] && Clients.mug) {
+
+				let Puts = Tools.pull([
+					`/json/web/`, {
+						mug: Tools.typen(Clients.mug)[0],
+						pull: `assets`}]);
+
+				Puts.onload = () => {
+
+					let Web = JSON.parse(Puts.response);
+
+					if (Web && Web.mug) {
+
+						Clients.pitmoves = Tools.coats(Web.pitmoves);
+
+						Clients.axis = Tools.coats(Web.axis.sort((A, B) => {return A[0] - B[0]}));
+
+						Clients.vault = parseFloat(Web.wallet[3][0] - Web.wallet[3][1]);
+
+						Clients.wallet = Tools.coats(Web.wallet);
+
+    					View.DOM([`main`, [Models.asset()]]);
+
+    					View.pop();
+
+    					View.DOM([`#coinline`, [Models.coinline()]]);
+
+    					Events.holdReals();
+
+					}
+				}
 			}
 		}
 
