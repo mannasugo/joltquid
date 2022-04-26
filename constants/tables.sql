@@ -6,4 +6,6 @@ select * from `mugs`;
 
 select * from `pays`;
 
+select * from `positions`;
+
 select * from `vault`;

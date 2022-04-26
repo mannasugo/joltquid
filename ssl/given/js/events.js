@@ -55,7 +55,7 @@ class Events {
 
 			View.pop();
 
-			View.DOM([`span`, [Models.splash]]);
+			View.DOM([`div`, [Models.splash]]);
 
 			Puts.onload = () => {
 
@@ -97,7 +97,7 @@ class Events {
 
 			View.pop();
 
-			View.DOM([`span`, [Models.splash]]);
+			View.DOM([`div`, [Models.splash]]);
 
 			Puts.onload = () => {
 
@@ -473,7 +473,7 @@ class Events {
 
 			Clients.instance = Tools.coats([`mugin`, new Date().valueOf()]);
 
-			View.DOM([`span`, [Models.mugslot()]]);
+			View.DOM([`div`, [Models.mugslot()]]);
 
 			this.slotup();
 
@@ -489,7 +489,7 @@ class Events {
 
 			Clients.instance = Tools.coats([`mugup`, new Date().valueOf()]);
 
-			View.DOM([`span`, [Models.mugslot()]]);
+			View.DOM([`div`, [Models.mugslot()]]);
 
 			this.slotin();
 

@@ -327,6 +327,16 @@ class Route {
 					
 					}
 
+					else if (State[2] === `wat`) {
+
+						Sql.pulls(Raw => {
+
+							if (Pulls.pull === `app`) {
+
+							}
+						});
+					}
+
 					else if (State[2] === `web`) {
 
 						Sql.pulls(Raw => {

@@ -78,6 +78,7 @@ body {
 
 #app {
   z-index: 0;
+  /*background: #000000eb;*/
 }
 
 ._xC2 {
@@ -203,7 +204,7 @@ body {
   min-width: 40px;
 }
 
-.v202201180941, .v202202122052, .v202203171249, .v202203191304, .v202203261943, .v202203262148 {
+.v202201180941, .v202202122052, .v202203171249, .v202203191304, .v202203261943, .v202203262148, .v202204261406 {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
@@ -220,6 +221,8 @@ body {
 .v202203261943 {background-image: url(/ssl/given/svg/put_202203261943.svg);}
 
 .v202203262148 {background-image: url(/ssl/given/svg/take_202203262148.svg);}
+
+.v202204261406 {background-image: url(/ssl/given/svg/mug_202204261406.svg);}
 
 ._aA2, ._aA2:visited {color: #000;}
 
@@ -343,6 +346,14 @@ body {
 
 #pitmoves span, .asset {font-family: geometria; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 
+#buy {width: 65%;}
+
+#buyline {width: 35%; /*padding-left: 24px*/}
+
+#buy div {align-items: start}
+
+#instant { padding: 12px 24px; background: #1bd401; color: #fff; font-family: geometria; font-size: 13px; cursor: pointer; text-align: center; }
+
 @media (min-width: 600px) {
 
   #mugs {justify-content: center;}
@@ -364,4 +375,10 @@ body {
 @media (max-width: 599px) {
 
   #mugin h2 {font-size: 25px;line-height: 28px}
+
+  #buy, #buyline {width: 100%; padding: 0; text-align: center;}
+
+  #buyline {margin-top: 24px}
+
+  #buy div {align-items: unset;}
 }

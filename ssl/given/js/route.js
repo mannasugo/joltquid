@@ -69,8 +69,13 @@ class Route {
 
 								Clients.vault = parseFloat(Wallet.wallet[3][0] - Wallet.wallet[3][1]);
 
-								View.DOM([`main`, [Models.main()]]);
+								View.DOM([`div`, [Models.main()]]);
 
+    							View.pop();
+
+    							View.DOM([`#buyline`, [Models.buyline()]]);
+
+								/**
 								if (document.querySelector(`#coin`)) {
 
 									View.pop();
@@ -81,6 +86,7 @@ class Route {
 								Events.details();
 
 								Events.pitReals()
+								**/
 							}
 
 						});
@@ -88,10 +94,15 @@ class Route {
 
 					else {
 
-						View.DOM([`main`, [Models.main()]]);
+						View.DOM([`div`, [Models.main()]]);
 
 						Events.slotin();
 
+    					View.pop();
+
+    					View.DOM([`#buyline`, [Models.buyline()]]);
+
+						/**
 						if (document.querySelector(`#coin`)) {
 
 							View.pop();
@@ -101,7 +112,8 @@ class Route {
 							Events.details()
 						}
 
-						Events.pitReals()
+						Events.pitReals();
+						**/
 					}
 				});
 			}

@@ -83,7 +83,7 @@ let Models = {
   										[`border-left`]: `${1}px solid #d5d5d5`,
   											margin: `${0} ${7}px`,
   											padding: `${0} ${14}px`,
-  											[`font-size`]: `${14}px`,
+  											[`font-size`]: `${12}px`,
   											color: `#47008c`,
   											//overflow: `hidden`,
   											[`font-family`]: `geometria`,
@@ -103,6 +103,81 @@ let Models = {
   								/*[`div`, {id: `coinmoves`}]*/]],
   						[`div`, {id: `assets`}, []], 
   						[`div`, {id: `moves`, style: {margin: `${30}px ${0}`}}, []]]]]]; //positions
+  	},
+
+  	buyline: function () {
+
+  		let Pit = [[], [], [], ``, []];
+
+  		let Axis = Tools.typen(Clients.quo).btc[1][5];
+
+  		let Span = [document.querySelector(`#buyline`).clientWidth, 200];
+
+  		let Y = [Axis[2], Axis[3]];
+
+		let y = Y[1] - Y[0];
+
+  		let AXIS = [Tools.typen(Clients.axis)];
+
+		let X = [AXIS[0][AXIS[0].length - 1][0], AXIS[0][0][0]];
+
+			let x = AXIS[0][AXIS[0].length - 1][0] - AXIS[0][0][0];
+
+			AXIS[0].forEach(Vault => {
+
+				Pit[3] += `${(((Vault[0] - AXIS[0][0][0])/x)*Span[0]) + 0} ${(y === 0)? 50: ((Vault[1] - Y[1])/y)*(-185)} `;
+			});
+
+			let Value = Tools.typen(Clients.axis).sort((A, B) => {return B[1] - A[1]});
+
+			let Feats = [Value[Value.length - 1], Value[0]];
+
+			Feats.forEach(Feat => {
+
+				let XY = [(((Feat[0] - AXIS[0][0][0])/x)*Span[0]), ((Feat[1] - Y[1])/y)*(-185)];
+
+				(XY[1] < 5)? XY[1] = 7.5: XY[1];
+
+				(XY[1] > 195)? XY[1] = 191: XY[1];
+
+				(XY[0] < 5)? XY[0] = 6: XY[0] = XY[0] + 2.5;
+
+				(XY[0] > Span[0] - 75)? XY[0] = Span[0] - 70: XY[0] = XY[0] + 2.5;
+
+				Pit[4].push(
+					[`text`, {x: XY[0], y: XY[1], fill: `#fff`, style: {
+						[`font-family`]: `geometria`,
+						[`font-size`]: `${9}px`}}, `${(Feat[1]).toFixed(0)}`]);
+			});		
+
+  			Pit[2] = 
+				[`svg`, {height: `${200}px`, style: {[`margin-top`]: `${30}px`}}, 
+					[
+						[`path`, {
+							opacity: .75,
+							stroke: `#1bd401`, 
+							[`stroke-width`]: 1, 
+							fill: `none`, d: `M15 ${((37515 - Y[1])/y)*(-175) + 5.5} ${Span[0]} ${((37515 - Y[1])/y)*(-175) + 7.5}`}], 
+						[`path`, {
+							opacity: 1,
+							stroke: `#5841d8`, 
+							[`stroke-width`]: 1, 
+							fill: `none`, d: `M${Pit[3]}`}], 
+						[`g`, {}, Pit[4]]]];
+
+  		return [`div`, {}, 
+  			[
+  				[`div`, {class: `_gxM`}, 
+  					[
+  						[`span`, {style: {[`font-size`]: `${12}px`}}, `Bitcoin This Hour`]]],
+  				[`div`, {class: `_gxM`}, 
+  					[
+  						[`span`, {style: {
+  							[`font-family`]: `geometria`,
+  							[`font-size`]: `${12}px`,
+  							[`font-weight`]: 600}}, `${(parseFloat(Tools.typen(Clients.quo).btc[0])).toFixed(1)} USD`],
+  						Pit[1]]],
+  				Pit[2]]];
   	},
 
   	coinline: function () {
@@ -187,10 +262,15 @@ let Models = {
   			[
   				[`div`, {class: `_gxM`}, 
   					[
-  						[`span`, {style: {[`font-size`]: `${12}px`}}, `Portfolio Balance (Bitcoin)`],
-  						[`div`, {class: `_gZz`}, [[`span`, {style: {
-  							[`text-decoration`]: `underline`,
-  							color: `#feef11`, [`font-size`]: `${12}px`}}, ``]]]]],
+  						[`span`, {style: {[`font-size`]: `${12}px`}}, `Bitcoin Portfolio`],
+  						[`div`, {class: `_gZz`}, [
+  							[`span`, {style: {
+  								[`text-decoration`]: `underline`,
+  								color: `#feef11`, [`font-size`]: `${12}px`}}, `Principal`], 
+  							[`span`, {style: {
+  								margin: `${0} ${0} ${0} ${8}px`,
+  								[`font-family`]: `geometria`,
+  								[`font-size`]: `${12}px`}}, `${(Tools.typen(Clients.vault)*.25).toFixed(3)} USD`]]]]],
   				[`div`, {class: `_gxM`}, 
   					[
   						[`span`, {style: {
@@ -433,20 +513,20 @@ let Models = {
       //portfolio = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Axis[1])*Tools.typen(Clients.wallet)[2][1]).toFixed(2)
 
   		Main[0] = 
-  			[`main`, {class: `_tY0`, style: {height: `${100}px`}}, 
+  			[`main`, {class: `_tY0`, style: {color: `#fff`, background: `#171717`}}, 
   				[
-  					[`div`, {class: `_-tY`}, 
+  					[`div`, {class: `_-tY`,style: {background: `#171717`}}, 
   						[[`div`, {class: `_aXz`, style: {padding: `${0} ${16}px`}}, 
   							[
   								[`div`, {class: `_-Xg _gxM _geQ`}, 
   									[
   										[`a`, {class: `-_tX v202201180941`, style: {[`min-width`]: `${32}px`, height: `${32}px`}, href: `/`}, ``], 
   										[`span`, {class: `_aA6 _tXx`, style: {
-  											[`border-left`]: `${1}px solid #d5d5d5`,
+  											[`border-left`]: `${1}px solid #91919159`,
   											margin: `${0} ${7}px`,
   											padding: `${0} ${14}px`,
   											[`font-size`]: `${14}px`,
-  											color: `#47008c`,
+  											color: `#fff`,
   											overflow: `hidden`,
   											[`font-family`]: (Clients.wallet)? `arcane`: `inherit`,
   											//[`text-overflow`]: `ellipsis`,
@@ -461,8 +541,21 @@ let Models = {
   										this.mug[(Clients.mug) ? 1: 0]]]]]]], 
   				[`section`, {id: `wallet`, style: {[`max-width`]: `${1000}px`, width: `${100}%`, margin: `${90}px auto`}}, 
   					[[`div`, {style: {padding: `${0} ${24}px`}}, 
-  						[
-  							[`span`, {style: {padding: `${12}px ${0}`, [`text-decoration`]: `underline`}}, `INDEXJQ: .Bitcoin`], 
+  						[	
+  							[`div`, {class: `_wrap_202203262208 _geQ`}, [
+  								[`div`, {id: `buy`, style: {}},  
+  									[
+  										[`span`, {style: {
+  											[`margin-bottom`]: `${24}px`,
+  											color: `#feef11`, 
+  											[`font-size`]: `${25}px`, 
+  											[`line-height`]: `${32}px`,
+  											[`font-weight`]: 300}}, `Purchase Bitcoin`],
+  										[`p`, {style: {[`font-size`]: `${12}px`}}, `Buy bitcoin instantly at market price from joltquid's crypto exchange`], 
+  										[`div`, {class: `geQ`, style: {margin: `${24}px 0`}}, 
+  											[[`span`, {id: `instant`}, `BUY ${(3/Axis[1]).toFixed(5)} BTC @ 3 USD`]]]]], 
+  								[`div`, {id: `buyline`}]]]
+  							/*[`span`, {style: {padding: `${12}px ${0}`, [`text-decoration`]: `underline`}}, `INDEXJQ: .Bitcoin`], 
   							[`div`, {class: `_wrap_202203262208`}, 
   								[
   									[`div`, {id: `coin`, style: {}}], 
@@ -481,19 +574,11 @@ let Models = {
   												[
   													[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `INDEX VOLUME`], 
   													[`div`, {class: `_gZz`}, 
-  														[[`span`, {class: `_tXx`, style: {[`font-family`]: `geometria`, [`font-size`]: `${13}px`}}, `${Tools.typen(Clients.quo).volume[0]} BTC`]]]]]/*,
-  											this.real([Tools.typen(Clients.quo).volume[1][5], `BTC`]), 
-  							[`div`, {class: `_gxM`, style: {padding: `${12}px ${0}`}}, 
-  								[
-  									[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `WEIGHTED AVG.`], 
-  									[`div`, {class: `_gZz _glyph_202203191319`}, 
-  										[[`span`, {class: `_tXx`}, `${Tools.typen(Clients.quo).volume[0]} BTC`]]]]],
-  							this.real(Tools.typen(Clients.quo).volume[1][0])*/]]]], 
+  														[[`span`, {class: `_tXx`, style: {[`font-family`]: `geometria`, [`font-size`]: `${13}px`}}, `${Tools.typen(Clients.quo).volume[0]} BTC`]]]]]]]]]*/, 
   							[`div`, {id: `moves`, style: {margin: `${30}px ${0}`}}, 
   								[
   									[`div`, {class: `_gxM`}, 
-  										[[`span`, {style: {[`font-size`]: `${12}px`}}, `Order Book`]]],
-  									this.moves()]]]]]]]];
+  										[[`span`, {style: {[`font-size`]: `${12}px`}}, ``]]]]]]]]]]];
 
   		return Main[0];
   	},
@@ -532,7 +617,7 @@ let Models = {
   	},
 
   	mug: [
-    		[`a`, {class: `-_tX v202203171249`, id: `mugin`, style: {margin: `${0}px ${15}px`}, href: `javascript:;`}], 
+    		[`a`, {class: `-_tX v202204261406`, id: `mugin`, style: {margin: `${0}px ${15}px`}, href: `javascript:;`}], 
     		[`span`, {style: {margin: `${0}px ${10}px`, position: `relative`, height: `${24}px`}}, 
     			[
     				[`svg`, {style: {[`min-height`]: `${24}px`, width: `${24}px`}, viewBox: `0 0 24 24`}, 
@@ -605,7 +690,7 @@ let Models = {
 
   		return [`main`, {class: `_tY0`, style: {height: `${100}px`}}, 
   			[
-  				[`div`, {class: `_-tY`}, 
+  				[`div`, {class: `_-tY`},
   					[[`div`, {class: `_aXz`, style: {padding: `${0} ${16}px`}}, 
   						[
   							[`div`, {class: `_-Xg _gxM _geQ`}, 
