@@ -352,7 +352,13 @@ body {
 
 #buy div {align-items: start}
 
-#instant { padding: 12px 24px; background: #1bd401; color: #fff; font-family: geometria; font-size: 13px; cursor: pointer; text-align: center; }
+.parallelo { padding: 12px 24px; background: #1bd401; color: #fff; font-family: geometria; font-size: 13px; cursor: pointer; text-align: center; }
+
+#quant, #bitpitsvg {width: 60%}
+
+#quantsvg, #bitpit {width: 40%}
+
+#bitpitsvg {margin-bottom: 24px; padding-right: 96px}
 
 @media (min-width: 600px) {
 
@@ -381,4 +387,8 @@ body {
   #buyline {margin-top: 24px}
 
   #buy div {align-items: unset;}
+
+  #quant, #quantsvg {width: 100%}
+
+  #bitpit, #bitpitsvg {width: 100%; padding: 0}
 }

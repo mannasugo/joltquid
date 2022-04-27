@@ -105,6 +105,37 @@ let Models = {
   						[`div`, {id: `moves`, style: {margin: `${30}px ${0}`}}, []]]]]]; //positions
   	},
 
+  	bitpit: function () {
+
+  		let Pit = [Tools.typen(Clients.axis), []];
+
+  		let Quo = Tools.typen(Clients.quo).btc;
+
+  		let pit = Quo[1][4];
+
+  		Pit[0].sort((A, B) => {return B[0] - A[0]});
+
+  		//Pit[2] = Pit[0][11][1];
+
+  		Pit[0].slice(0, 10).forEach((Value, i) => {
+
+  			Pit[1].push([`div`, {class: `_gxM`}, 
+  				[
+  					[`span`, {style: {
+  						[`font-family`]: `geometria`,
+  						[`font-size`]: `${10}px`,
+  						color: ((Value[1] - Pit[0][i + 1][1]) >= 0) ? `#1bd401`: `#d40101`}}, `${Value[1]}`],
+  					[`div`, {class: `_gZz`, style: {
+  						opacity: .3,
+  						[`font-size`]: `${10}px`, 
+  						[`font-family`]: `geometria`}}, `${Tools.logs(Value[0])}`]]]);
+
+  			Pit[2] = Value[1]
+  		});
+
+  		return Pit[1]
+  	},
+
   	buyline: function () {
 
   		let Pit = [[], [], [], ``, []];
@@ -513,9 +544,9 @@ let Models = {
       //portfolio = (parseFloat(Tools.typen(Clients.wallet)[2][0]) + parseFloat(Axis[1])*Tools.typen(Clients.wallet)[2][1]).toFixed(2)
 
   		Main[0] = 
-  			[`main`, {class: `_tY0`, style: {color: `#fff`, background: `#171717`}}, 
+  			[`main`, {class: `_tY0`, style: {color: `#fff`, background: `#262626`}}, 
   				[
-  					[`div`, {class: `_-tY`,style: {background: `#171717`}}, 
+  					[`div`, {class: `_-tY`,style: {background: `#262626`}}, 
   						[[`div`, {class: `_aXz`, style: {padding: `${0} ${16}px`}}, 
   							[
   								[`div`, {class: `_-Xg _gxM _geQ`}, 
@@ -542,19 +573,20 @@ let Models = {
   				[`section`, {id: `wallet`, style: {[`max-width`]: `${1000}px`, width: `${100}%`, margin: `${90}px auto`}}, 
   					[[`div`, {style: {padding: `${0} ${24}px`}}, 
   						[	
-  							[`div`, {class: `_wrap_202203262208 _geQ`}, [
-  								[`div`, {id: `buy`, style: {}},  
-  									[
-  										[`span`, {style: {
-  											[`margin-bottom`]: `${24}px`,
-  											color: `#feef11`, 
-  											[`font-size`]: `${25}px`, 
-  											[`line-height`]: `${32}px`,
-  											[`font-weight`]: 300}}, `Purchase Bitcoin`],
-  										[`p`, {style: {[`font-size`]: `${12}px`}}, `Buy bitcoin instantly at market price from joltquid's crypto exchange`], 
-  										[`div`, {class: `geQ`, style: {margin: `${24}px 0`}}, 
-  											[[`span`, {id: `instant`}, `BUY ${(3/Axis[1]).toFixed(5)} BTC @ 3 USD`]]]]], 
-  								[`div`, {id: `buyline`}]]]
+  							[`div`, {class: `_wrap_202203262208 _geQ`}, 
+  								[
+  									[`div`, {id: `buy`},  
+  										[
+  											[`span`, {style: {
+  												[`margin-bottom`]: `${24}px`,
+  												color: `#feef11`, 
+  												[`font-size`]: `${25}px`, 
+  												[`line-height`]: `${32}px`,
+  												[`font-weight`]: 300}}, `Own Bitcoin`],
+  											[`p`, {style: {[`font-size`]: `${12}px`}}, `Obtain bitcoin instantly at market price from joltquid's crypto exchange`], 
+  											[`div`, {class: `geQ`, style: {margin: `${24}px 0`}}, 
+  												[[`span`, {id: `instant`, class: `parallelo`, style: {color: `#000`}}, `BUY ${(3/Axis[1]).toFixed(5)} BTC @ 3 USD`]]]]], 
+  									[`div`, {id: `buyline`}]]]
   							/*[`span`, {style: {padding: `${12}px ${0}`, [`text-decoration`]: `underline`}}, `INDEXJQ: .Bitcoin`], 
   							[`div`, {class: `_wrap_202203262208`}, 
   								[
@@ -575,10 +607,54 @@ let Models = {
   													[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `INDEX VOLUME`], 
   													[`div`, {class: `_gZz`}, 
   														[[`span`, {class: `_tXx`, style: {[`font-family`]: `geometria`, [`font-size`]: `${13}px`}}, `${Tools.typen(Clients.quo).volume[0]} BTC`]]]]]]]]]*/, 
-  							[`div`, {id: `moves`, style: {margin: `${30}px ${0}`}}, 
+  							[`div`, {class: `_wrap_202203262208 _geQ`, style: {margin: `${30}px ${0}`}}, 
   								[
-  									[`div`, {class: `_gxM`}, 
-  										[[`span`, {style: {[`font-size`]: `${12}px`}}, ``]]]]]]]]]]];
+  									//[`div`, {id: `quantsvg`}],
+  									[`div`, {id: `quant`, class: `_geQ`, style: {width: `${100}%`}}, 
+  										[
+  											[`span`, {style: {
+  												[`margin-bottom`]: `${24}px`,
+  												[`text-align`]: `center`,
+  												color: `#feef11`,
+  												[`line-height`]: `${32}px`,
+  												[`font-size`]: `${25}px`}}, `joltquid Quant Fund`],
+  											[`p`, {style: {
+  												[`font-size`]: `${12}px`,
+  												[`text-align`]: `center`}}, 
+  												`Sit back and let our proficient quant algorithms grow your crypto & fiat investments for you by 
+  												implementing optimized high math, AI and market momentum driven strategies. Built to cater for separate 
+  												client tiers, our service provides for all investors ranging from as low as economy and premium tiers.`], 
+  											[`span`, {id: `instant`, class: `parallelo`, style: {
+  												color: `#000`, 
+  												[`margin-top`]: `${24}px`, 
+  												[`font-family`]: `litera`,
+  												[`font-weight`]: 600}}, `Join Quant Fund`]]]]], 
+  							[`div`, {class: `_wrap_202203262208 _geQ`, style: {margin: `${30}px ${0}`}}, 
+  								[
+  									[`div`, {id: `bitpitsvg`}, 
+  										[
+  											[`div`, {class: `_gxM`}, 
+  												[
+  													[`span`, {style: {[`font-size`]: `${12}px`}}, `Limit Order Matches`],
+  													[`div`, {class: `_gZz`, style: {opacity: .5, [`font-size`]: `${12}px`}}, `This hour`]]], 
+  											[`div`, {style: {[`margin-top`]: `${24}px`}}, this.bitpit()]]],
+  									[`div`, {id: `bitpit`, class: `_geQ`, style: {}}, 
+  										[
+  											[`span`, {style: {
+  												[`margin-bottom`]: `${24}px`,
+  												[`text-align`]: `center`,
+  												color: `#feef11`,
+  												[`line-height`]: `${32}px`,
+  												[`font-size`]: `${25}px`}}, `Crypto Exchange`],
+  											[`p`, {style: {
+  												[`font-size`]: `${12}px`,
+  												[`text-align`]: `center`}}, 
+  												`Trade in crypto all day long on our crypto exchange with our multiple trading options.`], 
+  											[`span`, {id: `instant`, class: `parallelo`, style: {
+  												color: `#000`, 
+  												[`margin-top`]: `${24}px`, 
+  												[`font-family`]: `litera`,
+  												[`font-weight`]: 600}}, `Trade Now`]]]]]]]]]]];
 
   		return Main[0];
   	},
