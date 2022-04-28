@@ -558,7 +558,7 @@ let Models = {
   											[`font-family`]: (Clients.wallet)? `arcane`: `inherit`,
   											//[`text-overflow`]: `ellipsis`,
   											[`white-space`]: `nowrap`}}, (Clients.wallet)? `${portfolio} USD`: `joltquid`], 
-  										[`span`, {class: `_tXx`, style: {
+  										[`span`, {id: `vault`, class: `_tXx`, style: {
   											color: `#feef11`, 
   											margin: `${1.5}px ${0} ${0} ${-14}px`, 
   											[`font-size`]: `${12}px`}}, (Clients.wallet && Tools.typen(Clients.wallet)[2][1] > 0)? `+BTC`: ``]]],
@@ -620,7 +620,7 @@ let Models = {
   												`Sit back and let our proficient quant algorithms grow your crypto & fiat investments for you by 
   												implementing optimized high math, AI and market momentum driven strategies. Built to cater for separate 
   												client tiers, our service provides for all investors ranging from as low as economy and premium tiers.`], 
-  											[`span`, {id: `instant`, class: `parallelo`, style: {
+  											[`span`, {class: `parallelo`, style: {
   												color: `#000`, 
   												[`margin-top`]: `${24}px`, 
   												[`font-family`]: `litera`,
@@ -633,7 +633,7 @@ let Models = {
   												[
   													[`span`, {style: {[`font-size`]: `${12}px`}}, `Limit Order Matches`],
   													[`div`, {class: `_gZz`, style: {opacity: .5, [`font-size`]: `${12}px`}}, `This hour`]]], 
-  											[`div`, {style: {[`margin-top`]: `${24}px`}}, this.bitpit()]]],
+  											[`div`, {id: `limits`, style: {[`margin-top`]: `${24}px`}}, this.bitpit()]]],
   									[`div`, {id: `bitpit`, class: `_geQ`, style: {}}, 
   										[
   											[`span`, {style: {
@@ -646,7 +646,7 @@ let Models = {
   												[`font-size`]: `${12}px`,
   												[`text-align`]: `center`}}, 
   												`Trade in crypto all day long on our crypto exchange with our multiple trading options.`], 
-  											[`span`, {id: `instant`, class: `parallelo`, style: {
+  											[`span`, {class: `parallelo`, style: {
   												color: `#000`, 
   												[`margin-top`]: `${24}px`, 
   												[`font-family`]: `litera`,

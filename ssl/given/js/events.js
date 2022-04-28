@@ -76,7 +76,6 @@ class Events {
 			}
 
 		}]);
-
 	}
 
 	mugup () {
@@ -118,7 +117,6 @@ class Events {
 			}
 
 		}]);
-
 	}
 
 	pitalias () {
@@ -461,8 +459,42 @@ class Events {
 				else if (!parseInt(omega) && parseInt(omega) !== 0 && omega !== `.`) Via.value = Via.value.substr(0, Via.value.length - 1);
 			}
 		}]);
+	}
 
+	reals () {
 
+		io().on(`pit`, Pit => {
+
+			let Quo = Tools.typen(Clients.quo);
+
+			let last = Quo.btc[0];
+
+			Quo.btc = Pit.quo.btc;
+
+			Clients.quo = Tools.coats(Quo);
+
+			Clients.axis = Tools.coats((Pit.axis).sort((A, B) => {return A[0] - B[0]}));
+
+			if (last !== Quo.btc[0]) {
+
+				if (Clients.vault) {
+
+					let vault = (((Tools.typen(Clients.vault)*.25)/37515)*parseFloat(Quo.btc[0]) + Tools.typen(Clients.vault)*.75).toFixed(2);
+
+					document.querySelector(`#vault`).innerHTML = `${vault} USD`;
+				}
+
+				document.querySelector(`#instant`).innerHTML = `BUY ${(3/last).toFixed(5)} BTC @ 3 USD`
+
+    			View.pop();
+
+    			View.DOM([`#buyline`, [Models.buyline()]]);
+
+    			View.pop();
+
+    			View.DOM([`#limits`, [Models.bitpit()]]);
+			}
+		});
 	}
 
 	slotin () {
@@ -495,7 +527,6 @@ class Events {
 
 			this.mugup();
 		}]);
-
 	}
 
 	details () {

@@ -60,6 +60,8 @@ class Route {
 
     				View.DOM([`#buyline`, [Models.buyline()]]);
 
+    				Events.reals();
+
 								/**
 								if (document.querySelector(`#coin`)) {
 
@@ -83,6 +85,8 @@ class Route {
     				View.pop();
 
     				View.DOM([`#buyline`, [Models.buyline()]]);
+
+    				Events.reals();
 
 						/**
 						if (document.querySelector(`#coin`)) {
