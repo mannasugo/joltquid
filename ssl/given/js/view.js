@@ -569,7 +569,7 @@ let Models = {
   				[`section`, {id: `wallet`, style: {[`max-width`]: `${1000}px`, width: `${100}%`, margin: `${90}px auto`}}, 
   					[[`div`, {style: {padding: `${0} ${24}px`}}, 
   						[	
-  							[`div`, {class: `_wrap_202203262208 _geQ`}, 
+  							[`div`, {class: `_wrap_202203262208 _geQ unsqueeze`}, 
   								[
   									[`div`, {id: `buy`},  
   										[
@@ -625,7 +625,7 @@ let Models = {
   												[`margin-top`]: `${24}px`, 
   												[`font-family`]: `litera`,
   												[`font-weight`]: 600}}, `Join Quant Fund`]]]]], 
-  							[`div`, {class: `_wrap_202203262208 _geQ`, style: {margin: `${30}px ${0}`}}, 
+  							[`div`, {class: `_wrap_202203262208 _geQ unsqueeze`, style: {margin: `${30}px ${0}`}}, 
   								[
   									[`div`, {id: `bitpitsvg`}, 
   										[

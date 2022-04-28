@@ -391,4 +391,6 @@ body {
   #quant, #quantsvg {width: 100%}
 
   #bitpit, #bitpitsvg {width: 100%; padding: 0}
+
+  .unsqueeze {align-items: unset; flex: unset;}
 }
