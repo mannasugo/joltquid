@@ -548,7 +548,7 @@ let Models = {
   								[`div`, {class: `_-Xg _gxM _geQ`}, 
   									[
   										[`a`, {class: `-_tX v202201180941`, style: {[`min-width`]: `${32}px`, height: `${32}px`}, href: `/`}, ``], 
-  										[`span`, {class: `_aA6 _tXx`, style: {
+  										[`span`, {id: `vault`, class: `_aA6 _tXx`, style: {
   											[`border-left`]: `${1}px solid #91919159`,
   											margin: `${0} ${7}px`,
   											padding: `${0} ${14}px`,
@@ -558,7 +558,7 @@ let Models = {
   											[`font-family`]: (Clients.wallet)? `arcane`: `inherit`,
   											//[`text-overflow`]: `ellipsis`,
   											[`white-space`]: `nowrap`}}, (Clients.wallet)? `${portfolio} USD`: `joltquid`], 
-  										[`span`, {id: `vault`, class: `_tXx`, style: {
+  										[`span`, {class: `_tXx`, style: {
   											color: `#feef11`, 
   											margin: `${1.5}px ${0} ${0} ${-14}px`, 
   											[`font-size`]: `${12}px`}}, (Clients.wallet && Tools.typen(Clients.wallet)[2][1] > 0)? `+BTC`: ``]]],

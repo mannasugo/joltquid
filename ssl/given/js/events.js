@@ -492,7 +492,7 @@ class Events {
 
     			View.pop();
 
-    			View.DOM([`#limits`, [Models.bitpit()]]);
+    			View.DOM([`#limits`, Models.bitpit()]);
 			}
 		});
 	}
