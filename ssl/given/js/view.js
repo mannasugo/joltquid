@@ -113,18 +113,18 @@ let Models = {
 
   		Pit[0].sort((A, B) => {return B[0] - A[0]});
 
-  		Pit[0].slice(0, 10).forEach((Value, i) => {
+  		Pit[0].slice(1, 10).forEach((Value, i) => {
 
   			Pit[1].push([`div`, {class: `_gxM`}, 
   				[
   					[`span`, {style: {
-  						[`font-family`]: `geometria`,
-  						[`font-size`]: `${10}px`,
-  						color: ((Value[1] - Pit[0][i + 1][1]) >= 0) ? `#1bd401`: `#d40101`}}, `${Value[1]}`],
+  						[`font-family`]: `consola`,
+  						[`font-size`]: `${11}px`,
+  						color: ((Value[1] - Pit[0][i + 2][1]) >= 0) ? `#1bd401`: `#d40101`}}, `${Value[1]}`],
   					[`div`, {class: `_gZz`, style: {
   						opacity: .3,
-  						[`font-size`]: `${10}px`, 
-  						[`font-family`]: `geometria`}}, `${Tools.logs(Value[0])}`]]]);
+  						[`font-size`]: `${11}px`, 
+  						[`font-family`]: `consola`}}, `${Tools.logs(Value[0])}`]]]);
 
   			Pit[2] = Value[1]
   		});

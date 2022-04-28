@@ -3,13 +3,6 @@
 }
 
 @font-face {
-  font-family: 'litera';
-  src: url('/ssl/given/glyphs/litera.ttf') format('truetype');
-  font-weight: 100;
-  font-style: normal;
-}
-
-@font-face {
 	font-family: arcane;
 	src: url(/ssl/given/glyphs/v202112201738___gotham___round.otf) format('opentype');
 	font-style: normal;
@@ -17,10 +10,24 @@
 }
 
 @font-face {
+  font-family: 'consola';
+  src: url('/ssl/given/glyphs/consolas.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
 	font-family: geometria;
 	src: url(/ssl/given/glyphs/v202203251236.geometria.ttf) format('truetype');
 	font-style: normal;
 	font-weight: 100;
+}
+
+@font-face {
+  font-family: 'litera';
+  src: url('/ssl/given/glyphs/litera.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
 }
 
 a, article, body, div, footer, form, h1, h2, h3, h4, header, html, img, label, li, nav, p, section, span, time, ul {
