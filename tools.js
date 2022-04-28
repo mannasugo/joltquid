@@ -2,7 +2,7 @@
 
 const {createConnection} = require(`mysql`);
 
-const { mkdir, readFileSync, stat, writeFileSync } = require(`fs`);
+const { mkdir, readFile, readFileSync, stat, writeFileSync } = require(`fs`);
 
 const get = require(`request`);
 
@@ -180,6 +180,98 @@ class Tools {
 		});
 
 		return [vaults, (vault[0] + vault[1]).toFixed(2), (vault[2] + vault[3]).toFixed(2), ((vault[0] + vault[1]) - (vault[2] + vault[3])).toFixed(2)];
+	}
+
+	quo (Raw) {
+
+		let secs = new Date().valueOf(),
+
+		State = {
+			btc: [0, [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]],
+			volume: [0, [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]]},
+
+		Spans = [[], [], [], [], [], []];
+
+		let Times = [secs - 86400000*3540, secs - 86400000*354, secs - 86400000*31, secs - 86400000*7, secs - 86400000, secs - 3600000];
+
+		readFile(`json/volume.json`, {encoding: `utf8`}, (flaw, Volume) => {
+
+			Volume = this.typen(Volume).volume;
+
+			Volume.sort((A, B) => {return A[0] - B[0]});
+
+			Times[0] = secs - Volume[0][0];
+
+			Times.forEach((i, a) => {
+
+				Volume.forEach((Span) => {
+
+					Span[1] = parseFloat(Span[1]).toFixed(5);
+
+					if (Span[0] >= i && Span[0] <= secs) Spans[a].push(Span);
+				});
+
+				if (Spans[a].length === 0) {
+
+					if (Volume.length > 0) Spans[a] = [[i, Volume[Volume.length - 1][1]], [secs, Volume[Volume.length - 1][1]]];
+
+					else Spans[a] = [[i, 0], [secs, 0]];
+				}
+
+				else if (Spans[a].length > 0) {
+
+					if (Volume.indexOf(Spans[a][0]) > 0) Spans[a].push([i, Volume[Volume.indexOf(Spans[a][0]) - 1][1]]);
+
+					Spans[a] = Spans[a].sort((A, B) => {return B[0] - A[0]});
+
+					Spans[a].push([secs, Spans[a][0][1]]);
+				}
+
+				Spans[a] = Spans[a].sort((A, B) => {return B[0] - A[0]});
+			});
+
+			State.volume[0] = Volume[Volume.length - 1][1];
+
+			Spans.forEach((Span, a) => {
+
+				Span = Span.sort((A, B) => {return B[0] - A[0]});
+
+				State.volume[1][a][0] = Span[Span.length - 1][1]; //start
+
+				State.volume[1][a][1] = Span[0][1]; //end
+
+				let Volume = Span.sort((A, B) => {return B[1] - A[1]});
+
+				State.volume[1][a][2] = Span[Span.length - 1][1]; //low
+
+				State.volume[1][a][3] = Span[0][1]; //up
+			});
+
+			readFile(`json/last_btc.json`, {encoding: `utf8`}, (flaw, btc) => {
+
+				let Values = this.typen(btc);
+
+				State.btc[0] = Values[0][0][1];
+
+				Values.forEach((Span, a) => {
+
+					Span = Span.sort((A, B) => {return B[0] - A[0]});
+
+					State.btc[1][a][0] = Span[Span.length - 1][1]; //start
+
+								State.btc[1][a][1] = Span[0][1]; //end
+
+								let Value = Span.sort((A, B) => {return B[1] - A[1]});
+
+								State.btc[1][a][2] = Span[Span.length - 1][1]; //low
+
+								State.btc[1][a][3] = Span[0][1]; //up
+				});
+
+				Raw[0]({axis: Values[5], secs: Raw[0], quo: State});
+
+			});
+		});
 	}
 
     wallet (Raw) {

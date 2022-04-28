@@ -111,11 +111,7 @@ let Models = {
 
   		let Quo = Tools.typen(Clients.quo).btc;
 
-  		let pit = Quo[1][4];
-
   		Pit[0].sort((A, B) => {return B[0] - A[0]});
-
-  		//Pit[2] = Pit[0][11][1];
 
   		Pit[0].slice(0, 10).forEach((Value, i) => {
 

@@ -30,50 +30,35 @@ class Route {
 
 			let Puts = Tools.pull([
 				`/json/web`, {
+					mug: (Clients.mug) ? Tools.typen(Clients.mug)[0]: false,
 					pull: `app`
 				}]);
 
 			Puts.onload = () => {
 
-				let Pulls = JSON.parse(Puts.response);
+				let Web = JSON.parse(Puts.response);
 
 				Clients.instance = Tools.coats([`app`, new Date().valueOf()]);
 
-				Clients.moves = Tools.coats(Pulls.moves);
+				Clients.quo = Tools.coats(Web.quo);
 
-				let secs = new Date().valueOf();
+				Clients.axis = Tools.coats(Web.axis.sort((A, B) => {return A[0] - B[0]}));
 
-				io().emit(`app`, [secs]);
+				if (Clients.mug) {
 
-				io().on(`app`, App => {
+					//Web.wallet[3] = [Web.wallet[2][0], Web.wallet[2][1]];
 
-					if (App.secs !== secs) return;
+					Web.wallet[2] = [Web.wallet[0][0] - Web.wallet[0][1], Web.wallet[1][0] - Web.wallet[1][1]];
 
-					Clients.quo = Tools.coats(App.quo);
+					Clients.wallet = Tools.coats(Web.wallet);
 
-					Clients.axis = Tools.coats(App.axis.sort((A, B) => {return A[0] - B[0]}));
+					Clients.vault = parseFloat(Web.wallet[3][0] - Web.wallet[3][1]);
 
-					if (Clients.mug) {
+					View.DOM([`div`, [Models.main()]]);
 
-						io().emit(`wallet`, [Tools.typen(Clients.mug)[0], secs]);
+    				View.pop();
 
-						io().on(`wallet`, Wallet => {
-
-							if (Wallet.secs === secs && Wallet.mug === Tools.typen(Clients.mug)[0]) {
-
-								Wallet.wallet[3] = [Wallet.wallet[2][0], Wallet.wallet[2][1]];
-
-								Wallet.wallet[2] = [Wallet.wallet[0][0] - Wallet.wallet[0][1], Wallet.wallet[1][0] - Wallet.wallet[1][1]];
-
-								Clients.wallet = Tools.coats(Wallet.wallet);
-
-								Clients.vault = parseFloat(Wallet.wallet[3][0] - Wallet.wallet[3][1]);
-
-								View.DOM([`div`, [Models.main()]]);
-
-    							View.pop();
-
-    							View.DOM([`#buyline`, [Models.buyline()]]);
+    				View.DOM([`#buyline`, [Models.buyline()]]);
 
 								/**
 								if (document.querySelector(`#coin`)) {
@@ -87,20 +72,17 @@ class Route {
 
 								Events.pitReals()
 								**/
-							}
+				}
 
-						});
-					}
+				else {
 
-					else {
+					View.DOM([`div`, [Models.main()]]);
 
-						View.DOM([`div`, [Models.main()]]);
+					Events.slotin();
 
-						Events.slotin();
+    				View.pop();
 
-    					View.pop();
-
-    					View.DOM([`#buyline`, [Models.buyline()]]);
+    				View.DOM([`#buyline`, [Models.buyline()]]);
 
 						/**
 						if (document.querySelector(`#coin`)) {
@@ -114,8 +96,7 @@ class Route {
 
 						Events.pitReals();
 						**/
-					}
-				});
+				}
 			}
 		}
 
