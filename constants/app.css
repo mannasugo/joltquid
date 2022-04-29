@@ -211,7 +211,7 @@ body {
   min-width: 40px;
 }
 
-.v202201180941, .v202202122052, .v202203171249, .v202203191304, .v202203261943, .v202203262148, .v202204261406 {
+.v202201180941, .v202202122052, .v202203171249, .v202203191304, .v202203261943, .v202203262148, .v202204261406, .v202204282015 {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
@@ -230,6 +230,8 @@ body {
 .v202203262148 {background-image: url(/ssl/given/svg/take_202203262148.svg);}
 
 .v202204261406 {background-image: url(/ssl/given/svg/mug_202204261406.svg);}
+
+.v202204282015 {background-image: url(/ssl/given/svg/append_202204282015.svg);}
 
 ._aA2, ._aA2:visited {color: #000;}
 

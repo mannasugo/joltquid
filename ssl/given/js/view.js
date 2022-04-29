@@ -173,7 +173,7 @@ let Models = {
 
 				Pit[4].push(
 					[`text`, {x: XY[0], y: XY[1], fill: `#fff`, style: {
-						[`font-family`]: `geometria`,
+						[`font-family`]: `consola`,
 						[`font-size`]: `${9}px`}}, `${(Feat[1]).toFixed(0)}`]);
 			});		
 
@@ -200,7 +200,7 @@ let Models = {
   				[`div`, {class: `_gxM`}, 
   					[
   						[`span`, {style: {
-  							[`font-family`]: `geometria`,
+  							[`font-family`]: `consola`,
   							[`font-size`]: `${12}px`,
   							[`font-weight`]: 600}}, `${(parseFloat(Tools.typen(Clients.quo).btc[0])).toFixed(1)} USD`],
   						Pit[1]]],
@@ -559,6 +559,7 @@ let Models = {
   											//[`text-overflow`]: `ellipsis`,
   											[`white-space`]: `nowrap`}}, (Clients.wallet)? `${portfolio} USD`: `joltquid`], 
   										[`span`, {class: `_tXx`, style: {
+  											display: `none`,
   											color: `#feef11`, 
   											margin: `${1.5}px ${0} ${0} ${-14}px`, 
   											[`font-size`]: `${12}px`}}, (Clients.wallet && Tools.typen(Clients.wallet)[2][1] > 0)? `+BTC`: ``]]],
@@ -576,12 +577,12 @@ let Models = {
   											[`span`, {style: {
   												[`margin-bottom`]: `${24}px`,
   												color: `#feef11`, 
-  												[`font-size`]: `${25}px`, 
+  												[`font-size`]: `${16}px`, 
   												[`line-height`]: `${32}px`,
   												[`font-weight`]: 300}}, `Own Bitcoin`],
   											[`p`, {style: {[`font-size`]: `${12}px`}}, `Obtain bitcoin instantly at market price from joltquid's crypto exchange`], 
   											[`div`, {class: `geQ`, style: {margin: `${24}px 0`}}, 
-  												[[`span`, {id: `instant`, class: `parallelo`, style: {color: `#000`}}, `BUY ${(3/Axis[1]).toFixed(5)} BTC @ 3 USD`]]]]], 
+  												[[`span`, {id: `instant`, class: `parallelo`, style: {[`font-family`]: `consola`, color: `#000`}}, `BUY ${(3/Axis[1]).toFixed(5)} BTC @ 3 USD`]]]]], 
   									[`div`, {id: `buyline`}]]]
   							/*[`span`, {style: {padding: `${12}px ${0}`, [`text-decoration`]: `underline`}}, `INDEXJQ: .Bitcoin`], 
   							[`div`, {class: `_wrap_202203262208`}, 
@@ -613,7 +614,7 @@ let Models = {
   												[`text-align`]: `center`,
   												color: `#feef11`,
   												[`line-height`]: `${32}px`,
-  												[`font-size`]: `${25}px`}}, `joltquid Quant Fund`],
+  												[`font-size`]: `${16}px`}}, `Quant Fund`],
   											[`p`, {style: {
   												[`font-size`]: `${12}px`,
   												[`text-align`]: `center`}}, 
@@ -641,7 +642,7 @@ let Models = {
   												[`text-align`]: `center`,
   												color: `#feef11`,
   												[`line-height`]: `${32}px`,
-  												[`font-size`]: `${25}px`}}, `Crypto Exchange`],
+  												[`font-size`]: `${16}px`}}, `Crypto Exchange`],
   											[`p`, {style: {
   												[`font-size`]: `${12}px`,
   												[`text-align`]: `center`}}, 
@@ -1103,7 +1104,7 @@ let Models = {
 
    	wallets: [
    		`div`, {}, 
-   			[[`a`, {class: `v202203191304`, style: {margin: `${0} ${10}px`}, href: `/wallet`}]]]
+   			[[`a`, {class: `v202204282015`, style: {margin: `${0} ${10}px`}, href: `/wallet`}]]]
 }
 
 View = new View;
