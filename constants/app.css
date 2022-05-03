@@ -369,6 +369,12 @@ body {
 
 #bitpitsvg {margin-bottom: 24px; padding-right: 96px}
 
+.foot {width: 33.333333%; margin-bottom: 24px}
+
+.foot-title {margin-bottom: 12px; font-weight: 600; opacity: .5}
+
+.foot a, .foot a:visited {width: max-content; margin-top: 6px; font-size: 11px; font-weight: 600; color: #262626}
+
 @media (min-width: 600px) {
 
   #mugs {justify-content: center;}
@@ -402,4 +408,6 @@ body {
   #bitpit, #bitpitsvg {width: 100%; padding: 0}
 
   .unsqueeze {align-items: unset; flex: unset;}
+
+  .foot {width: 50%}
 }

@@ -105,6 +105,136 @@ let Models = {
   						[`div`, {id: `moves`, style: {margin: `${30}px ${0}`}}, []]]]]]; //positions
   	},
 
+    assets: function () {
+
+        let Axis = Tools.typen(Clients.axis).sort((A, B) => {return B[0] - A[0]});
+
+        let Vault = [[], [], [Axis[0][1], Axis[Axis.length - 1][1]]];
+
+        Vault[0] = Tools.typen(Clients.wallet)[2];
+
+        if (Vault[0][0] > 0 || Vault[0][1] > 0) {
+
+            Vault[0] = [
+                [`USD`, Vault[0][0].toFixed(2), 1, 0], 
+                [`BTC`, Vault[0][1].toFixed(7), Tools.typen(Clients.quo).btc[0]], Vault[2][0] - Vault[2][1]];
+
+            Vault[0].forEach(Asset => {
+
+                if (Asset[1] > 0) {
+
+                    Vault[1].push(
+                        [`div`, {class: `asset _wrap_202203262208`, style: {
+                            padding: `${12}px ${0}`, [`border-bottom`]: `${1}px solid #e8e8e8`}}, 
+                            [
+                                [`div`, {style: {width: `${20}%`}}, [[`a`, {href: `javascript:;`, style: {
+                                    [`font-family`]: `litera`,
+                                    [`font-size`]: `${12}px`}}, Asset[0]]]],
+                                [`div`, {style: {width: `${35}%`}}, [[`span`, {}, `${Asset[1]}`]]],
+                                [`div`, {style: {width: `${25}%`}}, [[`span`, {style: {
+                                    color: (Asset[3] >= 0) ? `#1bd401`: `#d40101`}}, `${Asset[2]}`]]],
+                                [`div`, {style: {width: `${20}%`}}, [[`span`, {style: {
+                                    color: (Asset[3] >= 0) ? `#1bd401`: `#d40101`}}, `${(Asset[2]*Asset[1]).toFixed(2)}`]]]]]);
+                }
+            });
+
+            return [`div`, {style: {margin: `${30}px ${0} ${0}`}}, 
+                [
+                    [`div`, {class: `_gxM _tXx`, style: {[`font-size`]: `${12}px`}}, `Assets`],
+                    [`div`, {id: `pittile`, class: `_wrap_202203262208`, style: {
+                        padding: `${24}px ${0} ${6}px`, [`border-bottom`]: `${1}px solid #e8e8e8`}}, 
+                        [
+                            [`div`, {style: {width: `${20}%`}}, [[`span`, {}, `asset`]]],
+                            [`div`, {style: {width: `${35}%`}}, [[`span`, {}, `amount`]]],
+                            [`div`, {style: {width: `${25}%`}}, [[`span`, {}, `price`]]],
+                            [`div`, {style: {width: `${20}%`}}, [[`span`, {}, `value`]]]]], 
+                [`div`, {}, Vault[1]]]];
+        }
+
+        else return [];
+    }, 
+
+    axis: function (Axis) {
+
+        let AXIS = [Tools.typen(Clients.axis), ``, [], [], ``];
+
+        let Y = [Axis[0][2], Axis[0][3]];
+
+        let X = [AXIS[0][AXIS[0].length - 1][0], AXIS[0][0][0]];
+
+        let x = AXIS[0][AXIS[0].length - 1][0] - AXIS[0][0][0],
+
+        y = Y[1] - Y[0];
+
+        AXIS[0].forEach(Vault => {
+
+            AXIS[1] += `${(((Vault[0] - AXIS[0][0][0])/x)*Axis[1])} ${(y === 0)? 50: ((Vault[1] - Y[1])/y)*(-185)} `;
+        });
+
+        X.forEach(Span => {
+
+            let Day = new Date(Span);
+
+            if (x >= 3600000*24) AXIS[4] = `${Day.getMonth() + 1}/${Day.getDate()}`
+
+            else if (x <= 3600000*24) AXIS[4] = `${(Day.getHours() > 9)? Day.getHours(): `0` + Day.getHours()}:${(Day.getMinutes() > 9)? Day.getMinutes(): `0` + Day.getMinutes()}`
+
+            AXIS[2].push([`text`, {x: (((Span - AXIS[0][0][0])/x)*(Axis[1] - 12.25)), y: 200, fill: `#a6a6a6`, style: {
+                //[`font-family`]: `geometria`,
+                [`font-size`]: `${10}px`}}, AXIS[4]]);
+        });
+
+        let Value = Tools.typen(Clients.axis).sort((A, B) => {return B[1] - A[1]});
+
+        let Feats = [Value[Value.length - 1], Value[0]];
+
+        Feats.forEach(Feat => {
+
+        let XY = [(((Feat[0] - AXIS[0][0][0])/x)*Axis[1]), ((Feat[1] - Y[1])/y)*(-185)];
+
+                (XY[1] < 5)? XY[1] = 7.5: XY[1];
+
+                (XY[1] > 195)? XY[1] = 191: XY[1];
+
+                (XY[0] < 5)? XY[0] = 6: XY[0] = XY[0] + 2.5;
+
+                (XY[0] > Axis[1] - 75)? XY[0] = Axis[1] - 70: XY[0] = XY[0] + 2.5;
+
+                AXIS[3].push(
+                    [`text`, {x: XY[0], y: XY[1], fill: `#000`, style: {
+                        [`font-family`]: `geometria`,
+                        [`font-size`]: `${9}px`}}, `${(Feat[1]).toFixed(1)}`]);
+            });
+
+        let Span = [[], [`1H`, `1D`, `1W`, `All`]];
+
+        Span[1].forEach((a) => {
+
+            Span[0].push([`span`, {id: `span`, style: {opacity: (a === Axis[2])? 1: .3, padding: `${0} ${7.5}px`}}, a]);
+        });
+
+        return [
+            `div`, {}, 
+                [
+                    [`div`, {class: `_gxM`}, 
+                        [
+                            [`span`, {class: `_tXx`, style: {
+                                [`font-family`]: `geometria`,
+                                [`font-size`]: `${12}px`}}, `${(Axis[0][1]).toFixed(2)} USD`], 
+                            [`div`, {class: `_eYG`}, 
+                                [[`span`, {class: `tXx`, style: {
+                                    color: (((Axis[0][1] - Axis[0][0])/Axis[0][1])*100 >= 0) ? `#1bd401`: `#d40101`,
+                                    [`font-family`]: `geometria`,
+                                    [`font-size`]: `${10}px`}}, `${(((Axis[0][1] - Axis[0][0])/Axis[0][1])*100 >= 0) ? `+`: ``}${(((Axis[0][1] - Axis[0][0])/Axis[0][1])*100).toFixed(2)}%`]]], 
+                            [`div`, {id: `reals`, class: `_gZz`, role: `daily-btc`, style: {[`font-size`]: `${10}px`}}, 
+                                Span[0]]]],
+                    [`svg`, {height: `${200}px`, style: {[`margin-top`]: `${30}px`}}, 
+                        [
+                            [`g`, {}, AXIS[2]],
+                            [`g`, {}, AXIS[3]],
+                            [`path`, {stroke: `#5841d8`, [`stroke-width`]: 1, fill: `none`, d: `M${AXIS[1]}`}]]]]];
+    },
+
   	bitpit: function () {
 
   		let Pit = [Tools.typen(Clients.axis), []];
@@ -308,135 +438,43 @@ let Models = {
   				Pit[2]]];
   	},
 
-  	assets: function () {
-
-		let Axis = Tools.typen(Clients.axis).sort((A, B) => {return B[0] - A[0]});
-
-  		let Vault = [[], [], [Axis[0][1], Axis[Axis.length - 1][1]]];
-
-  		Vault[0] = Tools.typen(Clients.wallet)[2];
-
-  		if (Vault[0][0] > 0 || Vault[0][1] > 0) {
-
-  			Vault[0] = [
-  				[`USD`, Vault[0][0].toFixed(2), 1, 0], 
-  				[`BTC`, Vault[0][1].toFixed(7), Tools.typen(Clients.quo).btc[0]], Vault[2][0] - Vault[2][1]];
-
-  			Vault[0].forEach(Asset => {
-
-  				if (Asset[1] > 0) {
-
-  					Vault[1].push(
-  						[`div`, {class: `asset _wrap_202203262208`, style: {
-  							padding: `${12}px ${0}`, [`border-bottom`]: `${1}px solid #e8e8e8`}}, 
-  							[
-  								[`div`, {style: {width: `${20}%`}}, [[`a`, {href: `javascript:;`, style: {
-  									[`font-family`]: `litera`,
-  									[`font-size`]: `${12}px`}}, Asset[0]]]],
-  								[`div`, {style: {width: `${35}%`}}, [[`span`, {}, `${Asset[1]}`]]],
-  								[`div`, {style: {width: `${25}%`}}, [[`span`, {style: {
-  									color: (Asset[3] >= 0) ? `#1bd401`: `#d40101`}}, `${Asset[2]}`]]],
-  								[`div`, {style: {width: `${20}%`}}, [[`span`, {style: {
-  									color: (Asset[3] >= 0) ? `#1bd401`: `#d40101`}}, `${(Asset[2]*Asset[1]).toFixed(2)}`]]]]]);
-  				}
-  			});
-
-  			return [`div`, {style: {margin: `${30}px ${0} ${0}`}}, 
-  				[
-  					[`div`, {class: `_gxM _tXx`, style: {[`font-size`]: `${12}px`}}, `Assets`],
-  					[`div`, {id: `pittile`, class: `_wrap_202203262208`, style: {
-  						padding: `${24}px ${0} ${6}px`, [`border-bottom`]: `${1}px solid #e8e8e8`}}, 
-  						[
-  							[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `asset`]]],
-  							[`div`, {style: {width: `${35}%`}}, [[`span`, {}, `amount`]]],
-  							[`div`, {style: {width: `${25}%`}}, [[`span`, {}, `price`]]],
-  							[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `value`]]]]], 
-  				[`div`, {}, Vault[1]]]];
-  		}
-
-  		else return [];
-  	}, 
-
-	axis: function (Axis) {
-
-		let AXIS = [Tools.typen(Clients.axis), ``, [], [], ``];
-
-		let Y = [Axis[0][2], Axis[0][3]];
-
-		let X = [AXIS[0][AXIS[0].length - 1][0], AXIS[0][0][0]];
-
-		let x = AXIS[0][AXIS[0].length - 1][0] - AXIS[0][0][0],
-
-		y = Y[1] - Y[0];
-
-		AXIS[0].forEach(Vault => {
-
-			AXIS[1] += `${(((Vault[0] - AXIS[0][0][0])/x)*Axis[1])} ${(y === 0)? 50: ((Vault[1] - Y[1])/y)*(-185)} `;
-		});
-
-		X.forEach(Span => {
-
-			let Day = new Date(Span);
-
-			if (x >= 3600000*24) AXIS[4] = `${Day.getMonth() + 1}/${Day.getDate()}`
-
-			else if (x <= 3600000*24) AXIS[4] = `${(Day.getHours() > 9)? Day.getHours(): `0` + Day.getHours()}:${(Day.getMinutes() > 9)? Day.getMinutes(): `0` + Day.getMinutes()}`
-
-			AXIS[2].push([`text`, {x: (((Span - AXIS[0][0][0])/x)*(Axis[1] - 12.25)), y: 200, fill: `#a6a6a6`, style: {
-				//[`font-family`]: `geometria`,
-				[`font-size`]: `${10}px`}}, AXIS[4]]);
-		});
-
-		let Value = Tools.typen(Clients.axis).sort((A, B) => {return B[1] - A[1]});
-
-		let Feats = [Value[Value.length - 1], Value[0]];
-
-		Feats.forEach(Feat => {
-
-		let XY = [(((Feat[0] - AXIS[0][0][0])/x)*Axis[1]), ((Feat[1] - Y[1])/y)*(-185)];
-
-				(XY[1] < 5)? XY[1] = 7.5: XY[1];
-
-				(XY[1] > 195)? XY[1] = 191: XY[1];
-
-				(XY[0] < 5)? XY[0] = 6: XY[0] = XY[0] + 2.5;
-
-				(XY[0] > Axis[1] - 75)? XY[0] = Axis[1] - 70: XY[0] = XY[0] + 2.5;
-
-				AXIS[3].push(
-					[`text`, {x: XY[0], y: XY[1], fill: `#000`, style: {
-						[`font-family`]: `geometria`,
-						[`font-size`]: `${9}px`}}, `${(Feat[1]).toFixed(1)}`]);
-			});
-
-    	let Span = [[], [`1H`, `1D`, `1W`, `All`]];
-
-    	Span[1].forEach((a) => {
-
-    		Span[0].push([`span`, {id: `span`, style: {opacity: (a === Axis[2])? 1: .3, padding: `${0} ${7.5}px`}}, a]);
-    	});
-
-		return [
-			`div`, {}, 
-				[
-  					[`div`, {class: `_gxM`}, 
-  						[
-  							[`span`, {class: `_tXx`, style: {
-  								[`font-family`]: `geometria`,
-  								[`font-size`]: `${12}px`}}, `${(Axis[0][1]).toFixed(2)} USD`], 
-  							[`div`, {class: `_eYG`}, 
-  								[[`span`, {class: `tXx`, style: {
-  									color: (((Axis[0][1] - Axis[0][0])/Axis[0][1])*100 >= 0) ? `#1bd401`: `#d40101`,
-  									[`font-family`]: `geometria`,
-  									[`font-size`]: `${10}px`}}, `${(((Axis[0][1] - Axis[0][0])/Axis[0][1])*100 >= 0) ? `+`: ``}${(((Axis[0][1] - Axis[0][0])/Axis[0][1])*100).toFixed(2)}%`]]], 
-  							[`div`, {id: `reals`, class: `_gZz`, role: `daily-btc`, style: {[`font-size`]: `${10}px`}}, 
-  								Span[0]]]],
-					[`svg`, {height: `${200}px`, style: {[`margin-top`]: `${30}px`}}, 
-						[
-							[`g`, {}, AXIS[2]],
-							[`g`, {}, AXIS[3]],
-							[`path`, {stroke: `#5841d8`, [`stroke-width`]: 1, fill: `none`, d: `M${AXIS[1]}`}]]]]];
-	},
+    foot: function () {
+        
+        return [`section`, {style: {padding: `${24}px`, background: `#fff`, color: `#262626`}}, 
+            [[`div`, {style: {
+                width: `${100}%`,
+                [`max-width`]: `${1000}px`, margin: `${0} auto`}}, 
+                [
+                    [`div`, {class: `_wrap_202203262208`}, 
+                        [
+                            [`div`, {class: `foot`}, 
+                                [
+                                    [`span`, {class: `foot-title`}, `Features`],
+                                    [`div`, {}, 
+                                        [
+                                            [`a`, {href: ``}, `Margin Trading`], 
+                                            [`a`, {href: ``}, `Quant Trading`], 
+                                            [`a`, {href: ``}, `Proof of Reserves`]]]]], 
+                            [`div`, {class: `foot`}, 
+                                [
+                                    [`span`, {class: `foot-title`}, `Prices`],
+                                    [`div`, {}, 
+                                        [
+                                            [`a`, {href: ``}, `Prices Analysis`], 
+                                            [`a`, {href: ``}, `Crypto Prices`]]]]], 
+                            [`div`, {class: `foot`}, 
+                                [
+                                    [`span`, {class: `foot-title`}, `About`],
+                                    [`div`, {}, 
+                                        [ 
+                                            [`a`, {href: ``}, `Team`],
+                                            [`a`, {href: ``}, `Why Joltquid`], 
+                                            [`a`, {href: ``}, `Careers`], 
+                                            [`a`, {href: ``}, `Contact`], 
+                                            [`a`, {href: ``}, `Press`]]]]]]], 
+                    [`div`, {class: `_geQ`, style: {
+                        padding: `${24}px ${0}`, [`font-size`]: `${11}px`}}, `©2022 Joltquid Capital, LLC. All Rights Reserved`]]]]]
+    },
 
   	holdMug: [
   		`section`, {id: `mugs`, class: `_geQ _axZ`, style: {
@@ -567,9 +605,9 @@ let Models = {
   									[
   										(Clients.mug)? this.wallets: [`div`, {}],
   										this.mug[(Clients.mug) ? 1: 0]]]]]]], 
-  				[`section`, {id: `wallet`, style: {[`max-width`]: `${1000}px`, width: `${100}%`, margin: `${90}px auto`}}, 
-  					[[`div`, {style: {padding: `${0} ${24}px`}}, 
-  						[	
+  				    [`section`, {id: `wallet`, style: {[`max-width`]: `${1000}px`, width: `${100}%`, margin: `${90}px auto`}}, 
+  					    [[`div`, {style: {padding: `${0} ${24}px`}}, 
+  						    [	
   							[`div`, {class: `_wrap_202203262208 _geQ unsqueeze`}, 
   								[
   									[`div`, {id: `buy`},  
@@ -577,12 +615,12 @@ let Models = {
   											[`span`, {style: {
   												[`margin-bottom`]: `${24}px`,
   												color: `#feef11`, 
-  												[`font-size`]: `${16}px`, 
+  												[`font-size`]: `${26}px`, 
   												[`line-height`]: `${32}px`,
-  												[`font-weight`]: 300}}, `Own Bitcoin`],
+  												[`font-weight`]: 600}}, `Own Bitcoin`],
   											[`p`, {style: {[`font-size`]: `${12}px`}}, `Obtain bitcoin instantly at market price from joltquid's crypto exchange`], 
   											[`div`, {class: `geQ`, style: {margin: `${24}px 0`}}, 
-  												[[`span`, {id: `instant`, class: `parallelo`, style: {[`font-family`]: `consola`, color: `#000`}}, `BUY ${(3/Axis[1]).toFixed(5)} BTC @ 3 USD`]]]]], 
+  												[[`span`, {id: `instant`, class: `parallelo _tXx`, style: {[`font-family`]: `consola`, color: `#000`}}, `BUY ${(3/Axis[1]).toFixed(5)} BTC @ 3 USD`]]]]], 
   									[`div`, {id: `buyline`}]]]
   							/*[`span`, {style: {padding: `${12}px ${0}`, [`text-decoration`]: `underline`}}, `INDEXJQ: .Bitcoin`], 
   							[`div`, {class: `_wrap_202203262208`}, 
@@ -614,12 +652,13 @@ let Models = {
   												[`text-align`]: `center`,
   												color: `#feef11`,
   												[`line-height`]: `${32}px`,
-  												[`font-size`]: `${16}px`}}, `Quant Fund`],
+  												[`font-size`]: `${26}px`,
+                                                [`font-weight`]: 600}}, `Applied Quantitative Investment Fund`],
   											[`p`, {style: {
   												[`font-size`]: `${12}px`,
   												[`text-align`]: `center`}}, 
   												`Sit back and let our proficient quant algorithms grow your crypto & fiat investments for you by 
-  												implementing optimized high math, AI and market momentum driven strategies. Built to cater for separate 
+  												implementing optimized high math, AI and market momentum driven quantitative strategies. Built to cater for separate 
   												client tiers, our service provides for all investors ranging from as low as economy and premium tiers.`], 
   											[`span`, {class: `parallelo`, style: {
   												color: `#000`, 
@@ -642,7 +681,8 @@ let Models = {
   												[`text-align`]: `center`,
   												color: `#feef11`,
   												[`line-height`]: `${32}px`,
-  												[`font-size`]: `${16}px`}}, `Crypto Exchange`],
+  												[`font-size`]: `${26}px`,
+                                                [`font-weight`]: 600}}, `Crypto Exchange`],
   											[`p`, {style: {
   												[`font-size`]: `${12}px`,
   												[`text-align`]: `center`}}, 
@@ -651,7 +691,7 @@ let Models = {
   												color: `#000`, 
   												[`margin-top`]: `${24}px`, 
   												[`font-family`]: `litera`,
-  												[`font-weight`]: 600}}, `Trade Now`]]]]]]]]]]];
+  												[`font-weight`]: 600}}, `Trade Now`]]]]]]]]], this.foot()]];
 
   		return Main[0];
   	},
