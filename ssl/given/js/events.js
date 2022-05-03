@@ -39,6 +39,28 @@ class Events {
 		});
 	}
 
+	mains () {
+
+		this.listen([document.querySelector(`#instant`), `click`, S => {
+
+			if (Clients.mug) window.location = `/pit`;
+
+			else {
+
+				View.pop();
+
+				Clients.instance = Tools.coats([`mugin`, new Date().valueOf()]);
+
+				View.DOM([`div`, [Models.mugslot()]]);
+
+				this.slotup();
+
+				this.mugin();
+			}
+		}]);
+
+	}
+
 	mugin () {
 
 		this.listen([document.querySelector(`#signin`), `click`, S => {
@@ -65,13 +87,7 @@ class Events {
 
 					Clients.mug = Tools.coats(Pull.mug);
 
-					window.location = ``;
-
-					/**
-					history.pushState(``, ``, `/`);
-
-					Route.Call();
-					**/
+					window.location = `/balance`;
 				}
 			}
 
@@ -106,13 +122,7 @@ class Events {
 
 					Clients.mug = Tools.coats(Pull.mug);
 
-					window.location = ``;
-
-					/**
-					history.pushState(``, ``, `/`);
-
-					Route.Call();
-					**/
+					window.location = `/balance`;
 				}
 			}
 

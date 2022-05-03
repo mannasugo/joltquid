@@ -389,6 +389,12 @@ class Route {
 								}
 							}
 
+							else if (Pulls.pull === `balance`) {
+
+								Arg[1].end(Tools.coats({}));
+
+							}
+
 							else if (Pulls.pull === `btc`) {
 
 								readFile(`json/last_btc.json`, {encoding: `utf8`}, (flaw, Coat) => {

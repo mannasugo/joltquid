@@ -440,7 +440,7 @@ let Models = {
 
     foot: function () {
         
-        return [`section`, {style: {padding: `${24}px`, background: `#fff`, color: `#262626`}}, 
+        return [`section`, {id: `foot`, style: {/*padding: `${24}px`, background: `#fff`, color: `#262626`*/}}, 
             [[`div`, {style: {
                 width: `${100}%`,
                 [`max-width`]: `${1000}px`, margin: `${0} auto`}}, 
@@ -508,7 +508,33 @@ let Models = {
   											color: `#fff`,
   											background: `#1e1e1e`,
   											[`text-align`]: `center`,
-  											[`font-size`]: `${13}px`}}, `your image must be at least 500 x 500 pixels and set against a plain white background`]]]]]]]]]]]]],
+  											[`font-size`]: `${13}px`}}, `your image must be at least 500 x 500 pixels and set against a plain white background`]]]]]]]]]]]]], 
+
+    holds: function () {
+
+        return [`main`, {id: `holds`, class: `_tY0`, style: {background: `#fff`, color: `#262626`}}, 
+                [
+                    [`div`, {class: `_-tY`,style: {background: `#262626`}}, 
+                        [[`div`, {class: `_aXz`, style: {padding: `${0} ${16}px`}}, 
+                            [
+                                [`div`, {class: `_-Xg _gxM _geQ`}, 
+                                    [
+                                        [`a`, {class: `-_tX v202201180941`, style: {[`min-width`]: `${32}px`, height: `${32}px`}, href: `/`}, ``], 
+                                        [`span`, {id: `vault`, class: `_aA6 _tXx`, style: {
+                                            [`border-left`]: `${1}px solid #91919159`,
+                                            margin: `${0} ${7}px`,
+                                            padding: `${0} ${14}px`,
+                                            [`font-size`]: `${14}px`,
+                                            color: `#fff`,
+                                            overflow: `hidden`,
+                                            [`white-space`]: `nowrap`}}, `joltquid`]]],
+                                [`div`, {class: `_gZz`}, 
+                                    [
+                                        /*(Clients.mug)? this.wallets: [`div`, {}],
+                                        this.mug[(Clients.mug) ? 1: 0]*/]]]]]], 
+                    [`section`, {}],
+                    this.foot()]];
+    },
 
   	mugslot: function () {
 
@@ -740,7 +766,7 @@ let Models = {
     							[`text-transform`]: `uppercase`, 
     							[`letter-spacing`]: `normal`,
     							[`font-size`]: `${12}px`}}, (Clients.mug)? Tools.typen(Clients.mug)[1][0]: ``]]], 
-    				[`a`, {id: `mug`, class: `_aWz mug`, style: {position: `absolute`, left: 0}, href:(Clients.mug)? `/assets`:`javascript:;`}]]]],
+    				[`a`, {id: `mug`, class: `_aWz mug`, style: {position: `absolute`, left: 0}, href:(Clients.mug)? `/balance`:`javascript:;`}]]]],
 
     real: function (Real) {
 

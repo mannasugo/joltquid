@@ -56,6 +56,8 @@ class Route {
 
 					View.DOM([`div`, [Models.main()]]);
 
+					Events.mains();
+
     				View.pop();
 
     				View.DOM([`#buyline`, [Models.buyline()]]);
@@ -81,6 +83,8 @@ class Route {
 					View.DOM([`div`, [Models.main()]]);
 
 					Events.slotin();
+
+					Events.mains();
 
     				View.pop();
 
@@ -141,6 +145,37 @@ class Route {
     					View.DOM([`#coinline`, [Models.coinline()]]);
 
     					Events.holdReals();
+
+					}
+				}
+			}
+		}
+
+    	else if (this.State[3] === `balance`) {
+
+    		if (!Clients.mug) {
+
+    			history.pushState(``, ``, `/`);
+
+    			Route.Call();
+    		}
+
+    		else if (!State[4] && !Tools.slim[State[4]] && Clients.mug) {
+
+				let Puts = Tools.pull([
+					`/json/web/`, {
+						mug: Tools.typen(Clients.mug)[0],
+						pull: `balance`}]);
+
+				Puts.onload = () => {
+
+					let Web = JSON.parse(Puts.response);
+
+					if (Web /*&& Web.mug*/) {
+
+    	      			document.title = `Tokens & Balances`;
+
+				    	View.DOM([`div`, [Models.holds()]]);
 
 					}
 				}
