@@ -438,7 +438,7 @@ let Models = {
 					Pit[2]]];
 		},
 
-		foot: function () {
+	foot: function () {
 				
 				return [`section`, {id: `foot`, style: {/*padding: `${24}px`, background: `#fff`, color: `#262626`*/}}, 
 						[[`div`, {style: {
@@ -474,9 +474,9 @@ let Models = {
 																						[`a`, {href: ``}, `Press`]]]]]]], 
 										[`div`, {class: `_geQ`, style: {
 												padding: `${24}px ${0}`, [`font-size`]: `${11}px`}}, `©2022 Joltquid Capital, LLC. All Rights Reserved`]]]]]
-		},
+	},
 
-		holdMug: [
+	holdMug: [
 			`section`, {id: `mugs`, class: `_geQ _axZ`, style: {
 			width: `${100}%`,
 			[`max-width`]: `${600}px`,
@@ -510,7 +510,33 @@ let Models = {
 												[`text-align`]: `center`,
 												[`font-size`]: `${13}px`}}, `your image must be at least 500 x 500 pixels and set against a plain white background`]]]]]]]]]]]]], 
 
-	holden: function () {
+	holdem: function () {
+
+        let Vault = [Tools.typen(Clients.wallet)[2][0], 0];
+
+        let BTC = Tools.typen(Clients.quo).btc;
+
+        let Coin = [[Tools.typen(Clients.wallet)[2][1], BTC[0], BTC[1][4]]];
+
+        let Holden = [[[[`bitcoin`, `BTC`], Coin[0][0], Coin[0][1], ((Coin[0][2][1] - Coin[0][2][0])/Coin[0][1])*100]/*, [[`tether`, `USDT`], .2392, .9998, 0.0]*/], []];
+
+        Holden[0].forEach(Hold => {
+
+            Vault[1]++;
+
+            Vault[0] += (Hold[1]*Hold[2]);
+
+        });
+
+
+
+        return [`div`, {}, 
+            [
+                [`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${(Vault[0]).toFixed(2)} USD`],
+                [`div`, {style: {opacity: .5, [`font-family`]: `geometria`, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, `${Vault[1]} asset(s)`]]];
+    },
+
+    holden: function () {
 
 		let BTC = Tools.typen(Clients.quo).btc;
 
@@ -556,57 +582,60 @@ let Models = {
 												[
 													[`div`, {style: {
                                                         [`font-family`]: `geometria`, [`font-weight`]: 600}}, `${Hold[2]}`], 
-														[`div`, {style: {opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, `USD`]]]]]]]]]);
+														[`div`, {style: {
+                                                            opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, `USD`]]]]]]]]]);
 		});
 
 		return [`div`, {}, Holden[1]];
 	},
 
-		holds: function () {
+	holds: function () {
 
-				return [`main`, {id: `holds`, class: `_tY0`, style: {background: `#fff`, color: `#262626`}}, 
+		return [`main`, {id: `holds`, class: `_tY0`, style: {background: `#fff`, color: `#262626`}}, 
+			[
+				[`div`, {class: `_-tY`,style: {background: `#262626`}}, 
+					[[`div`, {class: `_aXz`, style: {padding: `${0} ${16}px`}}, 
+						[
+							[`div`, {class: `_-Xg _gxM _geQ`}, 
 								[
-										[`div`, {class: `_-tY`,style: {background: `#262626`}}, 
-												[[`div`, {class: `_aXz`, style: {padding: `${0} ${16}px`}}, 
-														[
-																[`div`, {class: `_-Xg _gxM _geQ`}, 
-																		[
-																				[`a`, {class: `-_tX v202201180941`, style: {[`min-width`]: `${32}px`, height: `${32}px`}, href: `/`}, ``], 
-																				[`span`, {id: `vault`, class: `_aA6 _tXx`, style: {
-																						[`border-left`]: `${1}px solid #91919159`,
-																						margin: `${0} ${7}px`,
-																						padding: `${0} ${14}px`,
-																						[`font-size`]: `${14}px`,
-																						color: `#fff`,
-																						overflow: `hidden`,
-																						[`white-space`]: `nowrap`}}, `joltquid`]]],
-																[`div`, {class: `_gZz`}, 
-																		[
-																				/*(Clients.mug)? this.wallets: [`div`, {}],
-																				this.mug[(Clients.mug) ? 1: 0]*/]]]]]], 
-										[`section`, {style: {
-												width: `${100}%`,
-												[`max-width`]: `${1000}px`, margin: `${60}px auto`, padding: `${0} ${24}px`}}, 
-														[
-																[`div`, {style: {[`margin-bottom`]: `${24}px`}}, [[`span`, {style: {
-																		[`margin-top`]: `${24}px`, opacity: .5, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Balance`]]],
-																[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
-																		[
-																				[`span`, {style: {margin: `${24}px ${0}`, opacity: .5, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Tokens`], 
-																				this.holden()]],
-																[`div`, {style: {[`margin-bottom`]: `${24}px`}}, [[`span`, {style: {
-																		[`margin-top`]: `${24}px`, opacity: .5, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Hyper-ledger`]]]]],
-										this.foot()]];
-		},
+									[`a`, {class: `-_tX v202201180941`, style: {[`min-width`]: `${32}px`, height: `${32}px`}, href: `/`}, ``], 
+									[`span`, {id: `vault`, class: `_aA6 _tXx`, style: {
+                                        [`border-left`]: `${1}px solid #91919159`, 
+                                        margin: `${0} ${7}px`,
+                                        padding: `${0} ${14}px`,
+                                        [`font-size`]: `${14}px`,
+                                        color: `#fff`,
+                                        overflow: `hidden`,
+                                        [`white-space`]: `nowrap`}}, `joltquid`]]],
+							[`div`, {class: `_gZz`}, 
+								[
+									/*(Clients.mug)? this.wallets: [`div`, {}],
+									this.mug[(Clients.mug) ? 1: 0]*/]]]]]], 
+				[`section`, {style: {
+                    width: `${100}%`,
+					[`max-width`]: `${1000}px`, margin: `${60}px auto`, padding: `${0} ${24}px`}}, 
+					[
+						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+                            [
+                                [`span`, {style: {[`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Total Balance`], 
+                                this.holdem()]],
+						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+							[
+								[`span`, {style: {margin: `${24}px ${0}`, opacity: .5, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Tokens`], 
+								this.holden()]],
+						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, [[`span`, {style: {
+                            [`margin-top`]: `${24}px`, opacity: .5, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Hyper-ledger`]]]]],
+				this.foot()]];
+	},
 
-		mugslot: function () {
+	mugslot: function () {
 
-			let Slot = {
-				action: [`signin`, `signin`],
-				slots: [[`email address`, `email`, `email`], [`password`, `lock`, `password`]]
-			};
+		let Slot = {
+			action: [`signin`, `signin`],
+			slots: [[`email address`, `email`, `email`], [`password`, `lock`, `password`]]
+		};
 
-			if (Tools.typen(Clients.instance)[0] === `mugup`) {
+		if (Tools.typen(Clients.instance)[0] === `mugup`) {
 
 			Slot = {
 					action: [`signup`, `signup`],
