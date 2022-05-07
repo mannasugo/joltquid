@@ -211,7 +211,7 @@ body {
   min-width: 40px;
 }
 
-.v202201180941, .v202202122052, .v202203171249, .v202203191304, .v202203261943, .v202203262148, .v202204261406, .v202204282015 {
+.v202201180941, .v202202122052, .v202203171249, .v202203191304, .v202203261943, .v202203262148, .v202204261406, .v202204282015, .v202205042043 {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
@@ -232,6 +232,8 @@ body {
 .v202204261406 {background-image: url(/ssl/given/svg/mug_202204261406.svg);}
 
 .v202204282015 {background-image: url(/ssl/given/svg/append_202204282015.svg);}
+
+.v202205042043 {background-image: url(/ssl/given/svg/margin_202205042043.svg);}
 
 ._aA2, ._aA2:visited {color: #000;}
 
@@ -379,7 +381,24 @@ body {
 
 #holds #foot {background: #262626; color: #fff;}
 
-#holds #foot .foot a {color: #fff;}
+#holds #foot .foot a {color: #fff; font-size: 12px; font-weight: 300}
+
+.spot-title-box {width: 30%}
+
+.spot-margin-box, .spot-wallet-box {width: 35%}
+
+.flex-z {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 0%;
+  -ms-flex: 1 0 0%;
+  flex: 1 0 0%;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.spot-margin-box, .spot-wallet-box {padding-left: 24px}
 
 @media (min-width: 600px) {
 
@@ -397,6 +416,13 @@ body {
 		width: 100%; padding: 0 }
 
 	._wrap_202203262208 #coin-meta, ._wrap_202203262208 #pittools, ._wrap_202203262208 #take { margin-top: 45px }
+}
+
+@media (max-width: 620px) {
+
+  .spot-margin-box, .spot-title-box, .spot-wallet-box {width: 100%}
+
+  .spot-margin-box, .spot-wallet-box {padding-left: 0}
 }
 
 @media (max-width: 599px) {

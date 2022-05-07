@@ -171,9 +171,19 @@ class Route {
 
 					let Web = JSON.parse(Puts.response);
 
-					if (Web /*&& Web.mug*/) {
+					if (Web && Web.mug) {
 
-    	      			document.title = `Tokens & Balances`;
+						Clients.quo = Tools.coats(Web.quo);
+
+						Clients.axis = Tools.coats(Web.axis.sort((A, B) => {return A[0] - B[0]}));
+
+						Web.wallet[2] = [Web.wallet[0][0] - Web.wallet[0][1], Web.wallet[1][0] - Web.wallet[1][1]];
+
+						Clients.wallet = Tools.coats(Web.wallet);
+
+						Clients.vault = parseFloat(Web.wallet[3][0] - Web.wallet[3][1]);
+
+    	      			document.title = `Tokens & Hyper-ledger`;
 
 				    	View.DOM([`div`, [Models.holds()]]);
 
