@@ -11,28 +11,27 @@ class Tools {
 
 	pull (Arg) {
 
-			this.call.open(`POST`, Arg[0], true);
+		this.call.open(`POST`, Arg[0], true);
 
-			this.call.setRequestHeader(`Content-Type`, `application/json`);
+		this.call.setRequestHeader(`Content-Type`, `application/json`);
 
-			this.call.send(JSON.stringify(Arg[1]));
+		this.call.send(JSON.stringify(Arg[1]));
 
-			return this.call;
-		}
+		return this.call;
+	}
 
-		jpeg (Arg) {
+	jpeg (Arg) {
 
-			this.call.open(`POST`, Arg[0], true);
+		this.call.open(`POST`, Arg[0], true);
 
-			this.call.setRequestHeader(`Content-Type`, `image/jpeg`);
+		this.call.setRequestHeader(`Content-Type`, `image/jpeg`);
 
-			this.call.setRequestHeader(`md`, Arg[1]);
+		this.call.setRequestHeader(`md`, Arg[1]);
 
-			this.call.send(Arg[2]);
+		this.call.send(Arg[2]);
 
-			return this.call;
-
-		}
+		return this.call;
+	}
 
 	allocFile = (img, file) => {
 

@@ -575,7 +575,10 @@ let Models = {
 									[`span`, {class: `v202205042043`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}}],
 									[`div`, {class: `_eYG`, style: {[`text-align`]: `right`}}, 
 										[
-											[`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${(Hold[3]).toFixed(2)}%`]]], 
+											[`div`, {style: {
+                                                [`font-family`]: `geometria`, 
+                                                [`font-weight`]: 600,
+                                                color: (Hold[3] >= 0)? `#00e53f`: `#e50000`}}, `${(Hold[3]).toFixed(2)}%`]]], 
 											[`div`, {class: `flex-z`, style: {[`text-align`]: `right`}}, 
 												[
 													[`div`, {style: {
@@ -617,11 +620,11 @@ let Models = {
                             [
                                 [`span`, {style: {
                                     [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Total Balance`], 
-                                this.holdem()]],
+                                [`div`, {id: `holdem`}, [this.holdem()]]]],
 						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
 							[
 								[`span`, {style: {margin: `${24}px ${0}`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Tokens`], 
-								this.holden()]],
+								[`div`, {id: `holden`}, [this.holden()]]]],
 						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, [[`span`, {style: {
                             [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Hyper-ledger`],
                             this.trailhold()]]]],

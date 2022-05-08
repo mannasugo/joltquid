@@ -296,13 +296,13 @@ class Tools {
 
 					State.btc[1][a][0] = Span[Span.length - 1][1]; //start
 
-								State.btc[1][a][1] = Span[0][1]; //end
+					State.btc[1][a][1] = Span[0][1]; //end
 
-								let Value = Span.sort((A, B) => {return B[1] - A[1]});
+					let Value = Span.sort((A, B) => {return B[1] - A[1]});
 
-								State.btc[1][a][2] = Span[Span.length - 1][1]; //low
+					State.btc[1][a][2] = Span[Span.length - 1][1]; //low
 
-								State.btc[1][a][3] = Span[0][1]; //up
+					State.btc[1][a][3] = Span[0][1]; //up
 				});
 
 				Raw[0]({axis: Values[5], secs: Raw[0], quo: State});

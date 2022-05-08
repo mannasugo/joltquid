@@ -189,6 +189,8 @@ class Route {
 
 				    	View.DOM([`div`, [Models.holds()]]);
 
+				    	Events.holdRunnable();
+
 					}
 				}
 			}

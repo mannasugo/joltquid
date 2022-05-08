@@ -10,52 +10,52 @@ class Route {
 	
 	Call (Arg) {
 		
-			let url = (`./${Arg[0].url}`).replace(`//`, `/`).replace(/%(..)/g, function (match, hex) {
+		let url = (`./${Arg[0].url}`).replace(`//`, `/`).replace(/%(..)/g, function (match, hex) {
 
-					return String.fromCharCode(parseInt(hex, 16))
-			});
+			return String.fromCharCode(parseInt(hex, 16))
+		});
 
-			let PullContent = File => {
+		let PullContent = File => {
 
-					readFile(File[0], {encoding: `utf8`}, (A, B) => {
+			readFile(File[0], {encoding: `utf8`}, (A, B) => {
 			
-						return File[1](B);
-					});
-			}
+				return File[1](B);
+			});
+		}
 
-			let State = url.split(`/`);
+		let State = url.split(`/`);
 
 		if (Arg[0].method === `GET`)  {
 
-					if (State[1] === `favicon.ico`) {
+			if (State[1] === `favicon.ico`) {
 
-						let File = createReadStream(`ssl/given/svg/202201262123.svg`);
+				let File = createReadStream(`ssl/given/svg/202201262123.svg`);
 
-						Arg[1].writeHead(200, {[`Content-Type`]: `image/svg+xml`});
+				Arg[1].writeHead(200, {[`Content-Type`]: `image/svg+xml`});
 
-						File.on(`data`, Arg[1].write.bind(Arg[1]));
+				File.on(`data`, Arg[1].write.bind(Arg[1]));
 
-						File.on(`close`, () => Arg[1].end());
-					}
-
-		 		else {
-
-						PullContent([`constants/app.html`, (Raw) => {
-
-								let Text = Raw;
-
-								PullContent([`constants/app.css`, (Raw) => {
-
-									Text = Text.replace(/`css`/, Raw);
-
-									Arg[1].writeHead(200, {[`Content-Type`]: `text/html`});
-
-									Arg[1].end(Text);
-
-								}]);
-						}]);
-					}
+				File.on(`close`, () => Arg[1].end());
 			}
+
+			else {
+
+				PullContent([`constants/app.html`, (Raw) => {
+
+					let Text = Raw;
+
+					PullContent([`constants/app.css`, (Raw) => {
+
+						Text = Text.replace(/`css`/, Raw);
+
+						Arg[1].writeHead(200, {[`Content-Type`]: `text/html`});
+
+						Arg[1].end(Text);
+
+					}]);
+				}]);
+			}
+		}
 
 		else if (Arg[0].method == `POST`) {
 
@@ -409,7 +409,11 @@ class Route {
 									};
 
 									Arg[1].end(Tools.coats({
-										axis: Quo.axis, mug: Pulls.mug, quo: Quo.quo, trail: Tools.trail([Raw, Pulls.mug]), wallet: Puts[1]}));
+										axis: Quo.axis, 
+										mug: Pulls.mug, 
+										quo: Quo.quo, 
+										trail: Tools.trail([Raw, Pulls.mug]), 
+										wallet: Puts[1]}));
 								}]);
 
 							}
@@ -1000,6 +1004,8 @@ class Route {
 
 					Coat = Tools.typen(Coat);
 
+					//let AltDay = {btc: []};
+
 					if (Coat.quo && Coat.axis) App.emit(`pit`, Coat);
 				});
 
@@ -1007,7 +1013,7 @@ class Route {
 		});
 	}
 
-	reals () { //create last_btc reset buttonn
+	reals () { //create last_btc reset button
 
 		let Real = [`awaits`, `bitcoin`, `defaults`, `pit`, `volume`];
 

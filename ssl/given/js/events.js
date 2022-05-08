@@ -12,6 +12,33 @@ class Events {
 		if (Arg.target) return Arg.target;
 	}
 
+	holdRunnable () {
+
+		io().on(`pit`, Pit => {
+
+			let Quo = Tools.typen(Clients.quo);
+
+			let last = Quo.btc[0];
+
+			Quo.btc = Pit.quo.btc;
+
+			Clients.quo = Tools.coats(Quo);
+
+			Clients.axis = Tools.coats((Pit.axis).sort((A, B) => {return A[0] - B[0]}));
+
+			if (last !== Quo.btc[0]) {
+
+    			View.pop();
+
+    			View.DOM([`#holden`, [Models.holden()]]);
+
+    			View.pop();
+
+    			View.DOM([`#holdem`, [Models.holdem()]]);
+			}
+		});
+	}
+
 	holdReals () {
 
 		io().on(`pit`, Pit => {
@@ -28,7 +55,7 @@ class Events {
 
 			if (last !== Quo.btc[0]) {
 
-				let vault = (((Tools.typen(Clients.vault)*.25)/37515)*parseFloat(Quo.btc[0]) + Tools.typen(Clients.vault)*.75).toFixed(2);
+				let vault = (((Tools.typen(Clients.vault)*.25)/33515)*parseFloat(Quo.btc[0]) + Tools.typen(Clients.vault)*.75).toFixed(2);
 
 				document.querySelector(`#vault`).innerHTML = `${vault} USD`;
 
@@ -58,7 +85,6 @@ class Events {
 				this.mugin();
 			}
 		}]);
-
 	}
 
 	mugin () {
