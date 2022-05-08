@@ -162,6 +162,14 @@ class Tools {
 			}
 		});
 
+		Raw[0].vault[0].forEach(Obj => {
+
+			if (Raw[1] === Obj.mug && Obj.trace !== null) {
+
+				Trail.push([Obj.secs, [`deposit`, `wallet`], [`American Dollar`, `USD`], parseFloat(Obj.dollars).toFixed(4), 0, 0]);
+			}
+		})
+
 		//console.log(Trail);
 
 		return Trail.sort((A, B) => {return B[0] - A[0]});
