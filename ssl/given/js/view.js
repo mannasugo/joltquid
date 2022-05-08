@@ -1181,8 +1181,7 @@ let Models = {
                                 [
                                     [`div`, {class: `_gxM _geQ _gZz flex-y`, style: {width: `${30}%`}}, 
                                         [
-                                            [`span`, {class: `v202205081410 trail-svg`}, ``], 
-                                            [`div`, {},
+                                            [`div`, {class: `flex-z`},
                                                 [
                                                     [`div`, {style: {
                                                         [`font-family`]: `geometria`, 
@@ -1190,23 +1189,24 @@ let Models = {
                                                         color: (Obj[1][1] === `buy`)? `#e50000`: `inherit`}}, 
                                                         `${(Obj[1][1] === `buy`)? `-`: ``}${Obj[3]}`], 
                                                     [`span`, {style: {
-                                                        opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[2][1]]]]]], 
-                                    [`div`, {class: `_gxM _geQ _gZz flex-y`, style: {width: `${30}%`}}, 
+                                                        opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[2][1]]]], 
+                                            [`span`, {class: `v202205081410 trail-svg`, style: {[`margin-left`]: `${12}px`}}, ``]]], 
+                                    [`div`, {class: `_gxM _geQ _gZz flex-y`, style: {width: `${30}%`, [`margin-left`]: `${24}px`}}, 
                                         [
-                                            [`span`, {class: `v202205081426 trail-svg`}, ``], 
-                                            [`div`, {},
+                                            [`div`, {class: `flex-z`},
                                                 [
                                                     [`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${Tools.notate(Obj[4])}`], 
                                                     [`span`, {style: {
-                                                        opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[2][1]]]]]], 
+                                                        opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[2][1]]]], 
+                                            [`span`, {class: `v202205081426 trail-svg`, style: {[`margin-left`]: `${12}px`}}, ``]]], 
                                     [`div`, {class: `_gxM _geQ _gZz flex-y`, style: {width: `${40}%`}}, 
-                                        [
-                                            [`span`, {class: `v202205081343 trail-svg`}, ``], 
-                                            [`div`, {},
+                                        [ 
+                                            [`div`, {class: `flex-z`},
                                                 [
                                                     [`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${Tools.notate(Obj[5])}`], 
                                                     [`span`, {style: {
-                                                        opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[2][1]]]]]]]]]]]]);
+                                                        opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[2][1]]]], 
+                                            [`span`, {class: `v202205081343 trail-svg`, style: {[`margin-left`]: `${12}px`}}, ``]]]]]]]]]);
         });
 
         return [`div`, {}, Trail[1]];
