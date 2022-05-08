@@ -183,6 +183,8 @@ class Route {
 
 						Clients.vault = parseFloat(Web.wallet[3][0] - Web.wallet[3][1]);
 
+						Clients.trail = Tools.coats(Web.trail);
+
     	      			document.title = `Tokens & Hyper-ledger`;
 
 				    	View.DOM([`div`, [Models.holds()]]);

@@ -1156,12 +1156,13 @@ let Models = {
 
     trailhold: function () {
 
-        let Trail = [[[new Date().valueOf(), [`Quant`, `Sell`], [`Bitcoin`, `BTC`], .0013577600, .0000035300, .00261868]], []];
+        let Trail = [/*[[new Date().valueOf(), [`Quant`, `Sell`], [`Bitcoin`, `BTC`], .0013577600, .0000035300, .00261868]]*/
+            Tools.typen(Clients.trail), []];
 
         Trail[0].forEach(Obj => {
 
             Trail[1].push([
-                `div`, {class: `_wrap_202203262208 _geQ`, style: {[`font-size`]: `${12}px`}}, 
+                `div`, {class: `_wrap_202203262208 _geQ`, style: {padding: `${12}px ${0}`, [`font-size`]: `${12}px`}}, 
                     [
                         [`div`, {class: `trail-a-box _gxM`}, 
                             [
@@ -1176,14 +1177,18 @@ let Models = {
                                         [`span`, {style: {
                                             opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Tools.logs(Obj[0]).substr(9)]]]]], 
                         [`div`, {class: `trail-z-box _gxM`}, 
-                            [[`div`, {class: `_wrap_202203262208`, style: {padding: `${12}px 0`, [`text-align`]: `right`}}, 
+                            [[`div`, {class: `_wrap_202203262208`, style: {padding: `${6}px ${0}`, [`text-align`]: `right`}}, 
                                 [
                                     [`div`, {class: `_gxM _geQ _gZz flex-y`, style: {width: `${30}%`}}, 
                                         [
                                             [`span`, {class: `v202205081410 trail-svg`}, ``], 
                                             [`div`, {},
                                                 [
-                                                    [`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${Obj[3]}`], 
+                                                    [`div`, {style: {
+                                                        [`font-family`]: `geometria`, 
+                                                        [`font-weight`]: 600,
+                                                        color: (Obj[1][1] === `buy`)? `#e50000`: `inherit`}}, 
+                                                        `${(Obj[1][1] === `buy`)? `-`: ``}${Obj[3]}`], 
                                                     [`span`, {style: {
                                                         opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[2][1]]]]]], 
                                     [`div`, {class: `_gxM _geQ _gZz flex-y`, style: {width: `${30}%`}}, 
@@ -1191,7 +1196,7 @@ let Models = {
                                             [`span`, {class: `v202205081426 trail-svg`}, ``], 
                                             [`div`, {},
                                                 [
-                                                    [`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${Obj[4]}`], 
+                                                    [`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${Tools.notate(Obj[4])}`], 
                                                     [`span`, {style: {
                                                         opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[2][1]]]]]], 
                                     [`div`, {class: `_gxM _geQ _gZz flex-y`, style: {width: `${40}%`}}, 
@@ -1199,7 +1204,7 @@ let Models = {
                                             [`span`, {class: `v202205081343 trail-svg`}, ``], 
                                             [`div`, {},
                                                 [
-                                                    [`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${Obj[5]}`], 
+                                                    [`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${Tools.notate(Obj[5])}`], 
                                                     [`span`, {style: {
                                                         opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[2][1]]]]]]]]]]]]);
         });

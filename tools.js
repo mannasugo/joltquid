@@ -138,6 +138,35 @@ class Tools {
 		return String;
 	}
 
+	trail (Raw) {
+
+		let AltSynons = {
+			btc: `bitcoin`
+		}
+
+		let Trail = [];
+
+		Raw[0].asks[0].forEach(Ask => {
+
+			if (Raw[1] === Ask.mug && Ask.open === false) {
+
+				Trail.push([Ask.secs, [`trade`, `sell`], [AltSynons[Ask.coin[2]], (Ask.coin[2]).toUpperCase()], Ask.coin[0], 0, 0]);
+			}
+		});
+
+		Raw[0].bids[0].forEach(Bid => {
+
+			if (Raw[1] === Bid.mug && Bid.open === false) {
+
+				Trail.push([Bid.secs, [`trade`, `buy`], [AltSynons[Bid.coin[2]], `USD`], (Bid.dollars).toFixed(4), 0, 0]);
+			}
+		});
+
+		//console.log(Trail);
+
+		return Trail.sort((A, B) => {return B[0] - A[0]});
+	}
+
 	typen (coat) { return JSON.parse(coat); }
 
 	vaults (Arg) {
@@ -278,24 +307,24 @@ class Tools {
 
 		let Wallet = Raw[1];
 
-			let Balance = {},
+		let Balance = {},
 
-			Trail = [],
+		Trail = [],
 
-			Vaults = {coin: [], plain: []};
+		Vaults = {coin: [], plain: []};
 
-			Wallet.mugs[0].forEach(Mug => {
+		Wallet.mugs[0].forEach(Mug => {
 
-				Balance[Mug.md] = {};
+			Balance[Mug.md] = {};
 
-				Balance[Mug.md][`wallet`] = [[0, 0], [0, 0], [0, 0]]
-			});
+			Balance[Mug.md][`wallet`] = [[0, 0], [0, 0], [0, 0]]
+		});
 
-			for (let mug in Wallet.pays[1]) {
+		for (let mug in Wallet.pays[1]) {
 
-				let Pay = Wallet.pays[1][mug];
+			let Pay = Wallet.pays[1][mug];
 
-				if (Pay.mug === Raw[0]) {
+			if (Pay.mug === Raw[0]) {
 
 					Balance[Raw[0]][`wallet`][2][1] += parseFloat(Pay.dollars);
 

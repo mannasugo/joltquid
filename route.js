@@ -408,7 +408,8 @@ class Route {
 										Puts[1] = Wallet;
 									};
 
-									Arg[1].end(Tools.coats({axis: Quo.axis, mug: Pulls.mug, quo: Quo.quo, wallet: Puts[1]}));
+									Arg[1].end(Tools.coats({
+										axis: Quo.axis, mug: Pulls.mug, quo: Quo.quo, trail: Tools.trail([Raw, Pulls.mug]), wallet: Puts[1]}));
 								}]);
 
 							}
