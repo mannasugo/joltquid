@@ -621,10 +621,10 @@ let Models = {
                                 this.holdem()]],
 						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
 							[
-								[`span`, {style: {margin: `${24}px ${0}`, opacity: .5, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Tokens`], 
+								[`span`, {style: {margin: `${24}px ${0}`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Tokens`], 
 								this.holden()]],
 						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, [[`span`, {style: {
-                            [`margin-top`]: `${24}px`, opacity: .5, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Hyper-ledger`]]]]],
+                            [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Hyper-ledger`]]]]],
 				this.foot()]];
 	},
 
