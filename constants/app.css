@@ -211,7 +211,8 @@ body {
   min-width: 40px;
 }
 
-.v202201180941, .v202202122052, .v202203171249, .v202203191304, .v202203261943, .v202203262148, .v202204261406, .v202204282015, .v202205042043 {
+.v202201180941, .v202202122052, .v202203171249, .v202203191304, .v202203261943, .v202203262148, .v202204261406, .v202204282015, .v202205042043, 
+.v202205081343, .v202205081426, .v202205081410 {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
@@ -234,6 +235,12 @@ body {
 .v202204282015 {background-image: url(/ssl/given/svg/append_202204282015.svg);}
 
 .v202205042043 {background-image: url(/ssl/given/svg/margin_202205042043.svg);}
+
+.v202205081343 {background-image: url(/ssl/given/svg/wallet_202205081343.svg);}
+
+.v202205081410 {background-image: url(/ssl/given/svg/vault_202205081410.svg);}
+
+.v202205081426 {background-image: url(/ssl/given/svg/pay_202205081426.svg);}
 
 ._aA2, ._aA2:visited {color: #000;}
 
@@ -398,7 +405,13 @@ body {
   justify-content: flex-end;
 }
 
-.spot-margin-box, .spot-wallet-box {padding-left: 24px}
+.spot-margin-box, .spot-wallet-box, .trail-z-box {padding-left: 24px}
+
+.trail-a-box {width: 40%}
+
+.trail-z-box {width: 60%}
+
+.trail-svg {margin-right: 12px}
 
 @media (min-width: 600px) {
 
@@ -420,9 +433,17 @@ body {
 
 @media (max-width: 620px) {
 
-  .spot-margin-box, .spot-title-box, .spot-wallet-box {width: 100%}
+  .spot-margin-box, .spot-title-box, .spot-wallet-box, .trail-a-box, .trail-z-box {width: 100%}
 
-  .spot-margin-box, .spot-wallet-box {padding-left: 0}
+  .spot-margin-box, .spot-wallet-box, .trail-z-box {padding-left: 0}
+
+  .flex-y {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 599px) {

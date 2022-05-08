@@ -67,13 +67,13 @@ let Models = {
 
 	asset: function () {
 
-			let Axis = Tools.typen(Clients.quo).btc;
+		let Axis = Tools.typen(Clients.quo).btc;
 
-			let vault = (((Tools.typen(Clients.vault)*.25)/37515)*Axis[0] + Tools.typen(Clients.vault)*.75).toFixed(2);
+		let vault = (((Tools.typen(Clients.vault)*.25)/37515)*Axis[0] + Tools.typen(Clients.vault)*.75).toFixed(2);
 
-			return [`main`, {class: `_tY0`, style: {height: `${100}px`}}, 
-				[
-					[`div`, {class: `_-tY`}, 
+		return [`main`, {class: `_tY0`, style: {height: `${100}px`}}, 
+			[
+				[`div`, {class: `_-tY`}, 
 						[[`div`, {class: `_aXz`, style: {padding: `${0} ${16}px`}}, 
 							[
 								[`div`, {class: `_-Xg _gxM _geQ`}, 
@@ -152,7 +152,7 @@ let Models = {
 				}
 
 				else return [];
-		}, 
+	}, 
 
 	axis: function (Axis) {
 
@@ -233,7 +233,7 @@ let Models = {
 														[`g`, {}, AXIS[2]],
 														[`g`, {}, AXIS[3]],
 														[`path`, {stroke: `#5841d8`, [`stroke-width`]: 1, fill: `none`, d: `M${AXIS[1]}`}]]]]];
-		},
+	},
 
 	bitpit: function () {
 
@@ -260,17 +260,17 @@ let Models = {
 			});
 
 			return Pit[1]
-		},
+	},
 
 	buyline: function () {
 
-			let Pit = [[], [], [], ``, []];
+		let Pit = [[], [], [], ``, []];
 
-			let Axis = Tools.typen(Clients.quo).btc[1][5];
+		let Axis = Tools.typen(Clients.quo).btc[1][5];
 
-			let Span = [document.querySelector(`#buyline`).clientWidth, 200];
+		let Span = [document.querySelector(`#buyline`).clientWidth, 200];
 
-			let Y = [Axis[2], Axis[3]];
+		let Y = [Axis[2], Axis[3]];
 
 		let y = Y[1] - Y[0];
 
@@ -335,22 +335,22 @@ let Models = {
 								[`font-weight`]: 600}}, `${(parseFloat(Tools.typen(Clients.quo).btc[0])).toFixed(1)} USD`],
 							Pit[1]]],
 					Pit[2]]];
-		},
+	},
 
 	coinline: function () {
 
-			let Pit = [[], [], [], ``, []];
+		let Pit = [[], [], [], ``, []];
 
-			let Hold = [ 
+		let Hold = [ 
 				((Tools.typen(Clients.vault)*.25)/37515)*Tools.typen(Clients.quo).btc[0]];
 
-			let Axis = Tools.typen(Clients.quo).btc[1][5];
+		let Axis = Tools.typen(Clients.quo).btc[1][5];
 
-			let pit = ((Tools.typen(Clients.vault)*.25)/37515);
+		let pit = ((Tools.typen(Clients.vault)*.25)/37515);
 
-			let Span = [document.querySelector(`#coinline`).clientWidth, 200];
+		let Span = [document.querySelector(`#coinline`).clientWidth, 200];
 
-			let Y = [Axis[2], Axis[3]];
+		let Y = [Axis[2], Axis[3]];
 
 		let y = Y[1] - Y[0];
 
@@ -436,7 +436,7 @@ let Models = {
 								[`font-weight`]: 600}}, `${(parseFloat(Hold[0])).toFixed(2)} USD`],
 							Pit[1]]],
 					Pit[2]]];
-		},
+	},
 
 	foot: function () {
 				
@@ -528,8 +528,6 @@ let Models = {
 
         });
 
-
-
         return [`div`, {}, 
             [
                 [`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${(Vault[0]).toFixed(2)} USD`],
@@ -617,14 +615,16 @@ let Models = {
 					[
 						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
                             [
-                                [`span`, {style: {[`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Total Balance`], 
+                                [`span`, {style: {
+                                    [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Total Balance`], 
                                 this.holdem()]],
 						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
 							[
 								[`span`, {style: {margin: `${24}px ${0}`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Tokens`], 
 								this.holden()]],
 						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, [[`span`, {style: {
-                            [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Hyper-ledger`]]]]],
+                            [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Hyper-ledger`],
+                            this.trailhold()]]]],
 				this.foot()]];
 	},
 
@@ -681,9 +681,9 @@ let Models = {
 											[`div`, {}, Slots],
 											[`div`, {class: `_gM_a _agM _guZ`, style: {width: `${100}%`, [`block-size`]: `${40}px`, background: `#1185fe`}}, 
 												[[`a`, {id: Slot.action[1], class: `_TX_a _atX _dMG _aWz`, href: `javascript:;`}, Slot.action[0]]]]]]]]]]]]
-		},
+	},
 
-		main: function () { 
+	main: function () { 
 
 			let Main = [],
 
@@ -812,9 +812,9 @@ let Models = {
 													[`font-weight`]: 600}}, `Trade Now`]]]]]]]]], this.foot()]];
 
 			return Main[0];
-		},
+	},
 
-		moves: function () {
+	moves: function () {
 
 			let Pit = [[], []];
 
@@ -845,9 +845,9 @@ let Models = {
 							[`div`, {style: {width: `${30}%`}}, [[`span`, {}, `amount`]]],
 							[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `price`]]]]], 
 					[`div`, {}, Pit[1]]]];
-		},
+	},
 
-		mug: [
+	mug: [
 				[`a`, {class: `-_tX v202204261406`, id: `mugin`, style: {margin: `${0}px ${15}px`}, href: `javascript:;`}], 
 				[`span`, {style: {margin: `${0}px ${10}px`, position: `relative`, height: `${24}px`}}, 
 					[
@@ -860,7 +860,7 @@ let Models = {
 									[`font-size`]: `${12}px`}}, (Clients.mug)? Tools.typen(Clients.mug)[1][0]: ``]]], 
 						[`a`, {id: `mug`, class: `_aWz mug`, style: {position: `absolute`, left: 0}, href:(Clients.mug)? `/balance`:`javascript:;`}]]]],
 
-		real: function (Real) {
+	real: function (Real) {
 
 			let Span = [[], [`1H`, `1D`, `1W`, `All`]];
 
@@ -906,14 +906,14 @@ let Models = {
 								[`span`, {style: {color: `#6a6a6a`}}, `LOW: ${Real[0][2]} ${Real[1]}`], 
 								[`div`, {class: `_gZz`}, 
 									[[`span`, {style: {color: `#6a6a6a`}}, `HIGH: ${Real[0][3]} ${Real[1]}`]]]]]]]
-		},
+	},
 
-		splash: [
+	splash: [
 			`main`, {class: `_xC2 _aA2`, style: {height: `${100}%`}}, 
 				[[`div`, {class: `_geQ`, style: {[`justify-content`]: `center`}}, 
 					[[`span`, {class: `v202201180941`, style: {width:`${56}px`, height: `${56}px`}}]]]]],
 
-		pit: function () {
+	pit: function () {
 
 			let Axis = Tools.typen(Clients.quo).btc;
 
@@ -994,30 +994,30 @@ let Models = {
 														cursor: `pointer`}}, `place order`]]]]]]]]],
 							[`div`, {id: `assets`}, [this.assets()]], 
 							[`div`, {id: `pits`, style: {margin: `${30}px ${0}`}}, [this.pitmoves()]]]]]];
-		},
+	},
 
-		pitaxis: function () {
+	pitaxis: function () {
 
-			let Pit = [[], [], [], ``, []];
+		let Pit = [[], [], [], ``, []];
 
-			let Moves = Tools.typen(Clients.pitmoves).sort((A, B) => {return B.secs - A.secs});
+		let Moves = Tools.typen(Clients.pitmoves).sort((A, B) => {return B.secs - A.secs});
 
-			Moves.forEach(Move => {
+		Moves.forEach(Move => {
 
-				if (Move.side === `buy` && Move.open === false) Pit[0].push(Move);
-			});
+			if (Move.side === `buy` && Move.open === false) Pit[0].push(Move);
+		});
 
-			let Axis = Tools.typen(Clients.quo).btc[1][5];
+		let Axis = Tools.typen(Clients.quo).btc[1][5];
 
-			let pit = Tools.typen(Clients.wallet)[2][1];
+		let pit = Tools.typen(Clients.wallet)[2][1];
 
-			let Span = [document.querySelector(`#pitaxis`).clientWidth, 200];
+		let Span = [document.querySelector(`#pitaxis`).clientWidth, 200];
 
-			let Y = [Axis[2], Axis[3]];
+		let Y = [Axis[2], Axis[3]];
 
 		let y = Y[1] - Y[0];
 
-			if ((new Date().valueOf() - Pit[0][0].secs) > 3600000) {
+		if ((new Date().valueOf() - Pit[0][0].secs) > 3600000) {
 
 				let AXIS = [Tools.typen(Clients.axis)];
 
@@ -1094,9 +1094,9 @@ let Models = {
 								[`font-weight`]: 600}}, `${(parseFloat(Axis[1])*pit).toFixed(2)} USD`],
 							Pit[1]]],
 					Pit[2]]];
-		},
+	},
 
-		pitmoves: function () {
+	pitmoves: function () {
 
 			let Pit = [[], []];
 
@@ -1128,9 +1128,9 @@ let Models = {
 							[`div`, {style: {width: `${30}%`}}, [[`span`, {}, `amount`]]],
 							[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `price`]]]]], 
 					[`div`, {}, Pit[1]]]];
-		}, 
+	}, 
 
-		trails: function (Trail) {
+	trails: function (Trail) {
 
 			let Trace = [];
 
@@ -1152,9 +1152,62 @@ let Models = {
 			});
 
 			return Trace;
-		},
+	},
 
-		wallet: function () {
+    trailhold: function () {
+
+        let Trail = [[[new Date().valueOf(), [`Quant`, `Sell`], [`Bitcoin`, `BTC`], .0013577600, .0000035300, .00261868]], []];
+
+        Trail[0].forEach(Obj => {
+
+            Trail[1].push([
+                `div`, {class: `_wrap_202203262208 _geQ`, style: {[`font-size`]: `${12}px`}}, 
+                    [
+                        [`div`, {class: `trail-a-box _gxM`}, 
+                            [
+                                [`div`, {style: {flex: 1}}, 
+                                    [
+                                        [`div`, {}, Obj[1][0]], 
+                                        [`span`, {style: {
+                                            opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[1][1]]]], 
+                                [`div`, {class: `flex-z`, style: {[`font-family`]: `geometria`, [`text-align`]: `right`}},
+                                    [
+                                        [`div`, {}, Tools.logs(Obj[0]).substr(0, 9)], 
+                                        [`span`, {style: {
+                                            opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Tools.logs(Obj[0]).substr(9)]]]]], 
+                        [`div`, {class: `trail-z-box _gxM`}, 
+                            [[`div`, {class: `_wrap_202203262208`, style: {padding: `${12}px 0`, [`text-align`]: `right`}}, 
+                                [
+                                    [`div`, {class: `_gxM _geQ _gZz flex-y`, style: {width: `${30}%`}}, 
+                                        [
+                                            [`span`, {class: `v202205081410 trail-svg`}, ``], 
+                                            [`div`, {},
+                                                [
+                                                    [`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${Obj[3]}`], 
+                                                    [`span`, {style: {
+                                                        opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[2][1]]]]]], 
+                                    [`div`, {class: `_gxM _geQ _gZz flex-y`, style: {width: `${30}%`}}, 
+                                        [
+                                            [`span`, {class: `v202205081426 trail-svg`}, ``], 
+                                            [`div`, {},
+                                                [
+                                                    [`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${Obj[4]}`], 
+                                                    [`span`, {style: {
+                                                        opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[2][1]]]]]], 
+                                    [`div`, {class: `_gxM _geQ _gZz flex-y`, style: {width: `${40}%`}}, 
+                                        [
+                                            [`span`, {class: `v202205081343 trail-svg`}, ``], 
+                                            [`div`, {},
+                                                [
+                                                    [`div`, {style: {[`font-family`]: `geometria`, [`font-weight`]: 600}}, `${Obj[5]}`], 
+                                                    [`span`, {style: {
+                                                        opacity: .4, [`font-size`]: `${10}px`, [`font-weight`]: 600}}, Obj[2][1]]]]]]]]]]]]);
+        });
+
+        return [`div`, {}, Trail[1]];
+    },
+
+	wallet: function () {
 
 			return [
 
@@ -1258,11 +1311,11 @@ let Models = {
 								[`span`, {class: `_tXx`, style: {margin: `${0} ${0} ${15}px`, padding: `${10}px ${0}`, [`font-size`]: `${12}px`}}, `Deposits & withdrawals`], 
 								[`div`, {id: `trail`, style: {border: `${1}px solid #dfdfdf`, [`border-radius`]: `${8}px`}}, 
 									this.trails([Tools.typen(Clients.vaults).plain, `+`, `USD`])]]]]]]]
-		},
+	},
 
-		wallets: [
-			`div`, {}, 
-				[[`a`, {class: `v202204282015`, style: {margin: `${0} ${10}px`}, href: `/wallet`}]]]
+	wallets: [
+		`div`, {}, 
+			[[`a`, {class: `v202204282015`, style: {margin: `${0} ${10}px`}, href: `/wallet`}]]]
 }
 
 View = new View;
