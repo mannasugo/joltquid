@@ -40,42 +40,29 @@ class Route {
 
 				Clients.instance = Tools.coats([`app`, new Date().valueOf()]);
 
-				Clients.quo = Tools.coats(Web.quo);
+				//Clients.quo = Tools.coats(Web.quo);
 
-				Clients.axis = Tools.coats(Web.axis.sort((A, B) => {return A[0] - B[0]}));
+				//Clients.axis = Tools.coats(Web.axis.sort((A, B) => {return A[0] - B[0]}));
 
 				if (Clients.mug) {
 
 					//Web.wallet[3] = [Web.wallet[2][0], Web.wallet[2][1]];
 
-					Web.wallet[2] = [Web.wallet[0][0] - Web.wallet[0][1], Web.wallet[1][0] - Web.wallet[1][1]];
+					//Web.wallet[2] = [Web.wallet[0][0] - Web.wallet[0][1], Web.wallet[1][0] - Web.wallet[1][1]];
 
-					Clients.wallet = Tools.coats(Web.wallet);
+					//Clients.wallet = Tools.coats(Web.wallet);
 
-					Clients.vault = parseFloat(Web.wallet[3][0] - Web.wallet[3][1]);
+					//Clients.vault = parseFloat(Web.wallet[3][0] - Web.wallet[3][1]);
 
 					View.DOM([`div`, [Models.main()]]);
 
-					Events.mains();
+					//Events.mains();
 
-    				View.pop();
+    				//View.pop();
 
-    				View.DOM([`#buyline`, [Models.buyline()]]);
+    				//View.DOM([`#buyline`, [Models.buyline()]]);
 
-    				Events.reals();
-
-								/**
-								if (document.querySelector(`#coin`)) {
-
-									View.pop();
-
-									View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][5], document.querySelector(`#coin`).clientWidth - 36, `1H`])]])
-								}
-
-								Events.details();
-
-								Events.pitReals()
-								**/
+    				//Events.reals();
 				}
 
 				else {
@@ -84,26 +71,14 @@ class Route {
 
 					Events.slotin();
 
-					Events.mains();
+					//Events.mains();
 
-    				View.pop();
+    				//View.pop();
 
-    				View.DOM([`#buyline`, [Models.buyline()]]);
+    				//View.DOM([`#buyline`, [Models.buyline()]]);
 
-    				Events.reals();
+    				//Events.reals();
 
-						/**
-						if (document.querySelector(`#coin`)) {
-
-							View.pop();
-
-							View.DOM([`#coin`, [Models.axis([Tools.typen(Clients.quo).btc[1][5], document.querySelector(`#coin`).clientWidth - 36, `1H`])]]);
-
-							Events.details()
-						}
-
-						Events.pitReals();
-						**/
 				}
 			}
 		}
@@ -190,6 +165,35 @@ class Route {
 				    	View.DOM([`div`, [Models.holds()]]);
 
 				    	Events.holdRunnable();
+
+					}
+				}
+			}
+		}
+
+    	else if (this.State[3] === `escrow`) {
+
+    		if (!Clients.mug) {
+
+    			history.pushState(``, ``, `/`);
+
+    			Route.Call();
+    		}
+
+    		else if (!State[4] && !Tools.slim[State[4]] && Clients.mug) {
+
+				let Puts = Tools.pull([
+					`/json/web/`, {
+						mug: Tools.typen(Clients.mug)[0],
+						pull: `escrow`}]);
+
+				Puts.onload = () => {
+
+					let Web = JSON.parse(Puts.response);
+
+					if (Web && Web.mug) {
+
+				    	View.DOM([`div`, [Models.collateral()]]);
 
 					}
 				}
@@ -322,6 +326,37 @@ class Route {
     			});
     		}
     	}
+
+    	else if (this.State[3] === `wallets`) {
+
+    		if (!Clients.mug) {
+
+    			history.pushState(``, ``, `/`);
+
+    			Route.Call();
+    		}
+
+    		else if (!State[4] && !Tools.slim[State[4]] && Clients.mug) {
+
+				let Puts = Tools.pull([
+					`/json/web/`, {
+						mug: Tools.typen(Clients.mug)[0],
+						pull: `wallets`}]);
+
+				Puts.onload = () => {
+
+					let Web = JSON.parse(Puts.response);
+
+					if (Web && Web.mug) {
+
+				    	View.DOM([`div`, [Models.wallets()]]);
+
+    					Events.walletin();
+
+					}
+				}
+			}
+		}
   	}
 }
 

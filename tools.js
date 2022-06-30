@@ -288,7 +288,7 @@ class Tools {
 
 				let Values = this.typen(btc);
 
-				State.btc[0] = Values[0][0][1];
+				if (Values.length > 0) State.btc[0] = Values[0][0][1];
 
 				Values.forEach((Span, a) => {
 
@@ -305,7 +305,7 @@ class Tools {
 					State.btc[1][a][3] = Span[0][1]; //up
 				});
 
-				Raw[0]({axis: Values[5], secs: Raw[0], quo: State});
+				Raw[0]({axis: Values[5] || [], secs: Raw[0], quo: State});
 
 			});
 		});

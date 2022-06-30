@@ -345,11 +345,13 @@ class Route {
 
 							if (Pulls.pull === `app`) {
 
-								let Puts = [[], []];
+								//let Puts = [[], []];
 
-								Tools.quo([Quo => {
+								//Tools.quo([Quo => {
 
 									if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
+
+										/**
 
 										let Wallet = Tools.wallet([Pulls.mug, Raw])[0];
 
@@ -360,10 +362,80 @@ class Route {
 										Wallet[2] = Balance;
 
 										Puts[1] = Wallet;
+
+										**/
 									};
 
-									Arg[1].end(Tools.coats({axis: Quo.axis, mug: Pulls.mug, quo: Quo.quo, wallet: Puts[1]}));
-								}]);
+									Arg[1].end(Tools.coats({
+										//axis: Quo.axis, 
+										mug: Pulls.mug, 
+										//quo: Quo.quo, 
+										//wallet: Puts[1]
+									}));
+								//}]);
+							}
+
+							if (Pulls.pull === `escrow`) {
+
+								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
+								};
+
+								Arg[1].end(Tools.coats({ 
+									mug: Pulls.mug
+								}));
+							}
+
+							if (Pulls.pull === `inlet`) {
+
+								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
+								};
+
+								let Avail = {inlet: []};
+
+								Raw.mugs[0].forEach(Mug => {
+
+									if (Mug.inlet && Mug.inlet.USDT) {
+
+										if (Mug.inlet.USDT.indexOf(Pulls.puts[0]) > -1) Avail.inlet = [Mug.md];
+									}
+								});
+
+								//pavejolt paveon
+
+                				let Old = Tools.typen(Tools.coats(Raw.mugs[1][Pulls.mug]));
+
+								if (Avail.inlet.length === 0) {
+
+									if (!Raw.mugs[1][Pulls.mug].inlet) Raw.mugs[1][Pulls.mug][`inlet`] = {};
+
+									if (!Raw.mugs[1][Pulls.mug].inlet.USDT) Raw.mugs[1][Pulls.mug].inlet[`USDT`] = [];
+
+									Raw.mugs[1][Pulls.mug].inlet.USDT.push(Pulls.puts[0]); 
+
+									Sql.places([`mugs`, Raw.mugs[1][Pulls.mug], Old, (Raw) => {
+
+										Arg[1].end(Tools.coats({ 
+											mug: Pulls.mug
+										}));
+									}]);
+								}
+
+								else {
+
+									Arg[1].end(Tools.coats({ 
+										mug: Pulls.mug
+									}));
+								}
+							}
+
+							if (Pulls.pull === `wallets`) {
+
+								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
+								};
+
+								Arg[1].end(Tools.coats({ 
+									mug: Pulls.mug
+								}));
 							}
 
 							else if (Pulls.pull === `assets`) {
@@ -415,7 +487,6 @@ class Route {
 										trail: Tools.trail([Raw, Pulls.mug]), 
 										wallet: Puts[1]}));
 								}]);
-
 							}
 
 							else if (Pulls.pull === `btc`) {
@@ -1040,7 +1111,7 @@ class Route {
 			});
 		});
 
-		setInterval(() => {
+		setInterval(() => { 
 
 			get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin`, (flaw, State, coat) => {
 

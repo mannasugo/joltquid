@@ -438,6 +438,35 @@ let Models = {
 					Pit[2]]];
 	},
 
+	collateral: function () {
+
+		return [`main`, {id: `holds`, class: `_tY0`}, 
+			[
+				[`div`, {class: `_-tY`}, 
+					[[`div`, {class: `_aXz`, style: {padding: `${0} ${16}px`}}, 
+						[
+							[`div`, {class: `_-Xg _gxM _geQ`}, 
+								[
+									[`a`, {class: `-_tX v202201180941`, style: {[`min-width`]: `${32}px`, height: `${32}px`}, href: `/`}, ``], 
+									[`span`, {id: `vault`, class: `_aA6 _tXx`, style: {
+                                        [`border-left`]: `${1}px solid #91919159`, 
+                                        margin: `${0} ${7}px`,
+                                        padding: `${0} ${14}px`,
+                                        [`font-size`]: `${14}px`,
+                                        color: `#000`,
+                                        overflow: `hidden`,
+                                        [`white-space`]: `nowrap`}}, `escrow`]]],
+							[`div`, {class: `_gZz`}, 
+								[this.utilCollateral]]]]]], 
+				[`section`, {style: {
+                    width: `${100}%`,
+					[`max-width`]: `${1000}px`, margin: `${60}px auto`, padding: `${0} ${24}px`}}, 
+					[
+						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, [[`span`, {style: {
+                            [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Hyper-ledger`],
+                            /*this.trailhold()*/]]]]]];
+	},
+
 	foot: function () {
 				
 				return [`section`, {id: `foot`, style: {/*padding: `${24}px`, background: `#fff`, color: `#262626`*/}}, 
@@ -616,7 +645,7 @@ let Models = {
                     width: `${100}%`,
 					[`max-width`]: `${1000}px`, margin: `${60}px auto`, padding: `${0} ${24}px`}}, 
 					[
-						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+						[`div`, {style: {[`margin-bottom`]: `${24}px`}},  
                             [
                                 [`span`, {style: {
                                     [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Total Balance`], 
@@ -629,6 +658,76 @@ let Models = {
                             [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Hyper-ledger`],
                             this.trailhold()]]]],
 				this.foot()]];
+	},
+
+	loadWallet: [
+		`div`, {class: `_gxM`}, 
+			[
+				//[`a`, {class: `v202206131256`, style: {margin: `${0} ${10}px`}, href: `#`}],
+				[`a`, {id: `mugin`, class: `v202206131254`, style: {margin: `${0} ${10}px`}, href: `#`}]]],
+
+	main: function () {
+
+		return [`main`, {id: `holds`, class: `_tY0`}, 
+			[
+				[`div`, {class: `_-tY`}, 
+					[[`div`, {class: `_aXz`, style: {padding: `${0} ${16}px`}}, 
+						[
+							[`div`, {class: `_-Xg _gxM _geQ`}, 
+								[
+									[`a`, {class: `-_tX v202201180941`, style: {[`min-width`]: `${32}px`, height: `${32}px`}, href: `/`}, ``], 
+									[`span`, {id: `vault`, class: `_aA6 _tXx`, style: {
+                                        [`border-left`]: `${1}px solid #91919159`, 
+                                        margin: `${0} ${7}px`,
+                                        padding: `${0} ${14}px`,
+                                        [`font-size`]: `${14}px`,
+                                        color: `#000`, //`#00e53f`,
+                                        overflow: `hidden`,
+                                        [`white-space`]: `nowrap`}}, `joltquid`]]],
+							[`div`, {class: `_gZz`}, 
+								[(Clients.mug)? this.utilWallet: this.loadWallet]]]]]], 
+				[`section`, {style: {
+                    width: `${100}%`,
+					[`max-width`]: `${1000}px`, margin: `${60}px auto`, padding: `${0} ${24}px`}}, 
+					[
+						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+                            [
+                                [`span`, {style: {
+                                    [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Total Balance`], 
+                                [`div`, {id: `holdem`}, [/*this.holdem()*/]]]],
+						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+							[
+								[`span`, {style: {margin: `${24}px ${0}`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Tokens`], 
+								[`div`, {id: `holden`}, [/*this.holden()*/]]]],
+						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, [[`span`, {style: {
+                            [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Hyper-ledger`],
+                            /*this.trailhold()*/]]]]]];
+	},
+
+	main_exchange: function () {
+
+		return [
+			[`header`, {style: {position: `static`, width: `${100}%`}}, 
+				[[`div`, {class: `_gxM title-box`, style: {padding: `${10}px ${12}px`}}, 
+					[
+						[`div`, {class: `_gxM _geQ`}, 
+							[
+								[`a`, {class: `-_tX v202201180941`, style: {[`min-width`]: `${21}px`, height: `${21}px`}, href: `/`}, ``], 
+								[`span`, {style: {
+									[`border-left`]: `${1}px solid #91919159`,
+									margin: `${0} ${7}px`,
+									padding: `${0} ${14}px`,
+									[`font-size`]: `${12}px`,
+									overflow: `hidden`,
+											//[`text-overflow`]: `ellipsis`,
+									[`white-space`]: `nowrap`}}, `Market`]]],
+						[`div`, {class: `_gZz`}, [this.mug[(Clients.mug) ? 1: 0]]]]]]], 
+			[`main`, {style: {[`min-height`]: `${320}px`, [`line-height`]: `${13}px`, [`font-size`]: `${10}px`}}, 
+				[
+					[`header`, {style: {position: `static`}}, 
+						[[`div`, {class: `title-box _gxM `, style: {padding: `${10}px ${12}px`}}, 
+							[[`span`, {}, `BTC/USD`], [`span`, {class: `top-slide`}, ` 29226.7`], [`span`, {class: `top-slide`}, ` -3.81%`]]]]]]], 
+			[`footer`, {}]]
 	},
 
 	mugslot: function () {
@@ -686,7 +785,7 @@ let Models = {
 												[[`a`, {id: Slot.action[1], class: `_TX_a _atX _dMG _aWz`, href: `javascript:;`}, Slot.action[0]]]]]]]]]]]]
 	},
 
-	main: function () { 
+	main_v0: function () { 
 
 			let Main = [],
 
@@ -742,27 +841,7 @@ let Models = {
 												[`p`, {style: {[`font-size`]: `${12}px`}}, `Obtain bitcoin instantly at market price from joltquid's crypto exchange`], 
 												[`div`, {class: `geQ`, style: {margin: `${24}px 0`}}, 
 													[[`span`, {id: `instant`, class: `parallelo _tXx`, style: {[`font-family`]: `consola`, color: `#000`}}, `BUY ${(3/Axis[1]).toFixed(5)} BTC @ 3 USD`]]]]], 
-										[`div`, {id: `buyline`}]]]
-								/*[`span`, {style: {padding: `${12}px ${0}`, [`text-decoration`]: `underline`}}, `INDEXJQ: .Bitcoin`], 
-								[`div`, {class: `_wrap_202203262208`}, 
-									[
-										[`div`, {id: `coin`, style: {}}], 
-										[`div`, {id: `coin-meta`, style: {}}, 
-											[
-												[`div`, {class: `_gxM`, style: {padding: `${12}px ${0}`}}, 
-													[
-														[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `INDEX PRICE`], 
-														[`div`, {class: `_gZz`}, 
-															[[`span`, {class: `_tXx`, style: {
-																[`font-family`]: `geometria`, [`font-size`]: `${13}px`,
-																color: (((Axis[1] - Axis[0])/Axis[1])*100 >= 0) ? `#1bd401`: `#d40101`}}, `${Tools.typen(Clients.quo).btc[0]} USD`]]]]],
-												[`div`, {id: `last-btc`}, 
-													[this.real([Tools.typen(Clients.quo).btc[1][5], `USD`, `last-btc`, `1H`])]], 
-												[`div`, {class: `_gxM`, style: {padding: `${12}px ${0}`}}, 
-													[
-														[`span`, {class: `tXx`, style: {[`font-size`]: `${12}px`}}, `INDEX VOLUME`], 
-														[`div`, {class: `_gZz`}, 
-															[[`span`, {class: `_tXx`, style: {[`font-family`]: `geometria`, [`font-size`]: `${13}px`}}, `${Tools.typen(Clients.quo).volume[0]} BTC`]]]]]]]]]*/, 
+										[`div`, {id: `buyline`}]]], 
 								[`div`, {class: `_wrap_202203262208 _geQ`, style: {margin: `${30}px ${0}`}}, 
 									[
 										//[`div`, {id: `quantsvg`}],
@@ -774,7 +853,7 @@ let Models = {
 													color: `#feef11`,
 													[`line-height`]: `${32}px`,
 													[`font-size`]: `${26}px`,
-																								[`font-weight`]: 600}}, `Applied Quantitative Investment Fund`],
+													[`font-weight`]: 600}}, `Applied Quantitative Investment Fund`],
 												[`p`, {style: {
 													[`font-size`]: `${12}px`,
 													[`text-align`]: `center`}}, 
@@ -851,16 +930,16 @@ let Models = {
 	},
 
 	mug: [
-				[`a`, {class: `-_tX v202204261406`, id: `mugin`, style: {margin: `${0}px ${15}px`}, href: `javascript:;`}], 
-				[`span`, {style: {margin: `${0}px ${10}px`, position: `relative`, height: `${24}px`}}, 
+				[`a`, {class: `-_tX v202204261406`, id: `mugin`, style: {margin: `${0}px ${0}px`}, href: `javascript:;`}], 
+				[`span`, {style: {margin: `${0}px ${0}px`, position: `relative`, height: `${21}px`}}, 
 					[
-						[`svg`, {style: {[`min-height`]: `${24}px`, width: `${24}px`}, viewBox: `0 0 24 24`}, 
+						[`svg`, {style: {[`min-height`]: `${21}px`, width: `${21}px`}, viewBox: `0 0 21 21`}, 
 							[
-								[`circle`, {cy: 12, cx: 12, r: 12, stroke: `none`, fill: `#47008c`}],
-								[`text`, {x: 12, y: 16, [`text-anchor`]: `middle`, fill: `#fff`, style: {
+								[`circle`, {cy: 10.5, cx: 10.5, r: 10.5, stroke: `none`, fill: `#47008c`}],
+								[`text`, {x: 10.5, y: 14, [`text-anchor`]: `middle`, fill: `#fff`, style: {
 									[`text-transform`]: `uppercase`, 
 									[`letter-spacing`]: `normal`,
-									[`font-size`]: `${12}px`}}, (Clients.mug)? Tools.typen(Clients.mug)[1][0]: ``]]], 
+									[`font-size`]: `${11}px`}}, (Clients.mug)? Tools.typen(Clients.mug)[1][0]: ``]]], 
 						[`a`, {id: `mug`, class: `_aWz mug`, style: {position: `absolute`, left: 0}, href:(Clients.mug)? `/balance`:`javascript:;`}]]]],
 
 	real: function (Real) {
@@ -1215,6 +1294,21 @@ let Models = {
         return [`div`, {}, Trail[1]];
     },
 
+	utilCollateral: [
+		`div`, {class: `_gxM`}, 
+			[
+				[`span`, {id: ``, style: {
+					margin: `${0} ${5}px`, [`font-family`]: `geometria`, [`font-size`]: `${11}px`, [`font-weight`]: 600}}, `0.00 USDT`],
+				[`a`, {id: ``, class: `v202203261943`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `/wallets`}],
+				[`a`, {id: ``, class: `v202203262148`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `#`}]]],
+
+	utilWallet: [
+		`div`, {class: `_gxM`}, 
+			[
+				[`a`, {id: ``, class: `v202203261943`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `#`}],
+				[`a`, {id: ``, class: `v202203262148`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `#`}],
+				[`a`, {class: `v202206131256`, style: {margin: `${0} ${10}px`}, href: `/escrow`}]]],
+
 	wallet: function () {
 
 			return [
@@ -1321,9 +1415,67 @@ let Models = {
 									this.trails([Tools.typen(Clients.vaults).plain, `+`, `USD`])]]]]]]]
 	},
 
-	wallets: [
-		`div`, {}, 
-			[[`a`, {class: `v202204282015`, style: {margin: `${0} ${10}px`}, href: `/wallet`}]]]
+	wallets: function () {
+
+		return [`main`, {id: `holds`, class: `_tY0`}, 
+			[
+				[`div`, {class: `_-tY`}, 
+					[[`div`, {class: `_aXz`, style: {padding: `${0} ${16}px`}},
+						[
+							[`div`, {class: `_-Xg _gxM _geQ`}, 
+								[
+									[`a`, {class: `-_tX v202201180941`, style: {[`min-width`]: `${32}px`, height: `${32}px`}, href: `/`}, ``], 
+									[`span`, {id: `vault`, class: `_aA6 _tXx`, style: {
+                                        [`border-left`]: `${1}px solid #91919159`, 
+                                        margin: `${0} ${7}px`,
+                                        padding: `${0} ${14}px`,
+                                        [`font-size`]: `${14}px`,
+                                        color: `#000`,
+                                        overflow: `hidden`,
+                                        [`white-space`]: `nowrap`}}, `wallets`]]],
+							[`div`, {class: `_gZz`}, 
+								[]]]]]], 
+				[`section`, {style: {
+                    width: `${100}%`,
+					[`max-width`]: `${1000}px`, margin: `${60}px auto`}}, 
+					[
+						[`div`, {class: `_wrap_202203262208`, style: {padding: `${0} ${24}px`}}, 
+							[
+								[`div`, {id: `put`}, 
+									[
+										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+											[
+												[`span`, {style: {
+                            						[`margin-top`]: `${24}px`, 
+                            						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `USDT Collateral`],
+												[`span`, {style: {
+                            						[`margin-top`]: `${2}px`, 
+                            						opacity: 1, [`font-size`]: `${11}px`}}, `TRC20 Token Deposit Address`]]], 
+                            			[`div`, {class: `_gxM _geQ`}, 
+                            				[
+                            					[`span`, {class: `v202205081343`}], 
+                            					[`div`, {class: `_eYG`}, 
+                            						[[`div`, {style: {width: `${100}%`}}, 
+                            							[[`span`, {class: `wallet-text`}, `TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK`]]]]]]]]], 
+                            	[`div`, {id: `take`}, 
+									[
+										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+											[
+												[`span`, {style: {
+                            						[`margin-top`]: `${24}px`, 
+                            						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Add Funding Wallet`],
+												[`span`, {style: {
+                            						[`margin-top`]: `${2}px`, 
+                            						opacity: 1, [`font-size`]: `${11}px`}}, `TRC20 & ERC20 wallets`]]], 
+                            			[`div`, {class: `_gxM _geQ`}, 
+                            				[
+                            					[`span`, {class: `v202206271427`}], 
+                            					[`div`, {class: `_eYG`}, 
+                            						[[`div`, {style: {width: `${100}%`}}, 
+                            							[[`input`, {id: `inlet`, placeholder: `paste wallet`}]]]]], 
+                            					[`div`, {class: `_QZg`, style: {margin: `${8}px`}}, 
+                            						[[`a`, {id: `walletin`, class: `v202203191304`, href: `javascript:;`}]]]]]]]]]]]]];
+	}
 }
 
 View = new View;

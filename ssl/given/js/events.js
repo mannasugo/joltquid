@@ -113,7 +113,7 @@ class Events {
 
 					Clients.mug = Tools.coats(Pull.mug);
 
-					window.location = `/balance`;
+					window.location = `/`;
 				}
 			}
 
@@ -148,7 +148,7 @@ class Events {
 
 					Clients.mug = Tools.coats(Pull.mug);
 
-					window.location = `/balance`;
+					window.location = `/`;
 				}
 			}
 
@@ -543,6 +543,10 @@ class Events {
 
 			View.DOM([`div`, [Models.mugslot()]]);
 
+			document.querySelector(`html`).style.overflow = `visible`;
+
+			document.querySelector(`#app`).style.background = `#fff`;
+
 			this.slotup();
 
 			this.mugin();
@@ -637,6 +641,33 @@ class Events {
 				let Pull = JSON.parse(Puts.response);
 
 				if (Pull && Pull.mug) window.location = `/pit`;
+			}
+		}]);
+	}
+
+	walletin () {
+
+		this.listen([document.querySelector(`#walletin`), `click`, S => {
+
+			let Values = [(!Tools.slim(document.querySelector(`#inlet`).value))? false: Tools.slim(document.querySelector(`#inlet`).value)];
+
+			if (Values[0] === false) return;
+
+			let Puts = Tools.pull([
+					`/json/web/`, {
+						mug: Tools.typen(Clients.mug)[0],
+						pull: `inlet`, 
+						puts : Values}]);
+
+			View.pop();
+
+			View.DOM([`span`, [Models.splash]]);
+
+			Puts.onload = () => {
+
+				let Pull = JSON.parse(Puts.response);
+
+				if (Pull && Pull.mug) window.location = `/wallets`;
 			}
 		}]);
 	}

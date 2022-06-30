@@ -17,6 +17,13 @@
 }
 
 @font-face {
+  font-family: 'din';
+  src: url('/ssl/given/glyphs/din.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
 	font-family: geometria;
 	src: url(/ssl/given/glyphs/v202203251236.geometria.ttf) format('truetype');
 	font-style: normal;
@@ -74,7 +81,7 @@ a, a:visited {
 
 body, button, input, textarea {
   font-family: litera;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: .7px;
   line-height: 18px;
 }
@@ -212,7 +219,7 @@ body {
 }
 
 .v202201180941, .v202202122052, .v202203171249, .v202203191304, .v202203261943, .v202203262148, .v202204261406, .v202204282015, .v202205042043, 
-.v202205081343, .v202205081426, .v202205081410 {
+.v202205081343, .v202205081426, .v202205081410, .v202206131254, .v202206131256, .v202206271427 {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
@@ -230,7 +237,7 @@ body {
 
 .v202203262148 {background-image: url(/ssl/given/svg/take_202203262148.svg);}
 
-.v202204261406 {background-image: url(/ssl/given/svg/mug_202204261406.svg);}
+.v202204261406 {background-image: url(/ssl/given/svg/mug_202204261406.svg); width: 21px; height: 21px}
 
 .v202204282015 {background-image: url(/ssl/given/svg/append_202204282015.svg);}
 
@@ -241,6 +248,12 @@ body {
 .v202205081410 {background-image: url(/ssl/given/svg/vault_202205081410.svg);}
 
 .v202205081426 {background-image: url(/ssl/given/svg/pay_202205081426.svg);}
+
+.v202206131254 {background-image: url(/ssl/given/svg/wallet_000_202206131254.svg);}
+
+.v202206131256 {background-image: url(/ssl/given/svg/walletify_000_202206131256.svg);}
+
+.v202206271427 {background-image: url(/ssl/given/svg/pay_202206271427.svg);}
 
 ._aA2, ._aA2:visited {color: #000;}
 
@@ -258,7 +271,7 @@ body {
 
 #mugin h2 {padding: 32px 0 8px;width: 100%;margin: 0;text-transform: capitalize;font-weight: normal;}
 
-#mugin input, #pitvalue, #wallet input, textarea {
+#mugin input, #pitvalue, #wallet input, #inlet, textarea {
   block-size: 40px;
   background-color:#f4f4f4;
   color:#171a20;
@@ -275,7 +288,7 @@ body {
 
 #pitvalue input {padding: 10px 8px; text-align: right; font-family: geometria; font-size: 12px}
 
-#mugin input:focus, textarea:focus {
+#mugin input:focus, #inlet:focus, textarea:focus {
   border: 1px solid #d0d1d2;
   outline: none;
 }
@@ -413,6 +426,14 @@ body {
 
 .trail-svg {/*margin-right: 12px*/}
 
+.view-box {position: absolute; top: 0; right: 0; bottom: 0; left: 0}
+
+.title-box {height: 33px; border-bottom: 1px solid #ffffff26}
+
+.top-slide {line-height: 13px; margin-left: 8px; font-family: geometria;}
+
+.wallet-text {padding: 6px 24px; background: #f4f4f4; border-radius: 20px; font-family: consola; font-size: 13px; color: #48007c;}
+
 @media (min-width: 600px) {
 
   #mugs {justify-content: center;}
@@ -463,4 +484,6 @@ body {
   .unsqueeze {align-items: unset; flex: unset;}
 
   .foot {width: 50%}
+
+  .wallet-text {padding: 6px 8px; font-size: 11px; text-align: center;}
 }
