@@ -380,7 +380,7 @@ class Route {
 								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
 								};
 
-								Arg[1].end(Tools.coats({ 
+								Arg[1].end(Tools.coats({
 									mug: Pulls.mug
 								}));
 							}
@@ -400,7 +400,8 @@ class Route {
 									}
 								});
 
-								//pavejolt paveon
+								//pavejolt 
+								//paveon
 
                 				let Old = Tools.typen(Tools.coats(Raw.mugs[1][Pulls.mug]));
 
@@ -434,6 +435,7 @@ class Route {
 								};
 
 								Arg[1].end(Tools.coats({ 
+									inlet: (Raw.mugs[1][Pulls.mug].inlet)? Raw.mugs[1][Pulls.mug].inlet.USDT: [],
 									mug: Pulls.mug
 								}));
 							}

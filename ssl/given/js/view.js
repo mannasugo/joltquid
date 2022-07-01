@@ -660,6 +660,33 @@ let Models = {
 				this.foot()]];
 	},
 
+    inlets: function () {
+
+        let Wallets = [];
+
+        Tools.typen(Clients.inlet).forEach(inlet => {
+
+            Wallets.push([`div`, {class: `_gxM _geQ`}, 
+                [
+                    [`span`, {class: `v202206271427`}], 
+                    [`div`, {class: `_eYG`}, 
+                        [[`div`, {style: {width: `${100}%`}}, 
+                            [[`span`, {class: `wallet-text _tXx`}, `${inlet}`]]]]]]]);
+        });
+
+        return [`div`, {style: {[`margin-top`]: `${24}px`}}, 
+            [
+                [`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+                    [
+                        [`span`, {style: {
+                            [`margin-top`]: `${24}px`, 
+                            opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Funding Wallets`],
+                        [`span`, {style: {
+                            [`margin-top`]: `${2}px`, 
+                            opacity: 1, [`font-size`]: `${11}px`}}, `USDT Tokens`]]], 
+                [`div`, {}, Wallets]]];
+    },
+
 	loadWallet: [
 		`div`, {class: `_gxM`}, 
 			[
@@ -1451,7 +1478,7 @@ let Models = {
 												[`span`, {style: {
                             						[`margin-top`]: `${2}px`, 
                             						opacity: 1, [`font-size`]: `${11}px`}}, `TRC20 Token Deposit Address`]]], 
-                            			[`div`, {class: `_gxM _geQ`}, 
+                            			[`div`, {class: `_gxM`, style: {[`align-items`]: `center`}}, 
                             				[
                             					[`span`, {class: `v202205081343`}], 
                             					[`div`, {class: `_eYG`}, 
@@ -1472,9 +1499,10 @@ let Models = {
                             					[`span`, {class: `v202206271427`}], 
                             					[`div`, {class: `_eYG`}, 
                             						[[`div`, {style: {width: `${100}%`}}, 
-                            							[[`input`, {id: `inlet`, placeholder: `paste wallet`}]]]]], 
+                            							[[`input`, {id: `inlet`, placeholder: `paste wallet`, style: {[`font-size`]: `${12}px`}}]]]]], 
                             					[`div`, {class: `_QZg`, style: {margin: `${8}px`}}, 
-                            						[[`a`, {id: `walletin`, class: `v202203191304`, href: `javascript:;`}]]]]]]]]]]]]];
+                            						[[`a`, {id: `walletin`, class: `v202203191304`, href: `javascript:;`}]]]]], 
+                                        (Tools.typen(Clients.inlet).length > 0)? this.inlets(): []]]]]]]]];
 	}
 }
 
