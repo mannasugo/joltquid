@@ -8,4 +8,8 @@ select * from `pays`;
 
 select * from `positions`;
 
+select * from `till`;
+
 select * from `vault`;
+
+select * from `vows`;

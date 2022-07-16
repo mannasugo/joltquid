@@ -219,7 +219,7 @@ body {
 }
 
 .v202201180941, .v202202122052, .v202203171249, .v202203191304, .v202203261943, .v202203262148, .v202204261406, .v202204282015, .v202205042043, 
-.v202205081343, .v202205081426, .v202205081410, .v202206131254, .v202206131256, .v202206271427 {
+.v202205081343, .v202205081426, .v202205081410, .v202206131254, .v202206131256, .v202206271427, .v202207071159, .v202207071206, .v202207161737 {
   background-repeat: no-repeat;
   height: 24px;
   width: 24px;
@@ -255,6 +255,12 @@ body {
 
 .v202206271427 {background-image: url(/ssl/given/svg/pay_202206271427.svg);}
 
+.v202207071159 {background-image: url(/ssl/given/svg/take_202207071159.svg);}
+
+.v202207071206 {background-image: url(/ssl/given/svg/put_202207071206.svg);}
+
+.v202207161737 {background-image: url(/ssl/given/svg/find_202207161737.svg);}
+
 ._aA2, ._aA2:visited {color: #000;}
 
 ._gZ + ._gZ {border-top: 1px solid #f4f4f4}
@@ -271,7 +277,7 @@ body {
 
 #mugin h2 {padding: 32px 0 8px;width: 100%;margin: 0;text-transform: capitalize;font-weight: normal;}
 
-#mugin input, #pitvalue, #wallet input, #inlet, textarea {
+#mugin input, #pitvalue, #wallet input, #inlet, #vow, textarea {
   block-size: 40px;
   background-color:#f4f4f4;
   color:#171a20;
@@ -288,7 +294,7 @@ body {
 
 #pitvalue input {padding: 10px 8px; text-align: right; font-family: geometria; font-size: 12px}
 
-#mugin input:focus, #inlet:focus, textarea:focus {
+#mugin input:focus, #inlet:focus, #vow:focus, textarea:focus {
   border: 1px solid #d0d1d2;
   outline: none;
 }

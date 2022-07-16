@@ -711,24 +711,42 @@ let Models = {
                                         color: `#000`, //`#00e53f`,
                                         overflow: `hidden`,
                                         [`white-space`]: `nowrap`}}, `joltquid`]]],
-							[`div`, {class: `_gZz`}, 
+							[`div`, {class: `_gZz`, style: {[`align-items`]: `center`}}, 
 								[(Clients.mug)? this.utilWallet: this.loadWallet]]]]]], 
-				[`section`, {style: {
-                    width: `${100}%`,
-					[`max-width`]: `${1000}px`, margin: `${60}px auto`, padding: `${0} ${24}px`}}, 
+				[`section`, {style: {width: `${100}%`, [`max-width`]: `${1000}px`, margin: `${60}px auto`}}, 
 					[
-						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
-                            [
-                                [`span`, {style: {
-                                    [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Total Balance`], 
-                                [`div`, {id: `holdem`}, [/*this.holdem()*/]]]],
-						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
-							[
-								[`span`, {style: {margin: `${24}px ${0}`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Tokens`], 
-								[`div`, {id: `holden`}, [/*this.holden()*/]]]],
-						[`div`, {style: {[`margin-bottom`]: `${24}px`}}, [[`span`, {style: {
-                            [`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Hyper-ledger`],
-                            /*this.trailhold()*/]]]]]];
+						[`div`, {class: `_wrap_202203262208`, style: {padding: `${0} ${24}px`}}, 
+							[ 
+                            	[`div`, {id: `put`}, 
+									[
+										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+											[
+												[`span`, {style: {
+                            						[`margin-top`]: `${24}px`, 
+                            						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Settle Vows`],
+												[`span`, {style: {
+                            						[`margin-top`]: `${2}px`, 
+                            						opacity: 1, [`font-size`]: `${9}px`}}, `*Only accepts withdrawal & deposit vows`]]], 
+                            			[`div`, {class: `_gxM`, style: {[`align-items`]: `center`}}, 
+                            				[
+                            					[`span`, {class: `v202206271427`}], 
+                            					[`div`, {class: `_eYG`}, 
+                            						[[`div`, {style: {width: `${100}%`}}, 
+                            							[[`input`, {id: `vow`, placeholder: `paste invoice to settle`, style: {[`font-size`]: `${12}px`}}]]]]], 
+                            					[`div`, {class: `_QZg`, style: {margin: `${8}px`}}, 
+                            						[[`a`, {id: `vowin`, class: `v202203191304`, href: `javascript:;`}]]]]], 
+                                        []]],
+								[`div`, {id: `take`}, 
+									[
+										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+											[
+												[`span`, {style: {
+                            						[`margin-top`]: `${24}px`, 
+                            						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Settlements`],
+												[`span`, {style: {
+                            						[`margin-top`]: `${2}px`, 
+                            						opacity: 1, [`font-size`]: `${9}px`}}, `*settled withdrawals & deposits`]]], 
+                            			this.settlements()]]]]]]]];
 	},
 
 	main_exchange: function () {
@@ -1237,6 +1255,102 @@ let Models = {
 							[`div`, {style: {width: `${30}%`}}, [[`span`, {}, `amount`]]],
 							[`div`, {style: {width: `${20}%`}}, [[`span`, {}, `price`]]]]], 
 					[`div`, {}, Pit[1]]]];
+	},
+
+	settle: function () {
+
+		return [`main`, {id: `holds`, class: `_tY0`}, 
+			[
+				[`div`, {class: `_-tY`}, 
+					[[`div`, {class: `_aXz`, style: {padding: `${0} ${16}px`}},
+						[
+							[`div`, {class: `_-Xg _gxM _geQ`}, 
+								[
+									[`a`, {class: `-_tX v202201180941`, style: {[`min-width`]: `${32}px`, height: `${32}px`}, href: `/`}, ``], 
+									[`span`, {id: `vault`, class: `_aA6 _tXx`, style: {
+                                        [`border-left`]: `${1}px solid #91919159`, 
+                                        margin: `${0} ${7}px`,
+                                        padding: `${0} ${14}px`,
+                                        [`font-size`]: `${14}px`,
+                                        color: `#000`,
+                                        overflow: `hidden`,
+                                        [`white-space`]: `nowrap`}}, `settle`]]],
+							[`div`, {class: `_gZz`}, 
+								[]]]]]], 
+				[`section`, {style: {width: `${100}%`, [`max-width`]: `${1000}px`, margin: `${60}px auto`}}, 
+					[
+						[`div`, {class: `_wrap_202203262208`, style: {padding: `${0} ${24}px`}}, 
+							[ 
+                            	[`div`, {id: `put`}, 
+									[
+										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+											[
+												[`span`, {style: {
+                            						[`margin-top`]: `${24}px`, 
+                            						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Settle Vows`],
+												[`span`, {style: {
+                            						[`margin-top`]: `${2}px`, 
+                            						opacity: 1, [`font-size`]: `${9}px`}}, `*Only accepts withdrawal & deposit vows`]]], 
+                            			[`div`, {class: `_gxM`, style: {[`align-items`]: `center`}}, 
+                            				[
+                            					[`span`, {class: `v202206271427`}], 
+                            					[`div`, {class: `_eYG`}, 
+                            						[[`div`, {style: {width: `${100}%`}}, 
+                            							[[`input`, {id: `vow`, placeholder: `paste invoice to settle`, style: {[`font-size`]: `${12}px`}}]]]]], 
+                            					[`div`, {class: `_QZg`, style: {margin: `${8}px`}}, 
+                            						[[`a`, {id: `vowin`, class: `v202203191304`, href: `javascript:;`}]]]]], 
+                                        []]],
+								[`div`, {id: `take`}, 
+									[
+										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+											[
+												[`span`, {style: {
+                            						[`margin-top`]: `${24}px`, 
+                            						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Settlements`],
+												[`span`, {style: {
+                            						[`margin-top`]: `${2}px`, 
+                            						opacity: 1, [`font-size`]: `${9}px`}}, `*settled withdrawals & deposits`]]], 
+                            			this.settlements()]]]]]]]];
+	},
+
+	settlements: function () {
+
+		let Settle = [
+			[
+				{secs: 0, till: {a: [0, -313], b: [313, 0]}},
+				{secs: 0, till: {a: [0, 18], e: [-273, 0], [new Date(`1996-01-20`).valueOf()]: 9}}], []];
+
+		Settle[0].forEach(MD => {
+
+			Settle[1].push([
+				`div`, {class: `_wrap_202203262208`, style: {padding: `${12}px ${0}`}}, 
+					[
+						[`div`, {class: `_gxM`, style: {width: `${40}%`, [`align-items`]: `center`}}, 
+							[
+								//[`span`, {class: (MD.till.a[1] >= 0)? `v202207071206`: `v202207071159`, style: {width: `${18}px`, height: `${18}px`}}], 
+                            	[`div`, {class: ``, style: {[`font-family`]: `geometria`}},
+                                	[[`span`, {style: {
+                                    	opacity: .4, 
+                                    	[`font-size`]: `${11}px`, [`font-weight`]: 600}}, Tools.logs(new Date().valueOf()).substr(0, 15)]]]]], 
+						[`div`, {class: `_gxM _gZz`, style: {width: `${30}%`, [`align-items`]: `center`}}, 
+                            [
+                                [`div`, {},
+                                    [[`div`, {style: {
+                                    	[`font-family`]: `geometria`,
+                                    	[`font-size`]: `${11}px`, 
+                                    	[`font-weight`]: 600, color: (MD.till.a[1] < 0)? `#e50000`: `#00e53f`}}, `${Tools.notate(MD.till.a[1])}`]]], 
+                                [`span`, {class: (MD.till.a[1] >= 0)? `v202205081410`: `v202205081426`, style: {[`margin-left`]: `${12}px`}}, ``]]], 
+                        [`div`, {class: `_gxM _gZz`, style: {width: `${30}%`, [`align-items`]: `center`}}, 
+                        	[
+                                [`div`, {},
+                                    [[`div`, {style: {
+                                    	[`font-family`]: `geometria`,
+                                    	[`font-size`]: `${11}px`, 
+                                    	[`font-weight`]: 600}}, `${Tools.notate(MD.till.a[1])}`]]], 
+                                [`span`, {class: `v202205081343`, style: {[`margin-left`]: `${12}px`}}, ``]]]]])
+		});
+
+		return [`div`, {}, Settle[1]];
 	}, 
 
 	trails: function (Trail) {
@@ -1327,14 +1441,14 @@ let Models = {
 				[`span`, {id: ``, style: {
 					margin: `${0} ${5}px`, [`font-family`]: `geometria`, [`font-size`]: `${11}px`, [`font-weight`]: 600}}, `0.00 USDT`],
 				[`a`, {id: ``, class: `v202203261943`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `/wallets`}],
-				[`a`, {id: ``, class: `v202203262148`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `#`}]]],
+				[`a`, {id: ``, class: `v202203262148`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `/settle`}]]],
 
 	utilWallet: [
 		`div`, {class: `_gxM`}, 
 			[
-				[`a`, {id: ``, class: `v202203261943`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `#`}],
-				[`a`, {id: ``, class: `v202203262148`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `#`}],
-				[`a`, {class: `v202206131256`, style: {margin: `${0} ${10}px`}, href: `/escrow`}]]],
+				//[`a`, {id: ``, class: `v202203261943`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `#`}]
+				[`a`, {class: `v202206131256`, style: {width: `${28}px`, height: `${28}px`, margin: `${0} ${10}px`}, href: `/escrow`}],
+				[`a`, {id: ``, class: `v202207161737`, style: {margin: `${0} ${10}px`}, href: `javascript:;`}]]],
 
 	wallet: function () {
 

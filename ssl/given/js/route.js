@@ -298,6 +298,39 @@ class Route {
     		}
     	}
 
+    	else if (this.State[3] === `settle`) {
+
+    		if (!Clients.mug) {
+
+    			history.pushState(``, ``, `/`);
+
+    			this.Call();
+    		}
+
+    		else if (!State[4] && !Tools.slim[State[4]] && Clients.mug) {
+
+				let Puts = Tools.pull([
+					`/json/web/`, {
+						mug: Tools.typen(Clients.mug)[0],
+						pull: `settle`}]);
+
+				Puts.onload = () => {
+
+					let Web = JSON.parse(Puts.response);
+
+					if (Web && Web.mug) {
+
+						//Clients.inlet = Tools.coats(Web.inlet);
+
+				    	View.DOM([`div`, [Models.settle()]]);
+
+    					//Events.walletin();
+
+					}
+				}
+			}
+		}
+
     	else if (this.State[3] === `wallet`) {
 
     		if (!Clients.mug) {
