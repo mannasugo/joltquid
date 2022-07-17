@@ -718,24 +718,7 @@ let Models = {
 						[`div`, {class: `_wrap_202203262208`, style: {padding: `${0} ${24}px`}}, 
 							[ 
                             	[`div`, {id: `put`}, 
-									[
-										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
-											[
-												[`span`, {style: {
-                            						[`margin-top`]: `${24}px`, 
-                            						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Settle Vows`],
-												[`span`, {style: {
-                            						[`margin-top`]: `${2}px`, 
-                            						opacity: 1, [`font-size`]: `${9}px`}}, `*Only accepts withdrawal & deposit vows`]]], 
-                            			[`div`, {class: `_gxM`, style: {[`align-items`]: `center`}}, 
-                            				[
-                            					[`span`, {class: `v202206271427`}], 
-                            					[`div`, {class: `_eYG`}, 
-                            						[[`div`, {style: {width: `${100}%`}}, 
-                            							[[`input`, {id: `vow`, placeholder: `paste invoice to settle`, style: {[`font-size`]: `${12}px`}}]]]]], 
-                            					[`div`, {class: `_QZg`, style: {margin: `${8}px`}}, 
-                            						[[`a`, {id: `vowin`, class: `v202203191304`, href: `javascript:;`}]]]]], 
-                                        []]],
+									[this.utilVows()]],
 								[`div`, {id: `take`}, 
 									[
 										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
@@ -1443,6 +1426,33 @@ let Models = {
 				[`a`, {id: ``, class: `v202203261943`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `/wallets`}],
 				[`a`, {id: ``, class: `v202203262148`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `/settle`}]]],
 
+	utilVows: function () {
+		
+		return [`div`, {}, 
+			[
+				[`div`, {class: `_gxM`}, 
+					[
+						[`div`, {style: {width: `${50}%`, [`padding-right`]: `${6}px`}}, 
+							[
+								[`span`, {style: {margin: `${24}px ${0} ${12}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, 
+									`Deposit`],
+								[`div`, {class: `_gxM`}, 
+									[
+										[`input`, {id: `putFloat`, placeholder: `amount`, style: {
+                            				[`font-family`]: `geometria`, [`font-size`]: `${12}px`, [`text-align`]: `right`, overflow: `hidden`}}],
+                            			[`div`, {class: `_gZz`, style: {[`margin-left`]: `${12}px`}}, 
+                            				[[`a`, {id: `putVow`, class: `v202203261943`, href: `javascript:;`}]]]]]]],
+						[`div`, {style: {width: `${50}%`, [`padding-left`]: `${6}px`}}, 
+							[
+								[`span`, {style: {margin: `${24}px ${0} ${12}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, 
+									`Withdraw`],
+								[`div`, {class: `_gxM`}, 
+									[
+										[`input`, {id: `getFloat`, placeholder: `amount`, style: {
+                            				[`font-family`]: `geometria`, [`font-size`]: `${12}px`, [`text-align`]: `right`, overflow: `hidden`}}],
+                            			[`div`, {class: `_gZz`, style: {[`margin-left`]: `${12}px`}}, 
+                            				[[`a`, {id: `getVow`, class: `v202203262148`, href: `javascript:;`}]]]]]]]]]]]
+	},
 	utilWallet: [
 		`div`, {class: `_gxM`}, 
 			[
