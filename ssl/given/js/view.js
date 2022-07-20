@@ -718,7 +718,7 @@ let Models = {
 						[`div`, {class: `_wrap_202203262208`, style: {padding: `${0} ${24}px`}}, 
 							[ 
                             	[`div`, {id: `put`}, 
-									[this.utilVows()]],
+									[this.utilVows(), (Tools.typen(Clients.vows).length > 0)? this.vows(): []]],
 								[`div`, {id: `take`}, 
 									[
 										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
@@ -1300,8 +1300,8 @@ let Models = {
 
 		let Settle = [
 			[
-				{secs: 0, till: {a: [0, -313], b: [313, 0]}},
-				{secs: 0, till: {a: [0, 18], e: [-273, 0], [new Date(`1996-01-20`).valueOf()]: 9}}], []];
+				{secs: 0, till: {a: [0, -313], b: [313, 0]}, vow: []},
+				{secs: 0, till: {a: [0, 18], e: [-273, 0], [new Date(`1996-01-20`).valueOf()]: 9}, vow: []}], []];
 
 		Settle[0].forEach(MD => {
 
@@ -1453,12 +1453,39 @@ let Models = {
                             			[`div`, {class: `_gZz`, style: {[`margin-left`]: `${12}px`}}, 
                             				[[`a`, {id: `getVow`, class: `v202203262148`, href: `javascript:;`}]]]]]]]]]]]
 	},
+
 	utilWallet: [
 		`div`, {class: `_gxM`}, 
 			[
 				//[`a`, {id: ``, class: `v202203261943`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `#`}]
 				[`a`, {class: `v202206131256`, style: {width: `${28}px`, height: `${28}px`, margin: `${0} ${10}px`}, href: `/escrow`}],
 				[`a`, {id: ``, class: `v202207161737`, style: {margin: `${0} ${10}px`}, href: `javascript:;`}]]],
+
+	vows: function () {
+
+		let Vows = [[]];
+
+		Tools.typen(Clients.vows).forEach(Vow => {
+
+			Vows[0].push([`div`, {class: `_gxM _geQ`}, 
+				[
+					[`span`, {style: {[`font-family`]: `consola`, [`font-size`]: `${11}px`, [`font-weight`]: 600}}, `${Vow.md}`],
+					[`div`, {class: `_gZz _gxM`}, 
+						[
+							[`span`, {style: {
+                            	[`font-family`]: `geometria`,
+                                [`font-size`]: `${11}px`, 
+                                [`font-weight`]: 600, color: (Vow.float < 0)? `#e50000`: `#00e53f`}}, `${Tools.notate(Vow.float)}`]]]]])
+		});
+
+		return [`div`, {}, 
+			[
+				[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
+					[
+						[`span`, {style: {[`margin-top`]: `${24}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Vows`],
+						[`span`, {style: {[`margin-top`]: `${2}px`, opacity: 1, [`font-size`]: `${9}px`}}, `*unsettled withdrawals & deposits`]]], 
+                [`div`, {}, Vows[0]]]]
+	},
 
 	wallet: function () {
 

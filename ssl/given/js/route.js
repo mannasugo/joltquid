@@ -40,29 +40,13 @@ class Route {
 
 				Clients.instance = Tools.coats([`app`, new Date().valueOf()]);
 
-				//Clients.quo = Tools.coats(Web.quo);
-
-				//Clients.axis = Tools.coats(Web.axis.sort((A, B) => {return A[0] - B[0]}));
-
 				if (Clients.mug) {
 
-					//Web.wallet[3] = [Web.wallet[2][0], Web.wallet[2][1]];
-
-					//Web.wallet[2] = [Web.wallet[0][0] - Web.wallet[0][1], Web.wallet[1][0] - Web.wallet[1][1]];
-
-					//Clients.wallet = Tools.coats(Web.wallet);
-
-					//Clients.vault = parseFloat(Web.wallet[3][0] - Web.wallet[3][1]);
+					Clients.vows = Tools.coats(Web.vows.sort((A, B) => {return A.secs - B.secs}));
 
 					View.DOM([`div`, [Models.main()]]);
 
-					//Events.mains();
-
-    				//View.pop();
-
-    				//View.DOM([`#buyline`, [Models.buyline()]]);
-
-    				//Events.reals();
+					Events.putVow();
 				}
 
 				else {
@@ -70,14 +54,6 @@ class Route {
 					View.DOM([`div`, [Models.main()]]);
 
 					Events.slotin();
-
-					//Events.mains();
-
-    				//View.pop();
-
-    				//View.DOM([`#buyline`, [Models.buyline()]]);
-
-    				//Events.reals();
 
 				}
 			}

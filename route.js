@@ -345,34 +345,16 @@ class Route {
 
 							if (Pulls.pull === `app`) {
 
-								//let Puts = [[], []];
+								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {};
 
-								//Tools.quo([Quo => {
+								let Vows = [[], [], []];
 
-									if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
+								Raw.vows[0].forEach(Vow => {
 
-										/**
+									if (Vow.mug === Pulls.mug) Vows[0].push(Vow);
+								});
 
-										let Wallet = Tools.wallet([Pulls.mug, Raw])[0];
-
-										let Balance = [Wallet[0][0] - Wallet[0][1], Wallet[1][0] - Wallet[1][1]];
-
-										Wallet[3] = Wallet[2];
-
-										Wallet[2] = Balance;
-
-										Puts[1] = Wallet;
-
-										**/
-									};
-
-									Arg[1].end(Tools.coats({
-										//axis: Quo.axis, 
-										mug: Pulls.mug, 
-										//quo: Quo.quo, 
-										//wallet: Puts[1]
-									}));
-								//}]);
+								Arg[1].end(Tools.coats({mug: Pulls.mug, vows: Vows[0]}));
 							}
 
 							if (Pulls.pull === `escrow`) {
@@ -427,6 +409,24 @@ class Route {
 										mug: Pulls.mug
 									}));
 								}
+							}
+
+							if (Pulls.pull === `put-vow`) {
+
+								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
+								};
+
+								let secs = new Date().valueOf();
+
+								let Puts = [{}];
+
+								Puts[0] = {
+									float: Pulls.puts,
+									md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+									mug: Pulls.mug, 
+									secs: secs};
+
+								Sql.puts([`vows`, Puts[0], (Raw) => {Arg[1].end(Tools.coats({mug: Pulls.mug, vows: Puts[0]}));}]);
 							}
 
 							if (Pulls.pull === `settle`) {
