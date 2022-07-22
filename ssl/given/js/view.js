@@ -1421,9 +1421,6 @@ let Models = {
 	utilCollateral: [
 		`div`, {class: `_gxM`}, 
 			[
-				[`span`, {id: ``, style: {
-					margin: `${0} ${5}px`, [`font-family`]: `geometria`, [`font-size`]: `${11}px`, [`font-weight`]: 600}}, `0.00 USDT`],
-				[`a`, {id: ``, class: `v202203261943`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `/wallets`}],
 				[`a`, {id: ``, class: `v202203262148`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `/settle`}]]],
 
 	utilVows: function () {
@@ -1458,7 +1455,7 @@ let Models = {
 		`div`, {class: `_gxM`}, 
 			[
 				//[`a`, {id: ``, class: `v202203261943`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `#`}]
-				[`a`, {class: `v202206131256`, style: {width: `${28}px`, height: `${28}px`, margin: `${0} ${10}px`}, href: `/escrow`}],
+				[`a`, {class: `v202206131256`, style: {width: `${28}px`, height: `${28}px`, margin: `${0} ${10}px`}, href: `/wallets`}],
 				[`a`, {id: ``, class: `v202207161737`, style: {margin: `${0} ${10}px`}, href: `javascript:;`}]]],
 
 	vows: function () {
@@ -1612,7 +1609,7 @@ let Models = {
                                         overflow: `hidden`,
                                         [`white-space`]: `nowrap`}}, `wallets`]]],
 							[`div`, {class: `_gZz`}, 
-								[]]]]]], 
+								[this.utilCollateral]]]]]], 
 				[`section`, {style: {
                     width: `${100}%`,
 					[`max-width`]: `${1000}px`, margin: `${60}px auto`}}, 
@@ -1628,7 +1625,7 @@ let Models = {
                             						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `USDT Collateral`],
 												[`span`, {style: {
                             						[`margin-top`]: `${2}px`, 
-                            						opacity: 1, [`font-size`]: `${11}px`}}, `TRC20 Token Deposit Address`]]], 
+                            						opacity: 1, [`font-size`]: `${10}px`}}, `TRC20 Token Deposit Address`]]], 
                             			[`div`, {class: `_gxM`, style: {[`align-items`]: `center`}}, 
                             				[
                             					[`span`, {class: `v202205081343`}], 
@@ -1644,7 +1641,7 @@ let Models = {
                             						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Add Funding Wallet`],
 												[`span`, {style: {
                             						[`margin-top`]: `${2}px`, 
-                            						opacity: 1, [`font-size`]: `${11}px`}}, `TRC20 & ERC20 wallets`]]], 
+                            						opacity: 1, [`font-size`]: `${10}px`}}, `TRC20 & ERC20 wallets`]]], 
                             			[`div`, {class: `_gxM _geQ`}, 
                             				[
                             					[`span`, {class: `v202206271427`}], 
