@@ -147,35 +147,6 @@ class Route {
 			}
 		}
 
-    	else if (this.State[3] === `escrow`) {
-
-    		if (!Clients.mug) {
-
-    			history.pushState(``, ``, `/`);
-
-    			Route.Call();
-    		}
-
-    		else if (!State[4] && !Tools.slim[State[4]] && Clients.mug) {
-
-				let Puts = Tools.pull([
-					`/json/web/`, {
-						mug: Tools.typen(Clients.mug)[0],
-						pull: `escrow`}]);
-
-				Puts.onload = () => {
-
-					let Web = JSON.parse(Puts.response);
-
-					if (Web && Web.mug) {
-
-				    	View.DOM([`div`, [Models.collateral()]]);
-
-					}
-				}
-			}
-		}
-
 		else if (this.State[3] === `mugs`) {
 
     		if (State[4] && (!State[5] && !View.slim(State[5]))) {

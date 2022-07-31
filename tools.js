@@ -4,7 +4,11 @@ const {createConnection} = require(`mysql`);
 
 const { mkdir, readFile, readFileSync, stat, writeFileSync } = require(`fs`);
 
+const { createHash } = require(`crypto`);
+
 const get = require(`request`);
+
+const hold = new Date(`1996-01-20`).valueOf();
 
 class Sql {
 	
@@ -145,6 +149,58 @@ class Tools {
 
 	coats (types) { return JSON.stringify(types); }
 
+	collateralise (Arg) {
+
+		let Holds = {}, TX = [[], []];
+
+		Arg[0].till[0].forEach(MD => {
+
+			if (MD.till[hold] && MD.tx != false) TX[0].push(MD.tx);
+		});
+
+		Arg[0].mugs[0].forEach(MD => {
+
+			if (MD.inlet && MD.inlet.BTC) {
+
+				MD.inlet.BTC.forEach(b64 => {
+
+					Holds[b64] = MD.md;
+				});
+			}
+		})
+
+		get(`https://blockchain.info/rawaddr/387LYybUtUs6a6Nkgfsf2vpeeEhfqxReLo`, (flaw, State, coat) => {
+
+			if (!flaw && State.statusCode === 200) {
+
+				let secs = new Date().valueOf();
+
+				readFile(`json/bitcoin.json`, {encoding: `utf8`}, (flaw, BTC) => {
+
+					BTC = this.typen(BTC).last;
+
+					Tools.typen(coat).txs.forEach(MD => {
+
+						if (!TX[0].indexOf(MD.hash) > -1 && Holds[MD.outputs[0].wallet] && MD.amount > 0) {
+
+							TX[1].push({
+								md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+								secs: secs,
+								till: {
+									[hold]: -(MD.amount/1000000000)*BTC[BTC.length -1][1], 
+									Holds[MD.outputs[0].wallet]: (MD.amount/1000000000)*BTC[BTC.length -1][1]},
+								tx: MD.hash,
+								vow: false});
+						}
+					});
+
+					console.log(TX[1]);
+				});
+			}
+
+		});
+	}
+
 	safe (String) {
 
 		String = String.replace(new RegExp(`&`, `g`), `u0026`);
@@ -188,9 +244,7 @@ class Tools {
 
 				Trail.push([Obj.secs, [`deposit`, `wallet`], [`American Dollar`, `USD`], parseFloat(Obj.dollars).toFixed(4), 0, 0]);
 			}
-		})
-
-		//console.log(Trail);
+		});
 
 		return Trail.sort((A, B) => {return B[0] - A[0]});
 	}

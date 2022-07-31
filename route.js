@@ -123,7 +123,7 @@ class Route {
 
 										let polls = [];
 
-										quo.forEach(Vault => {
+										quo.forEach(Vault => { //starjolt
 
 											let pal = (Vault.mug === mug.md) ? Vault.pal: Vault.mug;
 
@@ -357,16 +357,6 @@ class Route {
 								Arg[1].end(Tools.coats({mug: Pulls.mug, vows: Vows[0]}));
 							}
 
-							if (Pulls.pull === `escrow`) {
-
-								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
-								};
-
-								Arg[1].end(Tools.coats({
-									mug: Pulls.mug
-								}));
-							}
-
 							if (Pulls.pull === `inlet`) {
 
 								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
@@ -376,14 +366,15 @@ class Route {
 
 								Raw.mugs[0].forEach(Mug => {
 
-									if (Mug.inlet && Mug.inlet.USDT) {
+									if (Mug.inlet && Mug.inlet.BTC) {
 
-										if (Mug.inlet.USDT.indexOf(Pulls.puts[0]) > -1) Avail.inlet = [Mug.md];
+										if (Mug.inlet.BTC.indexOf(Pulls.puts[0]) > -1) Avail.inlet = [Mug.md];
 									}
 								});
 
 								//pavejolt 
 								//paveon
+								//starjolt
 
                 				let Old = Tools.typen(Tools.coats(Raw.mugs[1][Pulls.mug]));
 
@@ -391,9 +382,9 @@ class Route {
 
 									if (!Raw.mugs[1][Pulls.mug].inlet) Raw.mugs[1][Pulls.mug][`inlet`] = {};
 
-									if (!Raw.mugs[1][Pulls.mug].inlet.USDT) Raw.mugs[1][Pulls.mug].inlet[`USDT`] = [];
+									if (!Raw.mugs[1][Pulls.mug].inlet.BTC) Raw.mugs[1][Pulls.mug].inlet[`BTC`] = [];
 
-									Raw.mugs[1][Pulls.mug].inlet.USDT.push(Pulls.puts[0]); 
+									Raw.mugs[1][Pulls.mug].inlet.BTC.push(Pulls.puts[0]); 
 
 									Sql.places([`mugs`, Raw.mugs[1][Pulls.mug], Old, (Raw) => {
 
@@ -435,7 +426,7 @@ class Route {
 								};
 
 								Arg[1].end(Tools.coats({ 
-									inlet: (Raw.mugs[1][Pulls.mug].inlet)? Raw.mugs[1][Pulls.mug].inlet.USDT: [],
+									inlet: (Raw.mugs[1][Pulls.mug].inlet)? Raw.mugs[1][Pulls.mug].inlet.BTC: [],
 									mug: Pulls.mug
 								}));
 							}
@@ -446,7 +437,7 @@ class Route {
 								};
 
 								Arg[1].end(Tools.coats({ 
-									inlet: (Raw.mugs[1][Pulls.mug].inlet)? Raw.mugs[1][Pulls.mug].inlet.USDT: [],
+									inlet: (Raw.mugs[1][Pulls.mug].inlet)? Raw.mugs[1][Pulls.mug].inlet.BTC: [],
 									mug: Pulls.mug
 								}));
 							}
