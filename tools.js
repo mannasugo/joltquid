@@ -169,6 +169,8 @@ class Tools {
 			}
 		})
 
+		/**
+
 		get(`https://apilist.tronscan.org/api/transfer?sort=-timestamp&token=_&address=TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK`, (flaw, State, coat) => {
 
 			if (!flaw && State.statusCode === 200) {
@@ -192,8 +194,33 @@ class Tools {
 
 				console.log(TX[1]);
 			}
-
 		});
+		**/
+	}
+
+	hold (Arg) {
+
+		//let Holds = [{till: {[hold]: [2, 100]}}, {till: {[hold]: [14, 200]}}, {till: {[hold]: [-7, -127]}}]
+
+		let Hold = [0, 0];
+
+		Arg[0].till[0].forEach(MD => {
+
+			let Holden = [0, 0]
+
+			if (MD.till[Arg[1]]) {
+
+				Hold[0] += MD.till[Arg[1]][0]; 
+
+				Hold[1] += MD.till[Arg[1]][1];
+
+				Holden = [Hold[0], Hold[1]]
+
+				MD[`hold`] = Holden;
+			}
+		});
+
+		return Arg[0].till[0];
 	}
 
 	safe (String) {

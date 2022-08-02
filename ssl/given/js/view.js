@@ -635,7 +635,7 @@ let Models = {
 
         let Wallets = [];
 
-        Tools.typen(Clients.inlet).forEach(inlet => {
+        Tools.typen(Clients.inlet).reverse().forEach(inlet => {
 
             Wallets.push([`div`, {class: `_gxM _geQ`, style: {padding: `${12}px ${0}`}}, 
                 [
@@ -654,7 +654,7 @@ let Models = {
                             opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Funding Wallets`],
                         [`span`, {style: {
                             [`margin-top`]: `${2}px`, 
-                            opacity: 1, [`font-size`]: `${11}px`}}, `Bitcoin Addresses`]]], 
+                            opacity: 1, [`font-size`]: `${11}px`}}, `USDT TRC20 Addresses`]]], 
                 [`div`, {}, Wallets]]];
     },
 
@@ -1269,10 +1269,14 @@ let Models = {
 
 	settlements: function () {
 
+		/**
 		let Settle = [
 			[
 				{secs: 0, till: {a: [0, -313], b: [313, 0]}, vow: [], tx: ``},
 				{secs: 0, till: {a: [0, 18], e: [-273, 0], [new Date(`1996-01-20`).valueOf()]: 9}, vow: []}], []];
+		**/
+
+		let Settle = Tools.typen(Clients.settles).sort((A, B) => {return B.secs - A.secs});
 
 		Settle[0].forEach(MD => {
 
@@ -1593,16 +1597,16 @@ let Models = {
 											[
 												[`span`, {style: {
                             						[`margin-top`]: `${24}px`, 
-                            						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Bitcoin Collateral`],
+                            						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `USDT Collateral`],
 												[`span`, {style: {
                             						[`margin-top`]: `${2}px`, 
-                            						opacity: 1, [`font-size`]: `${10}px`}}, `BTC Token Deposit Address`]]], 
+                            						opacity: 1, [`font-size`]: `${10}px`}}, `USDT Token Deposit Address`]]], 
                             			[`div`, {class: `_gxM`, style: {[`align-items`]: `center`}}, 
                             				[
                             					[`span`, {class: `v202205081343`}], 
                             					[`div`, {class: `_eYG`}, 
                             						[[`div`, {style: {width: `${100}%`}}, 
-                            							[[`span`, {class: `wallet-text`}, `387LYybUtUs6a6Nkgfsf2vpeeEhfqxReLo`]]]]]]]]], 
+                            							[[`span`, {class: `wallet-text`}, `TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK`]]]]]]]]], 
                             	[`div`, {id: `take`}, 
 									[
 										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
@@ -1612,7 +1616,7 @@ let Models = {
                             						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Add Funding Wallet`],
 												[`span`, {style: {
                             						[`margin-top`]: `${2}px`, 
-                            						opacity: 1, [`font-size`]: `${10}px`}}, `*Bitcoin wallet`]]], 
+                            						opacity: 1, [`font-size`]: `${10}px`}}, `*TRC20 wallet`]]], 
                             			[`div`, {class: `_gxM _geQ`}, 
                             				[
                             					[`span`, {class: `v202206271427`}], 

@@ -425,9 +425,19 @@ class Route {
 								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
 								};
 
+								Tools.collateralise([Raw]);
+
+								let Settle = [];
+
+								Tools.hold([Raw, Pulls.mug]).forEach(MD => {
+
+									if (MD.vow != false && MD.vow[1] === Pulls.mug) Settle.push(MD);
+								})
+
 								Arg[1].end(Tools.coats({ 
 									inlet: (Raw.mugs[1][Pulls.mug].inlet)? Raw.mugs[1][Pulls.mug].inlet.USDT: [],
-									mug: Pulls.mug
+									mug: Pulls.mug,
+									settles: Settle
 								}));
 							}
 
