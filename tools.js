@@ -160,42 +160,37 @@ class Tools {
 
 		Arg[0].mugs[0].forEach(MD => {
 
-			if (MD.inlet && MD.inlet.BTC) {
+			if (MD.inlet && MD.inlet.USDT) {
 
-				MD.inlet.BTC.forEach(b64 => {
+				MD.inlet.USDT.forEach(b64 => {
 
 					Holds[b64] = MD.md;
 				});
 			}
 		})
 
-		get(`https://blockchain.info/rawaddr/387LYybUtUs6a6Nkgfsf2vpeeEhfqxReLo`, (flaw, State, coat) => {
+		get(`https://apilist.tronscan.org/api/transfer?sort=-timestamp&token=_&address=TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK`, (flaw, State, coat) => {
 
 			if (!flaw && State.statusCode === 200) {
 
 				let secs = new Date().valueOf();
 
-				readFile(`json/bitcoin.json`, {encoding: `utf8`}, (flaw, BTC) => {
+				Tools.typen(coat).data.forEach(MD => {
 
-					BTC = this.typen(BTC).last;
+					if (!TX[0].indexOf(MD.transactionHash) > -1 && Holds[MD.transferFromAddress] && MD.tranferToAddress === hold && MD.amount > 0) {
 
-					Tools.typen(coat).txs.forEach(MD => {
-
-						if (!TX[0].indexOf(MD.hash) > -1 && Holds[MD.outputs[0].wallet] && MD.amount > 0) {
-
-							TX[1].push({
-								md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
-								secs: secs,
-								till: {
-									[hold]: -(MD.amount/1000000000)*BTC[BTC.length -1][1], 
-									Holds[MD.outputs[0].wallet]: (MD.amount/1000000000)*BTC[BTC.length -1][1]},
-								tx: MD.hash,
+						TX[1].push({
+							md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+							secs: secs,
+							till: {
+								[hold]: -(MD.amount/100000000), 
+								[Holds[MD.transferFromAddress]]: (MD.amount/100000000)},
+								tx: MD.transactionHash,
 								vow: false});
-						}
-					});
-
-					console.log(TX[1]);
+					}
 				});
+
+				console.log(TX[1]);
 			}
 
 		});
