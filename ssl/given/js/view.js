@@ -700,7 +700,7 @@ let Models = {
 												[`span`, {style: {
                             						[`margin-top`]: `${2}px`, 
                             						opacity: 1, [`font-size`]: `${9}px`}}, `*settled withdrawals & deposits`]]], 
-                            			this.settlements()]]]]]]]];
+                            			this.settlements()]]]]]], this.utilFooter()]];
 	},
 
 	main_exchange: function () {
@@ -1276,7 +1276,9 @@ let Models = {
 				{secs: 0, till: {a: [0, 18], e: [-273, 0], [new Date(`1996-01-20`).valueOf()]: 9}, vow: []}], []];
 		**/
 
-		let Settle = Tools.typen(Clients.settles).sort((A, B) => {return B.secs - A.secs});
+		let Settle = [[], []]
+
+		Settle[0] = Tools.typen(Clients.settles).sort((A, B) => {return B.secs - A.secs});
 
 		Settle[0].forEach(MD => {
 
@@ -1424,6 +1426,19 @@ let Models = {
                             				[`font-family`]: `geometria`, [`font-size`]: `${12}px`, [`text-align`]: `right`, overflow: `hidden`}}],
                             			[`div`, {class: `_gZz`, style: {[`margin-left`]: `${12}px`}}, 
                             				[[`a`, {id: `getVow`, class: `v202203262148`, href: `javascript:;`}]]]]]]]]]]]
+	},
+
+	utilFooter: function () {
+
+		if (!Clients.mug) return;
+
+		return [`section`, {style: {width: `${100}%`, position: `fixed`, left: 0, bottom: 0, background: `#fff`}}, 
+			[[`div`, {class: `_gxM`, style: {width: `${100}%`, padding: `${10}px ${24}px`, [`border-top`]: `${1}px solid #e6e6e6`}}, 
+				[
+					[`span`, {class: `v202205081343`}],
+					[`div`, {class: `_eYG _tXx`, style: {
+						[`font-family`]: `consola`,
+						[`font-size`]: `${10}px`}}, `${Tools.typen(Clients.mug)[0]}`]]]]]
 	},
 
 	utilWallet: [
