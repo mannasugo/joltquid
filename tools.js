@@ -123,6 +123,23 @@ class Sql {
 		}]);
 	}
 
+	putlist (Arg) {
+
+		this.credentials.database = `wallet`;
+
+		let Put = [];
+
+		Arg[1].forEach(MD => {
+
+			Put.push([new Tools().coats(MD)]);
+		});
+
+		this.Sql([{
+			sql: `insert into ?? (json) values?`,
+			values: [Arg[0], Put]}, (Raw) => Arg[2](Raw)]);
+			
+	}
+
 	puts (Arg) {
 
 		this.credentials.database = `wallet`;
@@ -167,9 +184,7 @@ class Tools {
 					Holds[b64] = MD.md;
 				});
 			}
-		})
-
-		//**
+		});
 
 		readFile(`json/tronscan.json`, {encoding: `utf8`}, (flaw, coat) => {
 
@@ -179,7 +194,7 @@ class Tools {
 
 				this.typen(coat).token_transfers.forEach(MD => {
 
-					if (!TX[0].indexOf(MD.transaction_id) > -1 && Holds[MD.from_address] && MD.to_address === `TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK` && parseInt(MD.quant) > 0) {
+					if (TX[0].indexOf(MD.transaction_id) === -1 && Holds[MD.from_address] && MD.to_address === `TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK` && parseInt(MD.quant) > 0) {
 
 						TX[1].push({
 							md: createHash(`md5`).update(`${MD.block_ts}`, `utf8`).digest(`hex`),
@@ -187,15 +202,14 @@ class Tools {
 							till: {
 								[hold]: -(parseInt(MD.quant)/1000000), 
 								[Holds[MD.from_address]]: [(parseInt(MD.quant)/1000000), 0]},
-								tx: MD.transaction_id,
-								vow: false});
+							tx: MD.transaction_id,
+							vow: false});
 					}
 				});
 
 				return Arg[1](TX[1]);
 			}
 		});
-		//**/
 	}
 
 	hold (Arg) {

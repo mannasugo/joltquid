@@ -427,7 +427,7 @@ class Route {
 
 								Tools.collateralise([Raw, TX => {
 
-									console.log(TX);
+									//console.log(TX);
 
 									let Settle = [];
 
@@ -438,14 +438,14 @@ class Route {
 
 									if (TX.length > 0) {
 
-										//Sql.puts([`till`, TX, (Raw) => {
+										Sql.putlist([`till`, TX, (SQ) => {
 
 											Arg[1].end(Tools.coats({ 
 												inlet: (Raw.mugs[1][Pulls.mug].inlet)? Raw.mugs[1][Pulls.mug].inlet.USDT: [],
 												mug: Pulls.mug,
 												settles: Settle
 											}));
-										//}]);
+										}]);
 									}
 
 									else {
