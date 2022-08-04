@@ -171,9 +171,11 @@ class Tools {
 
 		//**
 
-		get(`https://apilist.tronscan.org/api/token_trc20/transfers?relatedAddress=TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK`, (flaw, State, coat) => {
+		readFile(`json/tronscan.json`, {encoding: `utf8`}, (flaw, coat) => {
 
-			if (!flaw && State.statusCode === 200) {
+		//get(`https://apilist.tronscan.org/api/token_trc20/transfers?relatedAddress=TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK`, (flaw, State, coat) => {
+
+			if (!flaw) { //&& State.statusCode === 200) {
 
 				this.typen(coat).token_transfers.forEach(MD => {
 
@@ -190,7 +192,7 @@ class Tools {
 					}
 				});
 
-				console.log(TX[1]);
+				return Arg[1](TX[1]);
 			}
 		});
 		//**/
