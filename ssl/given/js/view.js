@@ -1430,7 +1430,7 @@ let Models = {
 
 	utilFooter: function () {
 
-		if (!Clients.mug) return;
+		if (!Clients.mug) return [];
 
 		return [`section`, {style: {width: `${100}%`, position: `fixed`, left: 0, bottom: 0, background: `#fff`}}, 
 			[[`div`, {class: `_gxM`, style: {width: `${100}%`, padding: `${10}px ${24}px`, [`border-top`]: `${1}px solid #e6e6e6`}}, 

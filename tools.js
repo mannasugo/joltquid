@@ -169,25 +169,23 @@ class Tools {
 			}
 		})
 
-		/**
+		//**
 
-		get(`https://apilist.tronscan.org/api/transfer?sort=-timestamp&token=_&address=TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK`, (flaw, State, coat) => {
+		get(`https://apilist.tronscan.org/api/token_trc20/transfers?relatedAddress=TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK`, (flaw, State, coat) => {
 
 			if (!flaw && State.statusCode === 200) {
 
-				let secs = new Date().valueOf();
+				this.typen(coat).token_transfers.forEach(MD => {
 
-				Tools.typen(coat).data.forEach(MD => {
-
-					if (!TX[0].indexOf(MD.transactionHash) > -1 && Holds[MD.transferFromAddress] && MD.tranferToAddress === hold && MD.amount > 0) {
+					if (!TX[0].indexOf(MD.transaction_id) > -1 && Holds[MD.from_address] && MD.to_address === `TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK` && parseInt(MD.quant) > 0) {
 
 						TX[1].push({
-							md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
-							secs: secs,
+							md: createHash(`md5`).update(`${MD.block_ts}`, `utf8`).digest(`hex`),
+							secs: MD.block_ts,
 							till: {
-								[hold]: -(MD.amount/100000000), 
-								[Holds[MD.transferFromAddress]]: (MD.amount/100000000)},
-								tx: MD.transactionHash,
+								[hold]: -(parseInt(MD.quant)/1000000), 
+								[Holds[MD.from_address]]: [(parseInt(MD.quant)/1000000), 0]},
+								tx: MD.transaction_id,
 								vow: false});
 					}
 				});
@@ -195,7 +193,7 @@ class Tools {
 				console.log(TX[1]);
 			}
 		});
-		**/
+		//**/
 	}
 
 	hold (Arg) {
