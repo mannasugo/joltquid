@@ -267,13 +267,11 @@ class Route {
 
 					if (Web && Web.mug) {
 
-						//Clients.inlet = Tools.coats(Web.inlet);
+						Clients.puton = Tools.coats(Web.puton);
 
 						Clients.settles = Tools.coats(Web.settles);
 
 				    	View.DOM([`div`, [Models.settle()]]);
-
-    					//Events.walletin();
 
 					}
 				}

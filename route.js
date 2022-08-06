@@ -427,13 +427,13 @@ class Route {
 
 								Tools.collateralise([Raw, TX => {
 
-									//console.log(TX);
-
-									let Settle = [];
+									let Settle = [], Puton = [];
 
 									Tools.hold([Raw, Pulls.mug]).forEach(MD => {
 
 										if (MD.vow != false && MD.vow[1] === Pulls.mug) Settle.push(MD);
+
+										if (MD.tx.length > 10) Puton.push(MD)
 									});
 
 									if (TX.length > 0) {
@@ -443,6 +443,7 @@ class Route {
 											Arg[1].end(Tools.coats({ 
 												inlet: (Raw.mugs[1][Pulls.mug].inlet)? Raw.mugs[1][Pulls.mug].inlet.USDT: [],
 												mug: Pulls.mug,
+												puton: Puton,
 												settles: Settle
 											}));
 										}]);
@@ -453,6 +454,7 @@ class Route {
 										Arg[1].end(Tools.coats({ 
 											inlet: (Raw.mugs[1][Pulls.mug].inlet)? Raw.mugs[1][Pulls.mug].inlet.USDT: [],
 											mug: Pulls.mug,
+											puton: Puton,
 											settles: Settle
 										}));
 									}

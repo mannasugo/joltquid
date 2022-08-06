@@ -689,9 +689,11 @@ let Models = {
 						[`div`, {class: `_wrap_202203262208`, style: {padding: `${0} ${24}px`}}, 
 							[ 
                             	[`div`, {id: `put`}, 
-									[this.utilVows(), (Clients.vows && Tools.typen(Clients.vows) && Tools.typen(Clients.vows).length > 0)? this.vows(): []]],
-								[`div`, {id: `take`}, 
 									[
+										(Clients.mug)? this.utilVows(): [], 
+										(Clients.vows && Tools.typen(Clients.vows) && Tools.typen(Clients.vows).length > 0)? this.vows(): []]],
+								[`div`, {id: `take`}, 
+									/**[
 										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
 											[
 												[`span`, {style: {
@@ -700,7 +702,7 @@ let Models = {
 												[`span`, {style: {
                             						[`margin-top`]: `${2}px`, 
                             						opacity: 1, [`font-size`]: `${9}px`}}, `*settled withdrawals & deposits`]]], 
-                            			this.settlements()]]]]]], this.utilFooter()]];
+                            			this.settlements()]**/]]]]], this.utilFooter()]];
 	},
 
 	main_exchange: function () {
@@ -1211,6 +1213,57 @@ let Models = {
 					[`div`, {}, Pit[1]]]];
 	},
 
+	puton: function () {
+
+		if (Tools.typen(Clients.puton).length === 0) return [];
+
+		let Puton = [[], []];
+
+		Puton[0] = Tools.typen(Clients.puton).sort((A, B) => {return B.secs - A.secs});
+
+		let a = Tools.typen(Clients.mug)[0];
+
+		Puton[0].forEach(MD => {
+
+			Puton[1].push([
+				`div`, {class: `_wrap_202203262208`, style: {padding: `${12}px ${0}`}}, 
+					[
+						[`div`, {class: `_gxM`, style: {width: `${40}%`, [`align-items`]: `center`}}, 
+							[
+								[`div`, {class: ``, style: {[`font-family`]: `geometria`}},
+                                	[[`span`, {style: {
+                                    	opacity: .4, 
+                                    	[`font-size`]: `${11}px`, [`font-weight`]: 600}}, Tools.logs(MD.secs).substr(0, 15)]]]]], 
+						[`div`, {class: `_gxM _gZz`, style: {width: `${30}%`, [`align-items`]: `center`}}, 
+                            [
+                                [`div`, {},
+                                    [[`div`, {style: {
+                                    	[`font-family`]: `geometria`,
+                                    	[`font-size`]: `${11}px`, 
+                                    	[`font-weight`]: 600, color: (MD.till[a][1] < 0)? `#e50000`: `#00e53f`}}, `${Tools.notate(MD.till[a][0])}`]]], 
+                                [`span`, {class: (MD.till[a][0] >= 0)? `v202205081410`: `v202205081426`, style: {[`margin-left`]: `${12}px`}}, ``]]], 
+                        [`div`, {class: `_gxM _gZz`, style: {width: `${30}%`, [`align-items`]: `center`}}, 
+                        	[
+                                [`div`, {},
+                                    [[`div`, {style: {
+                                    	[`font-family`]: `geometria`,
+                                    	[`font-size`]: `${11}px`, 
+                                    	[`font-weight`]: 600}}, `${Tools.notate(MD.hold[0])}`]]], 
+                                [`span`, {class: `v202205081343`, style: {[`margin-left`]: `${12}px`}}, ``]]]]]);
+		});
+
+		return [`div`, {}, 
+			[
+				[`div`, {style: {margin: `${24}px ${0}`}}, 
+					[
+						[`span`, {style: {
+                            [`margin-top`]: `${24}px`, 
+                            opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Collateral Conversions`],
+						[`span`, {style: {
+                            [`margin-top`]: `${2}px`, 
+                            opacity: 1, [`font-size`]: `${9}px`}}, ``]]], [`div`, {}, Puton[1]]]]
+	},
+
 	settle: function () {
 
 		return [`main`, {id: `holds`, class: `_tY0`}, 
@@ -1253,7 +1306,7 @@ let Models = {
                             							[[`input`, {id: `vow`, placeholder: `paste invoice to settle`, style: {[`font-size`]: `${12}px`}}]]]]], 
                             					[`div`, {class: `_QZg`, style: {margin: `${8}px`}}, 
                             						[[`a`, {id: `vowin`, class: `v202203191304`, href: `javascript:;`}]]]]], 
-                                        []]],
+                                        this.puton()]],
 								[`div`, {id: `take`}, 
 									[
 										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
@@ -1442,11 +1495,11 @@ let Models = {
 	},
 
 	utilWallet: [
-		`div`, {class: `_gxM`}, 
+		`div`, {class: `_gxM`, style: {[`align-items`]: `center`}}, 
 			[
 				//[`a`, {id: ``, class: `v202203261943`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `#`}]
 				[`a`, {class: `v202206131256`, style: {width: `${28}px`, height: `${28}px`, margin: `${0} ${10}px`}, href: `/wallets`}],
-				[`a`, {id: ``, class: `v202207161737`, style: {margin: `${0} ${10}px`}, href: `javascript:;`}]]],
+				[`a`, {id: ``, class: `v202207161737`, style: {width: `${21}px`, height: `${21}px`,margin: `${0} ${10}px`}, href: `javascript:;`}]]],
 
 	vows: function () {
 

@@ -186,11 +186,11 @@ class Tools {
 			}
 		});
 
-		//readFile(`json/tronscan.json`, {encoding: `utf8`}, (flaw, coat) => {
+		readFile(`json/tronscan.json`, {encoding: `utf8`}, (flaw, coat) => {
 
-		get(`https://apilist.tronscan.org/api/token_trc20/transfers?relatedAddress=TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK`, (flaw, State, coat) => {
+		//get(`https://apilist.tronscan.org/api/token_trc20/transfers?relatedAddress=TH9BuLCBLmCTfvtgBWB14Y4TxCjPdYx4WK`, (flaw, State, coat) => {
 
-			if (!flaw && State.statusCode === 200) {
+			//if (!flaw && State.statusCode === 200) {
 
 				this.typen(coat).token_transfers.forEach(MD => {
 
@@ -208,7 +208,7 @@ class Tools {
 				});
 
 				return Arg[1](TX[1]);
-			}
+			//}
 		});
 	}
 
@@ -218,7 +218,7 @@ class Tools {
 
 		let Hold = [0, 0];
 
-		Arg[0].till[0].forEach(MD => {
+		Arg[0].till[0].sort((A, B) => {return A.secs - B.secs}).forEach(MD => {
 
 			let Holden = [0, 0]
 
