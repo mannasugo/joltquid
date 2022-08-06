@@ -691,7 +691,8 @@ let Models = {
                             	[`div`, {id: `put`}, 
 									[
 										(Clients.mug)? this.utilVows(): [], 
-										(Clients.vows && Tools.typen(Clients.vows) && Tools.typen(Clients.vows).length > 0)? this.vows(): []]],
+										(Clients.vows && Tools.typen(Clients.vows) && Tools.typen(Clients.vows).length > 0)? this.vows(): [],
+										this.outs()]],
 								[`div`, {id: `take`}, 
 									/**[
 										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
@@ -942,6 +943,52 @@ let Models = {
 									[`letter-spacing`]: `normal`,
 									[`font-size`]: `${11}px`}}, (Clients.mug)? Tools.typen(Clients.mug)[1][0]: ``]]], 
 						[`a`, {id: `mug`, class: `_aWz mug`, style: {position: `absolute`, left: 0}, href:(Clients.mug)? `/balance`:`javascript:;`}]]]],
+
+	outs: function () {
+
+		if (Tools.typen(Clients.outs).length === 0) return [];
+
+		let Outs = [[], []];
+
+		Outs[0] = Tools.typen(Clients.outs).sort((A, B) => {return B.secs - A.secs});
+
+		Outs[0].forEach(MD => {
+
+			Outs[1].push([`div`, {class: `_gxM`, style: {padding: `${10}px ${0}`, [`align-items`]: `center`}}, 
+				[
+					[`span`, {style: {
+						[`font-family`]: `geometria`,
+						[`font-size`]: `${10}px`, 
+						opacity: .5,
+						overflow: `hidden`, 
+						[`text-overflow`]: `ellipsis`,
+						[`white-space`]: `nowrap`}}, Tools.logs(MD.secs).substr(0)], 
+					[`div`, {class: `_eYG _tXx`, style: {
+						[`font-family`]: `consola`,
+						[`font-size`]: `${11}px`,
+						color: `#48007c`}}, 
+						[[`span`, {style: {width: `${100}%`, overflow: `hidden`, [`text-overflow`]: `ellipsis`}}, MD.md]]],
+					[`div`, {class: `_gxM _gZz`, style: {[`margin-left`]: `${12}px`,[`align-items`]: `center`}}, 
+                        [
+                        	[`div`, {style: {
+                                [`font-family`]: `geometria`,
+                                [`font-size`]: `${11}px`, 
+                                [`font-weight`]: 600}}, `${Tools.notate(MD.till[hold])*-1}`], 
+                            [`span`, {class: `v202205081410`, style: {[`margin-left`]: `${12}px`}}, ``]]]]]);
+		});
+
+		return [`div`, {}, 
+			[
+				[`div`, {style: {margin: `${24}px ${0}`}}, 
+					[
+						[`span`, {style: {
+                            [`margin-top`]: `${24}px`, 
+                            opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Collateral Conversions`],
+						[`span`, {style: {
+                            [`margin-top`]: `${2}px`, 
+                            opacity: 1, [`font-size`]: `${9}px`}}, ``]]], [`div`, {}, Outs[1]]]]
+
+	},
 
 	real: function (Real) {
 

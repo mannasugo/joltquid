@@ -1,5 +1,7 @@
 `use strict`;
 
+const hold = new Date(`1996-01-20`).valueOf();
+
 class Tools {
 
 	constructor () {

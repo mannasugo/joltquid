@@ -214,8 +214,6 @@ class Tools {
 
 	hold (Arg) {
 
-		//let Holds = [{till: {[hold]: [2, 100]}}, {till: {[hold]: [14, 200]}}, {till: {[hold]: [-7, -127]}}]
-
 		let Hold = [0, 0];
 
 		Arg[0].till[0].sort((A, B) => {return A.secs - B.secs}).forEach(MD => {

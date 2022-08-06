@@ -40,6 +40,8 @@ class Route {
 
 				Clients.instance = Tools.coats([`app`, new Date().valueOf()]);
 
+				Clients.outs = Tools.coats(Web.outs);
+
 				if (Clients.mug) {
 
 					Clients.vows = Tools.coats(Web.vows.sort((A, B) => {return A.secs - B.secs}));

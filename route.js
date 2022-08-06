@@ -347,14 +347,19 @@ class Route {
 
 								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {};
 
-								let Vows = [[], [], []];
+								let USDT = [], Vows = [[], [], []];
 
 								Raw.vows[0].forEach(Vow => {
 
 									if (Vow.mug === Pulls.mug) Vows[0].push(Vow);
 								});
 
-								Arg[1].end(Tools.coats({mug: Pulls.mug, vows: Vows[0]}));
+								Raw.till[0].forEach(MD => {
+
+									if (MD.tx.length > 10) USDT.push(MD);
+								});
+
+								Arg[1].end(Tools.coats({mug: Pulls.mug, outs: USDT, vows: Vows[0]}));
 							}
 
 							if (Pulls.pull === `inlet`) {
