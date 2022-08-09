@@ -275,6 +275,8 @@ class Route {
 
 				    	View.DOM([`div`, [Models.settle()]]);
 
+				    	Events.vowin();
+
 					}
 				}
 			}

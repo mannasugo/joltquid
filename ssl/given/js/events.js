@@ -648,6 +648,33 @@ class Events {
 		});
 	}
 
+	vowin () {
+
+		this.listen([document.querySelector(`#vowin`), `click`, S => {
+
+			let Values = [(!Tools.slim(document.querySelector(`#vow`).value))? false: Tools.slim(document.querySelector(`#vow`).value)];
+
+			if (Values[0] === false) return;
+
+			let Puts = Tools.pull([
+				`/json/web/`, {
+					mug: Tools.typen(Clients.mug)[0],
+					pull: `getvow`, 
+					puts : Values}]);
+
+			View.pop();
+
+			View.DOM([`div`, [Models.splash]]);/**
+
+			Puts.onload = () => {
+
+				let Pull = JSON.parse(Puts.response);
+
+				if (Pull && Pull.mug) window.location = `/settle`;
+			}**/
+		}]);
+	}
+
 	wallet () {
 
 		this.listen([document.querySelector(`#vault`), `click`, S => {

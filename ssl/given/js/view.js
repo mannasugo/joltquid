@@ -967,7 +967,7 @@ let Models = {
 						[`font-family`]: `consola`,
 						[`font-size`]: `${11}px`,
 						color: `#48007c`}}, 
-						[[`span`, {style: {width: `${100}%`, overflow: `hidden`, [`text-overflow`]: `ellipsis`}}, MD.md]]],
+						[[`span`, {style: {width: `${100}%`, overflow: `hidden`, [`text-overflow`]: `ellipsis`}}, MD.tx]]],
 					[`div`, {class: `_gxM _gZz`, style: {[`margin-left`]: `${12}px`,[`align-items`]: `center`}}, 
                         [
                         	[`div`, {style: {

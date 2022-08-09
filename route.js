@@ -362,6 +362,49 @@ class Route {
 								Arg[1].end(Tools.coats({mug: Pulls.mug, outs: USDT, vows: Vows[0]}));
 							}
 
+							if (Pulls.pull === `getvow`) {
+
+								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
+
+									let Puts = [{}, {}];
+
+									Raw.till[0].forEach(MD => {
+
+										if (MD.vow != false) Puts[0][MD.vow[0]] = MD;
+									});
+
+									let Holds = Tools.hold([Raw, Pulls.mug]).sort((A, B) => {return B.secs - A.secs});
+
+									if (Raw.vows[1][Pulls.puts] && !Puts[0][Pulls.puts]) {
+
+										let ts = new Date().valueOf();
+
+										if (Raw.vows[1][Pulls.puts].float > 0) {
+
+											if (Holds[0].hold[0] > Raw.vows[1][Pulls.puts].float) {
+
+												Puts[1] = {
+													md: createHash(`md5`).update(`${ts}`, `utf8`).digest(`hex`),
+													secs: ts,
+													till: {
+														//[Pulls.mug]: [-(parseInt(MD.quant)/1000000)], 
+														//[Raw.vows[1][Pulls.puts].mug]: [(parseInt(MD.quant)/1000000), 0]},
+													tx: false,
+													vow: [Pulls.puts, Pulls.mug]}
+											}
+										}
+									}
+								};
+
+								/**Puts[0] = {
+									float: Pulls.puts,
+									md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+									mug: Pulls.mug, 
+									secs: secs};**/
+
+								/**Sql.puts([`vows`, Puts[0], (Raw) => {**/Arg[1].end(Tools.coats({mug: Pulls.mug}));//}]);
+							}
+
 							if (Pulls.pull === `inlet`) {
 
 								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
