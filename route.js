@@ -375,7 +375,7 @@ class Route {
 
 									let Holds = Tools.hold([Raw, Pulls.mug]).sort((A, B) => {return B.secs - A.secs});
 
-									if (Raw.vows[1][Pulls.puts] && !Puts[0][Pulls.puts]) {
+									if (Raw.vows[1][Pulls.puts] && !Puts[0][Pulls.puts] && Pulls.mug != Raw.vows[1][Pulls.puts].mug) {
 
 										let ts = new Date().valueOf();
 
@@ -387,10 +387,12 @@ class Route {
 													md: createHash(`md5`).update(`${ts}`, `utf8`).digest(`hex`),
 													secs: ts,
 													till: {
-														//[Pulls.mug]: [-(parseInt(MD.quant)/1000000)], 
-														//[Raw.vows[1][Pulls.puts].mug]: [(parseInt(MD.quant)/1000000), 0]},
+														[Pulls.mug]: [-(parseFloat(Raw.vows[1][Pulls.puts].float)), 0], 
+														[Raw.vows[1][Pulls.puts].mug]: [0, parseFloat(Raw.vows[1][Pulls.puts].float)]},
 													tx: false,
-													vow: [Pulls.puts, Pulls.mug]}
+													vow: [Pulls.puts, Pulls.mug]};
+
+												console.log(Puts[1]);
 											}
 										}
 									}
@@ -481,7 +483,7 @@ class Route {
 
 										if (MD.vow != false && MD.vow[1] === Pulls.mug) Settle.push(MD);
 
-										if (MD.tx.length > 10) Puton.push(MD)
+										if (MD.till[Pulls.mug] && MD.tx.length > 10) Puton.push(MD)
 									});
 
 									if (TX.length > 0) {
