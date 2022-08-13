@@ -1369,16 +1369,11 @@ let Models = {
 
 	settlements: function () {
 
-		/**
-		let Settle = [
-			[
-				{secs: 0, till: {a: [0, -313], b: [313, 0]}, vow: [], tx: ``},
-				{secs: 0, till: {a: [0, 18], e: [-273, 0], [new Date(`1996-01-20`).valueOf()]: 9}, vow: []}], []];
-		**/
-
 		let Settle = [[], []]
 
-		Settle[0] = Tools.typen(Clients.settles).sort((A, B) => {return B.secs - A.secs});
+		Settle[0] = Tools.typen(Clients.settles).sort((A, B) => {return B.secs - A.secs}),
+
+		a = Tools.typen(Clients.mug)[0];
 
 		Settle[0].forEach(MD => {
 
@@ -1387,26 +1382,25 @@ let Models = {
 					[
 						[`div`, {class: `_gxM`, style: {width: `${40}%`, [`align-items`]: `center`}}, 
 							[
-								//[`span`, {class: (MD.till.a[1] >= 0)? `v202207071206`: `v202207071159`, style: {width: `${18}px`, height: `${18}px`}}], 
-                            	[`div`, {class: ``, style: {[`font-family`]: `geometria`}},
+								[`div`, {class: ``, style: {[`font-family`]: `geometria`}},
                                 	[[`span`, {style: {
                                     	opacity: .4, 
-                                    	[`font-size`]: `${11}px`, [`font-weight`]: 600}}, Tools.logs(new Date().valueOf()).substr(0, 15)]]]]], 
+                                    	[`font-size`]: `${11}px`, [`font-weight`]: 600}}, Tools.logs(MD.secs).substr(0, 15)]]]]], 
 						[`div`, {class: `_gxM _gZz`, style: {width: `${30}%`, [`align-items`]: `center`}}, 
                             [
                                 [`div`, {},
                                     [[`div`, {style: {
                                     	[`font-family`]: `geometria`,
                                     	[`font-size`]: `${11}px`, 
-                                    	[`font-weight`]: 600, color: (MD.till.a[1] < 0)? `#e50000`: `#00e53f`}}, `${Tools.notate(MD.till.a[1])}`]]], 
-                                [`span`, {class: (MD.till.a[1] >= 0)? `v202205081410`: `v202205081426`, style: {[`margin-left`]: `${12}px`}}, ``]]], 
+                                    	[`font-weight`]: 600, color: (MD.till[a][0] < 0)? `#e50000`: `#00e53f`}}, `${Tools.notate(MD.till[a][0])}`]]], 
+                                [`span`, {class: (MD.till[a][0] >= 0)? `v202205081410`: `v202205081426`, style: {[`margin-left`]: `${12}px`}}, ``]]], 
                         [`div`, {class: `_gxM _gZz`, style: {width: `${30}%`, [`align-items`]: `center`}}, 
                         	[
                                 [`div`, {},
                                     [[`div`, {style: {
                                     	[`font-family`]: `geometria`,
                                     	[`font-size`]: `${11}px`, 
-                                    	[`font-weight`]: 600}}, `${Tools.notate(MD.till.a[1])}`]]], 
+                                    	[`font-weight`]: 600}}, `${Tools.notate(MD.hold[0])}`]]], 
                                 [`span`, {class: `v202205081343`, style: {[`margin-left`]: `${12}px`}}, ``]]]]])
 		});
 

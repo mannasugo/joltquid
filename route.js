@@ -347,19 +347,21 @@ class Route {
 
 								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {};
 
-								let USDT = [], Vows = [[], [], []];
-
-								Raw.vows[0].forEach(Vow => {
-
-									if (Vow.mug === Pulls.mug) Vows[0].push(Vow);
-								});
+								let USDT = [], Vows = [{}, [], []];
 
 								Raw.till[0].forEach(MD => {
+
+									if (MD.vow != false) Vows[0][MD.vow[0]] = MD;
 
 									if (MD.tx.length > 10) USDT.push(MD);
 								});
 
-								Arg[1].end(Tools.coats({mug: Pulls.mug, outs: USDT, vows: Vows[0]}));
+								Raw.vows[0].forEach(Vow => {
+
+									if (Vow.mug === Pulls.mug && !Vows[0][Vow.md]) Vows[1].push(Vow);
+								});
+
+								Arg[1].end(Tools.coats({mug: Pulls.mug, outs: USDT, vows: Vows[1]}));
 							}
 
 							if (Pulls.pull === `getvow`) {
@@ -375,27 +377,33 @@ class Route {
 
 									let Holds = Tools.hold([Raw, Pulls.mug]).sort((A, B) => {return B.secs - A.secs});
 
-									if (Raw.vows[1][Pulls.puts] && !Puts[0][Pulls.puts] && Pulls.mug != Raw.vows[1][Pulls.puts].mug) {
+									if (Raw.vows[1][Pulls.puts[0]] && !Puts[0][Pulls.puts[0]] && Pulls.mug != Raw.vows[1][Pulls.puts[0]].mug) {
 
 										let ts = new Date().valueOf();
 
-										if (Raw.vows[1][Pulls.puts].float > 0) {
+										if (Raw.vows[1][Pulls.puts[0]].float > 0) {
 
-											if (Holds[0].hold[0] > Raw.vows[1][Pulls.puts].float) {
+											if (Holds[0].hold[0] > Raw.vows[1][Pulls.puts[0]].float) {
 
 												Puts[1] = {
 													md: createHash(`md5`).update(`${ts}`, `utf8`).digest(`hex`),
 													secs: ts,
 													till: {
-														[Pulls.mug]: [-(parseFloat(Raw.vows[1][Pulls.puts].float)), 0], 
-														[Raw.vows[1][Pulls.puts].mug]: [0, parseFloat(Raw.vows[1][Pulls.puts].float)]},
+														[Pulls.mug]: [-(parseFloat(Raw.vows[1][Pulls.puts[0]].float)), 0], 
+														[Raw.vows[1][Pulls.puts[0]].mug]: [0, parseFloat(Raw.vows[1][Pulls.puts[0]].float)]},
 													tx: false,
-													vow: [Pulls.puts, Pulls.mug]};
+													vow: [Pulls.puts[0], Pulls.mug]};
 
-												console.log(Puts[1]);
+												Sql.puts([`till`, Puts[1], (Raw) => {Arg[1].end(Tools.coats({mug: Pulls.mug}));}]);
 											}
+
+											else Arg[1].end(Tools.coats({mug: Pulls.mug}));
 										}
+
+										else Arg[1].end(Tools.coats({mug: Pulls.mug}));
 									}
+
+									else Arg[1].end(Tools.coats({mug: Pulls.mug}));
 								};
 
 								/**Puts[0] = {
