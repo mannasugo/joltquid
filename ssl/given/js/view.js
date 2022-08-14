@@ -438,6 +438,57 @@ let Models = {
 					Pit[2]]];
 	},
 
+	devow: function () {
+
+		if (Tools.typen(Clients.devow).length === 0) return [];
+
+		let Devow = [[], []];
+
+		Devow[0] = Tools.typen(Clients.devow).sort((A, B) => {return B.secs - A.secs});
+
+		let a = Tools.typen(Clients.mug)[0];
+
+		Devow[0].forEach(MD => {
+
+			Devow[1].push([
+				`div`, {class: `_wrap_202203262208`, style: {padding: `${12}px ${0}`}}, 
+					[
+						[`div`, {class: `_gxM`, style: {width: `${40}%`, [`align-items`]: `center`}}, 
+							[
+								[`div`, {class: ``, style: {[`font-family`]: `geometria`}},
+                                	[[`span`, {style: {
+                                    	opacity: .4, 
+                                    	[`font-size`]: `${11}px`, [`font-weight`]: 600}}, Tools.logs(MD.secs).substr(0, 15)]]]]], 
+						[`div`, {class: `_gxM _gZz`, style: {width: `${30}%`, [`align-items`]: `center`}}, 
+                            [
+                                [`div`, {},
+                                    [[`div`, {style: {
+                                    	[`font-family`]: `geometria`,
+                                    	[`font-size`]: `${11}px`, 
+                                    	[`font-weight`]: 600, color: (MD.till[a][1] < 0)? `#e50000`: `#00e53f`}}, `${Tools.notate(MD.till[a][1])}`]]], 
+                                [`span`, {class: (MD.till[a][1] >= 0)? `v202205081410`: `v202205081426`, style: {[`margin-left`]: `${12}px`}}, ``]]], 
+                        [`div`, {class: `_gxM _gZz`, style: {width: `${30}%`, [`align-items`]: `center`}}, 
+                        	[
+                                [`div`, {},
+                                    [[`div`, {style: {
+                                    	[`font-family`]: `geometria`,
+                                    	[`font-size`]: `${11}px`, 
+                                    	[`font-weight`]: 600}}, `${Tools.notate(MD.hold[1])}`]]], 
+                                [`span`, {class: `v202205081343`, style: {[`margin-left`]: `${12}px`}}, ``]]]]]);
+		});
+
+		return [`div`, {}, 
+			[
+				[`div`, {style: {margin: `${24}px ${0}`}}, 
+					[
+						[`span`, {style: {
+                            [`margin-top`]: `${24}px`, 
+                            opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Withdrawals & Deposits`],
+						[`span`, {style: {
+                            [`margin-top`]: `${2}px`, 
+                            opacity: 1, [`font-size`]: `${9}px`}}, ``]]], [`div`, {}, Devow[1]]]]
+	},
+
 	foot: function () {
 				
 				return [`section`, {id: `foot`, style: {/*padding: `${24}px`, background: `#fff`, color: `#262626`*/}}, 
@@ -474,6 +525,55 @@ let Models = {
 																						[`a`, {href: ``}, `Press`]]]]]]], 
 										[`div`, {class: `_geQ`, style: {
 												padding: `${24}px ${0}`, [`font-size`]: `${11}px`}}, `©2022 Joltquid Capital, LLC. All Rights Reserved`]]]]]
+	},
+
+	hold: function () {
+
+		if (Tools.typen(Clients.hold).length === 0) return [];
+
+		let Hold = [[], []];
+
+		Hold[0] = Tools.typen(Clients.hold).sort((A, B) => {return B.secs - A.secs});
+
+		Hold[0].forEach(MD => {
+
+			Hold[1].push([
+				`div`, {class: `_wrap_202203262208`, style: {padding: `${12}px ${0}`}}, 
+					[
+						[`div`, {class: `_gxM`, style: {width: `${40}%`, [`align-items`]: `center`}}, 
+							[
+								[`div`, {class: ``, style: {[`font-family`]: `geometria`}},
+                                	[[`span`, {style: {
+                                    	opacity: .4, 
+                                    	[`font-size`]: `${11}px`, [`font-weight`]: 600}}, Tools.logs(MD.secs).substr(0, 15)]]]]], 
+						[`div`, {class: `_gxM _gZz`, style: {width: `${30}%`, [`align-items`]: `center`}}, 
+                            [
+                                [`div`, {},
+                                    [[`div`, {style: {
+                                    	[`font-family`]: `geometria`,
+                                    	[`font-size`]: `${11}px`, 
+                                    	[`font-weight`]: 600, color: (MD.till[hold] < 0)? `#e50000`: `#00e53f`}}, `${Tools.notate(MD.till[hold])}`]]], 
+                                [`span`, {class: (MD.till[hold] >= 0)? `v202205081410`: `v202205081426`, style: {[`margin-left`]: `${12}px`}}, ``]]], 
+                        [`div`, {class: `_gxM _gZz`, style: {width: `${30}%`, [`align-items`]: `center`}}, 
+                        	[
+                                [`div`, {},
+                                    [[`div`, {style: {
+                                    	[`font-family`]: `geometria`,
+                                    	[`font-size`]: `${11}px`, 
+                                    	[`font-weight`]: 600}}, `${Tools.notate(MD.hold[0])}`]]], 
+                                [`span`, {class: `v202205081343`, style: {[`margin-left`]: `${12}px`}}, ``]]]]]);
+		});
+
+		return [`div`, {}, 
+			[
+				[`div`, {style: {margin: `${0} ${0} ${24}px`}}, 
+					[
+						[`span`, {style: {
+                            [`margin-top`]: `${24}px`, 
+                            opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Reserve`],
+						[`span`, {style: {
+                            [`margin-top`]: `${2}px`, 
+                            opacity: 1, [`font-size`]: `${9}px`}}, ``]]], [`div`, {}, Hold[1]]]]
 	},
 
 	holdMug: [
@@ -692,18 +792,10 @@ let Models = {
 									[
 										(Clients.mug)? this.utilVows(): [], 
 										(Clients.vows && Tools.typen(Clients.vows) && Tools.typen(Clients.vows).length > 0)? this.vows(): [],
+										(Clients.devow && Tools.typen(Clients.devow) && Tools.typen(Clients.devow).length > 0)? this.devow(): [],
 										this.outs()]],
 								[`div`, {id: `take`}, 
-									/**[
-										[`div`, {style: {[`margin-bottom`]: `${24}px`}}, 
-											[
-												[`span`, {style: {
-                            						[`margin-top`]: `${24}px`, 
-                            						opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Settlements`],
-												[`span`, {style: {
-                            						[`margin-top`]: `${2}px`, 
-                            						opacity: 1, [`font-size`]: `${9}px`}}, `*settled withdrawals & deposits`]]], 
-                            			this.settlements()]**/]]]]], this.utilFooter()]];
+									[this.hold()]]]]]], this.utilFooter()]];
 	},
 
 	main_exchange: function () {
@@ -986,8 +1078,7 @@ let Models = {
                             opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Collateral Conversions`],
 						[`span`, {style: {
                             [`margin-top`]: `${2}px`, 
-                            opacity: 1, [`font-size`]: `${9}px`}}, ``]]], [`div`, {}, Outs[1]]]]
-
+                            opacity: 1, [`font-size`]: `${9}px`}}, ``]]], [`div`, {}, Outs[1]]]];
 	},
 
 	real: function (Real) {

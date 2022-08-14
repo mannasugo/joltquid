@@ -235,6 +235,29 @@ class Tools {
 		return Arg[0].till[0];
 	}
 
+	inlet (Arg) {
+
+		let Hold = [0, 0, []];
+
+		Arg[0].till[0].sort((A, B) => {return A.secs - B.secs}).forEach(MD => {
+
+			let Holden = [0];
+
+			if (MD.till[hold] && MD.tx.length > 10) {
+
+				Hold[0] += MD.till[hold]*-1;
+
+				Holden = [Hold[0]];
+
+				MD[`hold`] = Holden;
+
+				Hold[2].push(MD);
+			}
+		});
+
+		return Hold[2];
+	}
+
 	safe (String) {
 
 		String = String.replace(new RegExp(`&`, `g`), `u0026`);

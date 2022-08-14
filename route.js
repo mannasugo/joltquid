@@ -351,7 +351,7 @@ class Route {
 
 								Raw.till[0].forEach(MD => {
 
-									if (MD.vow != false) Vows[0][MD.vow[0]] = MD;
+									if (MD.vow != false) {Vows[0][MD.vow[0]] = MD}
 
 									if (MD.tx.length > 10) USDT.push(MD);
 								});
@@ -361,7 +361,12 @@ class Route {
 									if (Vow.mug === Pulls.mug && !Vows[0][Vow.md]) Vows[1].push(Vow);
 								});
 
-								Arg[1].end(Tools.coats({mug: Pulls.mug, outs: USDT, vows: Vows[1]}));
+								Tools.hold([Raw, Pulls.mug]).forEach(MD => {
+
+									if (MD.vow != false && MD.vow[1] != Pulls.mug) Vows[2].push(MD);
+								});
+
+								Arg[1].end(Tools.coats({devow: Vows[2], hold: Tools.inlet([Raw]), mug: Pulls.mug, outs: USDT, vows: Vows[1]}));
 							}
 
 							if (Pulls.pull === `getvow`) {
