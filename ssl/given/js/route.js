@@ -53,6 +53,8 @@ class Route {
 					View.DOM([`div`, [Models.main()]]);
 
 					Events.putVow();
+
+					Events.putVia();
 				}
 
 				else {

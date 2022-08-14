@@ -497,6 +497,43 @@ class Events {
 		}]);
 	}
 
+	putVia () {
+
+		this.listen([document.querySelector(`#via`), `click`, S => {
+
+			let Via = [(!Tools.slim(document.querySelector(`#vialet`).value))? false: Tools.slim(document.querySelector(`#vialet`).value)];
+
+			if (Via[0] === false) return;
+
+			let place = parseFloat(document.querySelector(`#viafloat`).value);
+
+			if (place > 0) {
+
+				let Puts = Tools.pull([
+					`/json/web/`, {
+						mug: Tools.typen(Clients.mug)[0],
+						pull: `via`,
+						puts : [Via[0], place]}]);
+
+				View.pop();
+
+				View.DOM([`div`, [Models.splash]]);
+
+				Puts.onload = () => {
+
+					let Web = JSON.parse(Puts.response);
+
+					if (Web && Web.mug) {
+
+						window.location = `/`;
+
+						Clients.vows = Tools.coats(Web.vows.sort((A, B) => {return A.secs - B.secs}));
+					}
+				}
+			}
+		}]);
+	}
+
 	putVow () {
 
 		this.listen([document.querySelector(`#putVow`), `click`, S => {

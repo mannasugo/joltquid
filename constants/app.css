@@ -277,7 +277,7 @@ body {
 
 #mugin h2 {padding: 32px 0 8px;width: 100%;margin: 0;text-transform: capitalize;font-weight: normal;}
 
-#mugin input, #pitvalue, #wallet input, #inlet, #vow, textarea, #getFloat, #putFloat {
+#mugin input, #pitvalue, #wallet input, #inlet, #vow, textarea, #getFloat, #putFloat, #viafloat, #vialet {
   block-size: 40px;
   background-color:#f4f4f4;
   color:#171a20;
@@ -294,7 +294,7 @@ body {
 
 #pitvalue input {padding: 10px 8px; text-align: right; font-family: geometria; font-size: 12px}
 
-#mugin input:focus, #inlet:focus, #vow:focus, textarea:focus, #getFloat:focus, #putFloat:focus {
+#mugin input:focus, #inlet:focus, #vow:focus, textarea:focus, #getFloat:focus, #putFloat:focus, #viafloat:focus, #vialet:focus {
   border: 1px solid #d0d1d2;
   outline: none;
 }
@@ -439,6 +439,8 @@ body {
 .top-slide {line-height: 13px; margin-left: 8px; font-family: geometria;}
 
 .wallet-text {padding: 6px 24px; background: #f4f4f4; border-radius: 20px; font-family: consola; font-size: 13px; color: #48007c;}
+
+#vialet {font-family: consola; font-size: 11px}
 
 @media (min-width: 600px) {
 

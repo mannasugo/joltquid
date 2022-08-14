@@ -791,6 +791,7 @@ let Models = {
                             	[`div`, {id: `put`}, 
 									[
 										(Clients.mug)? this.utilVows(): [], 
+										(Clients.mug)? this.utilVia(): [], 
 										(Clients.vows && Tools.typen(Clients.vows) && Tools.typen(Clients.vows).length > 0)? this.vows(): [],
 										(Clients.devow && Tools.typen(Clients.devow) && Tools.typen(Clients.devow).length > 0)? this.devow(): [],
 										this.outs()]],
@@ -1584,6 +1585,30 @@ let Models = {
 		`div`, {class: `_gxM`}, 
 			[
 				[`a`, {id: ``, class: `v202203262148`, style: {width: `${21}px`, height: `${21}px`, margin: `${0} ${10}px`}, href: `/settle`}]]],
+
+	utilVia: function () {
+
+		return [`div`, {}, 
+			[
+                [`div`, {}, 
+                	[
+						[`span`, {style: {margin: `${24}px ${0} ${12}px`, opacity: .7, [`font-size`]: `${12}px`, [`font-weight`]: 600}}, `Transfer`],
+                    	[`div`, {class: `_gxM _geQ`}, 
+                        	[
+                        		[`span`, {class: `v202206271427`}], 
+                        		[`div`, {class: `_eYG`}, 
+                            		[[`div`, {style: {width: `${100}%`}}, 
+                            			[[`input`, {id: `vialet`, placeholder: `wallet`}]]]]]]],
+                    	[`div`, {class: `_gxM _geQ`, style: {margin: `${12}px ${0}`}}, 
+                        	[
+                        		[`div`, {class: `_eYG`}],
+                        		[`div`, {class: `_gxM`}, 
+                            		[[`div`, {style: {width: `${100}%`}}, 
+                            			[[`input`, {id: `viafloat`, placeholder: `amount`, style: {
+                            				[`font-family`]: `geometria`, [`font-size`]: `${12}px`, [`text-align`]: `right`, overflow: `hidden`}}]]]]], 
+                        		[`div`, {class: `_QZg`, style: {[`margin-left`]: `${8}px`}}, 
+                        			[[`a`, {id: `via`, class: `v202203191304`, href: `javascript:;`}]]]]]]]]];
+	},
 
 	utilVows: function () {
 		
