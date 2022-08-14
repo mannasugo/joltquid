@@ -513,7 +513,7 @@ class Events {
 
 				View.pop();
 
-				View.DOM([`span`, [Models.splash]]);
+				View.DOM([`div`, [Models.splash]]);
 
 				Puts.onload = () => {
 
@@ -664,14 +664,14 @@ class Events {
 
 			View.pop();
 
-			View.DOM([`div`, [Models.splash]]);/**
+			View.DOM([`div`, [Models.splash]]);
 
 			Puts.onload = () => {
 
 				let Pull = JSON.parse(Puts.response);
 
 				if (Pull && Pull.mug) window.location = `/settle`;
-			}**/
+			}
 		}]);
 	}
 
@@ -721,7 +721,7 @@ class Events {
 
 			View.pop();
 
-			View.DOM([`span`, [Models.splash]]);
+			View.DOM([`div`, [Models.splash]]);
 
 			Puts.onload = () => {
 
