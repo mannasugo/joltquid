@@ -55,6 +55,8 @@ class Route {
 					Events.putVow();
 
 					Events.putVia();
+
+					Events.vowout();
 				}
 
 				else {

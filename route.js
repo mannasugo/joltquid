@@ -407,6 +407,32 @@ class Route {
 											else Arg[1].end(Tools.coats({mug: Pulls.mug}));
 										}
 
+										if (Raw.vows[1][Pulls.puts[0]].float < 0) {
+
+											let Bals = Tools.hold([Raw, Raw.vows[1][Pulls.puts[0]].mug]).sort((A, B) => {return B.secs - A.secs});
+
+											let float = Raw.vows[1][Pulls.puts[0]].float;
+
+											let gas = Tools.gas([(float)*-1])*.85;
+
+											if (Holds[0].hold[0] > (float)*-1 && Bals[0].hold[1] > (gas + (float)*-1)) {
+
+												Puts[1] = {
+													md: createHash(`md5`).update(`${ts}`, `utf8`).digest(`hex`),
+													secs: ts,
+													till: {
+														[hold]: gas*.45,
+														[Pulls.mug]: [float, gas*.55], 
+														[Raw.vows[1][Pulls.puts[0]].mug]: [0, -(gas + (float)*-1)]},
+													tx: false,
+													vow: [Pulls.puts[0], Pulls.mug]};
+
+												Sql.puts([`till`, Puts[1], (Raw) => {Arg[1].end(Tools.coats({mug: Pulls.mug}));}]);
+											}
+
+											else Arg[1].end(Tools.coats({mug: Pulls.mug}));
+										}
+
 										else Arg[1].end(Tools.coats({mug: Pulls.mug}));
 									}
 
@@ -553,6 +579,24 @@ class Route {
 
 									else Arg[1].end(Tools.coats({mug: Pulls.mug}));
 									
+								}
+							}
+
+							if (Pulls.pull === `vowout`) {
+
+								if (Pulls.mug !== false && Raw.mugs[1][Pulls.mug]) {
+
+									let secs = new Date().valueOf();
+
+									let Puts = [{}];
+
+									Puts[0] = {
+										float: -(Pulls.puts),
+										md: createHash(`md5`).update(`${secs}`, `utf8`).digest(`hex`),
+										mug: Pulls.mug, 
+										secs: secs};
+
+									Sql.puts([`vows`, Puts[0], (Raw) => {Arg[1].end(Tools.coats({mug: Pulls.mug}));}]);
 								}
 							}
 

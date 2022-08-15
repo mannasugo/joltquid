@@ -240,11 +240,13 @@ class Tools {
 
 	hold (Arg) {
 
-		let Hold = [0, 0];
+		let Hold = [0, 0, []];
 
-		Arg[0].till[0].sort((A, B) => {return A.secs - B.secs}).forEach(MD => {
+		let Till = this.typen(this.coats(Arg[0].till[0]));
 
-			let Holden = [0, 0]
+		Till.sort((A, B) => {return A.secs - B.secs}).forEach(MD => {
+
+			let Holden = [0, 0];
 
 			if (MD.till[Arg[1]]) {
 
@@ -252,13 +254,15 @@ class Tools {
 
 				Hold[1] += MD.till[Arg[1]][1];
 
-				Holden = [Hold[0], Hold[1]]
+				Holden = [Hold[0], Hold[1]];
 
 				MD[`hold`] = Holden;
+
+				Hold[2].push(MD);
 			}
 		});
 
-		return Arg[0].till[0];
+		return Hold[2];
 	}
 
 	inlet (Arg) {

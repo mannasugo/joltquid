@@ -712,6 +712,37 @@ class Events {
 		}]);
 	}
 
+	vowout () {
+
+		this.listen([document.querySelector(`#getVow`), `click`, S => {
+
+			let place = parseFloat(document.querySelector(`#getFloat`).value);
+
+			if (place > 0) {
+
+				let Puts = Tools.pull([
+					`/json/web/`, {
+						mug: Tools.typen(Clients.mug)[0],
+						pull: `vowout`,
+						puts : place}]);
+
+				View.pop();
+
+				View.DOM([`div`, [Models.splash]]);
+
+				Puts.onload = () => {
+
+					let Web = JSON.parse(Puts.response);
+
+					if (Web && Web.mug) {
+
+						window.location = `/`;
+					}
+				}
+			}
+		}]);
+	}
+
 	wallet () {
 
 		this.listen([document.querySelector(`#vault`), `click`, S => {
