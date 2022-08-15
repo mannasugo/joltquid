@@ -218,9 +218,9 @@ class Tools {
 
 		let gas = 0;
 
-		if (Arg[0] > 0) {
+		if (Arg[0] > .05) {
 
-			if (Arg[0] <= 1) gas = .075;
+			if (Arg[0] <= 1) gas = .05;
 
 			if (Arg[0] > 1 && Arg[0] <= 15) gas = .125;
 
