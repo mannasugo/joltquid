@@ -365,7 +365,7 @@ class Route {
 
 								Tools.hold([Raw, Pulls.mug]).forEach(MD => {
 
-									if (MD.vow != false && MD.vow[1] != Pulls.mug) Vows[2].push(MD);
+									if (/*MD.vow != false && MD.vow[1] != Pulls.mug*/ MD.till[Pulls.mug] && MD.till[Pulls.mug][1] != 0) Vows[2].push(MD);
 								});
 
 								Arg[1].end(Tools.coats({devow: Vows[2], hold: Tools.inlet([Raw]), mug: Pulls.mug, outs: USDT, vows: Vows[1]}));
