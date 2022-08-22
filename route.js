@@ -1071,6 +1071,8 @@ class Route {
 		}
 	}
 
+	/**
+
 	polling (App) {
 
 		App.on(`connection`, Polling => {
@@ -1257,6 +1259,10 @@ class Route {
 		});
 	}
 
+	**/
+
+	/**
+
 	reals () { //create last_btc reset button
 
 		let Real = [`awaits`, `bitcoin`, `defaults`, `pit`, `volume`];
@@ -1408,6 +1414,8 @@ class Route {
 			});			
 		}, 7500);
 	}
+
+	**/
 
 }
 

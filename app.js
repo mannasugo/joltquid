@@ -22,7 +22,7 @@ let App = createSecureServer({
 
 polling(require(`socket.io`).listen(App));
 
-reals();
+//reals();
 
 App.on(`error`, (err) => console.error(err));
 
