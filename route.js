@@ -1071,8 +1071,6 @@ class Route {
 		}
 	}
 
-	/**
-
 	polling (App) {
 
 		App.on(`connection`, Polling => {
@@ -1244,6 +1242,8 @@ class Route {
 				});
 			});
 
+			/**
+
 			setInterval(() => {
 
 				readFile(`json/pit.json`, {encoding: `utf8`}, (flaw, Coat) => {
@@ -1256,10 +1256,10 @@ class Route {
 				});
 
 			}, 1000);
+
+			**/
 		});
 	}
-
-	**/
 
 	/**
 
